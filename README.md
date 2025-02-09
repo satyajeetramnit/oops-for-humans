@@ -302,13 +302,13 @@ my_car.drive()  # Output: "Tesla Cybertruck is vrooming!"
 
 ```
 CLASS: Car                OBJECT: my_car  
-┌───────────────┐         ┌───────────────┐  
+┌────────────────┐         ┌───────────────┐  
 │ Attributes:    │         │ brand: Tesla  │  
 │ - brand        │         │ model: Model S│  
 │ - model        │         └───────────────┘  
 │ Methods:       │                 │  
 │ - drive()      │                 └───▶ "Tesla Model S is vrooming!"  
-└───────────────┘  
+└────────────────┘  
 ```
 
 
@@ -574,19 +574,19 @@ print(Car.check_engine(90))  # Output: "OK" (static method)
 
 ```
 CLASS: Car  
-┌───────────────────┐  
+┌────────────────────┐  
 │ Class Variables:   │  
 │ - total_cars       │  
-├───────────────────┤  
+├────────────────────┤  
 │ Instance Variables:│  
 │ - brand            │  
 │ - color            │  
-├───────────────────┤  
+├────────────────────┤  
 │ Methods:           │  
 │ - __init__()       │  
 │ - honk()           │  
 │ - get_total_cars() │  
-└───────────────────┘  
+└────────────────────┘  
 
 OBJECTS:  
 my_car (Tesla, Red) ── honk() → "Tesla goes Beep Beep!"  
