@@ -546,6 +546,8 @@ print(Car.check_engine(90))  # Output: "OK" (static method)
 |Instance Method|def honk(self)|public void honk()|void honk()|
 |Class Method|@classmethod def get_total_cars(cls)|public static int getTotalCars()|static int getTotalCars()|
 |Static Method|@staticmethod def check_engine(temp)|public static String checkEngine(int temp)|static string checkEngine(int temp)|
+
+
 <br>
 
 ### Usage Guidelines & Best Practices
