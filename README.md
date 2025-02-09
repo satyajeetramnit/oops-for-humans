@@ -18,121 +18,121 @@ Ever read about OOP, felt like you understood it, and then completely blanked ou
 <!-- # Index - Object-Oriented Programming (OOP)    -->
 
 ### **Core Concepts**  
-- **[What is Object-Oriented Programming (OOP)?](#what-is-object-oriented-programming-oop)**  
+1. **[What is Object-Oriented Programming (OOP)?](#what-is-object-oriented-programming-oop)**  
    - Classes, Objects, Attributes, Methods  
    - Real-World Analogies (LEGO, Library)  
 
-- **Classes and Objects**  
+2. **Classes and Objects**  
    - Class Declaration, Object Instantiation  
    - Instance vs. Class Variables/Methods  
 
-- **Encapsulation**  
+3. **Encapsulation**  
    - Access Modifiers (Public, Private, Protected)  
    - Getters/Setters, Data Hiding  
 
-- **Inheritance**  
+4. **Inheritance**  
    - Superclass vs. Subclass  
    - Types of Inheritance (Single, Multiple, Multilevel, Hierarchical, Hybrid)  
    - Method Overriding, `super()` Keyword  
 
-- **Polymorphism**  
+5. **Polymorphism**  
    - Compile-Time (Method Overloading) vs. Runtime (Method Overriding)  
    - Dynamic Method Dispatch  
 
-- **Abstraction**  
+6. **Abstraction**  
    - Abstract Classes, Interfaces  
    - Pure Virtual Functions  
 
-- **Class Relationships**  
+7. **Class Relationships**  
    - Association, Aggregation, Composition, Dependency  
 
 ---
 
 ### **Advanced OOP Topics**  
-- **Constructors and Destructors**  
+8. **Constructors and Destructors**  
    - Default, Parameterized, Copy Constructors  
    - Destructors in Java/Python/C++  
 
-- **Object Lifetime & Memory Management**  
+9. **Object Lifetime & Memory Management**  
    - Garbage Collection vs. Manual Memory Management  
 
-- **Static and Final Keywords**  
+10. **Static and Final Keywords**  
     - Static Variables/Methods, Final Classes/Methods/Variables  
 
-- **Interfaces vs. Abstract Classes**  
+11. **Interfaces vs. Abstract Classes**  
     - Default Methods in Interfaces, Abstract Methods  
 
-- **Generics/Templates**  
+12. **Generics/Templates**  
     - Type Parameterization, Bounded Types  
 
-- **Exception Handling**  
+13. **Exception Handling**  
     - Custom Exceptions, Try-Catch Blocks  
 
-- **Operator Overloading**  
+14. **Operator Overloading**  
 
-- **Reflection**  
+15. **Reflection**  
     - Introspection of Classes/Methods at Runtime  
 
-- **Object Serialization/Deserialization**  
+16. **Object Serialization/Deserialization**  
     - JSON, Binary Formats, Security Considerations  
 
-- **Concurrency in OOP**  
+17. **Concurrency in OOP**  
     - Thread-Safe Objects, Synchronization  
 
-- **Type Casting**  
+18. **Type Casting**  
     - Upcasting/Downcasting, `instanceof`/`typeid` Checks  
 
-- **Messaging Between Objects**  
+19. **Messaging Between Objects**  
 
-- **Namespace/Package Organization**  
+20. **Namespace/Package Organization**  
 
-- **Object Cloning**  
+21. **Object Cloning**  
     - Shallow vs. Deep Copy  
 
-- **Immutable Objects**  
+22. **Immutable Objects**  
 
-- **Event-Driven Programming**  
+23. **Event-Driven Programming**  
 
-- **Dependency Injection**  
+24. **Dependency Injection**  
 
-- **Unit Testing in OOP**  
+25. **Unit Testing in OOP**  
     - Mock Objects, Testing Frameworks  
 
-- **Root Object Class**  
+26. **Root Object Class**  
     - `Object` (Java), `NSObject` (Swift), `object` (Python)  
 
 ---
 
 ### **Object-Oriented Design & Modeling**  
-- **UML Diagrams**  
+27. **UML Diagrams**  
     - Class Diagrams, Sequence Diagrams, Use Case Diagrams  
 
 ---
 
 ### **Design Principles**  
-- **SOLID Principles**  
+28. **SOLID Principles**  
     - Single Responsibility  
     - Open/Closed  
     - Liskov Substitution  
     - Interface Segregation  
     - Dependency Inversion  
 
-- **Coupling and Cohesion**  
+29. **Coupling and Cohesion**  
     - Low Coupling, High Cohesion  
 
-- **Composition Over Inheritance Principle**  
+30. **Composition Over Inheritance Principle**  
 
 ---
 
 ### **Language-Specific Features**  
-- **Friend Classes/Functions (C++)**  
+31. **Friend Classes/Functions (C++)**  
 
-- **Inner/Nested Classes**  
+32. **Inner/Nested Classes**  
 
-- **Mixins and Traits**  
+33. **Mixins and Traits**  
     - Python, Ruby, Scala  
 
-- **Multiple Inheritance Handling**  
+34. **Multiple Inheritance Handling**  
     - Interfaces (Java), Virtual Inheritance (C++), MRO (Python)  
 
 ---
