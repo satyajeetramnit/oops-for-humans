@@ -388,41 +388,6 @@ Now, let’s dive deeper:
 > Instance Methods vs. Class Methods<br>
 > --> Instance methods handle object-specific logic; class methods handle class-wide logic.
 
-<!-- #### Object Instantiation
-*Plain Language*
-> Creating an object from a class is like building a house from a blueprint.
-
-*Real-World Analogy*
-> Blueprint (class) = Architectural plans for a house.
-> House (object) = The physical house built from those plans.
-
-*Why It Matters*
-> Objects let you create multiple instances with unique data (e.g., 100 houses, each with different owners).
-
-#### Instance Variables vs. Class Variables
-*Plain Language*
-> Instance Variable: Specific to an object (e.g., your car’s mileage).<br>
-> Class Variable: Shared by all objects (e.g., the legal speed limit for all cars).<br>
-
-*Real-World Analogy*
-> Instance Variable = Your phone’s wallpaper (unique to you).<br>
-> Class Variable = The iOS version (shared by all iPhones).<br>
-
-*Why It Matters*
-> Class variables maintain shared state; instance variables store object-specific data.
-
-#### Instance Methods vs. Class Methods
-*Plain Language*
-> Instance Method: Needs an object to work (e.g., car.drive()).<br>
-> Class Method: Works on the class itself (e.g., Car.get_total_cars()).
-
-*Real-World Analogy*
-> Instance Method = “Wash my car” (needs your car).<br>
-> Class Method = “Recall all cars for a safety check” (affects every car).
-
-*Why It Matters*
-> Instance methods handle object-specific logic; class methods handle class-wide logic. -->
-
 ### Practical Examples & Code Samples
 
 *Example*
