@@ -539,13 +539,22 @@ print(Car.check_engine(90))  # Output: "OK" (static method)
 
 ***Comparision:***
 
-|Feature|Python|Java|C++|
+<!-- |Feature|Python|Java|C++|
 |:-|:-|:-|:-|
 |Instance Variable|self.brand|private String brand;|string brand;|
 |Class Variable|Car.total_cars|private static int totalCars;|static int totalCars;|
 |Instance Method|def honk(self)|public void honk()|void honk()|
 |Class Method|@classmethod def get_total_cars(cls)|public static int getTotalCars()|static int getTotalCars()|
-|Static Method|@staticmethod def check_engine(temp)|public static String checkEngine(int temp)|static string checkEngine(int temp)|
+|Static Method|@staticmethod def check_engine(temp)|public static String checkEngine(int temp)|static string checkEngine(int temp)| -->
+
+| Feature               | Python                          | Java                                | C++                                |
+|-----------------------|--------------------------------|------------------------------------|------------------------------------|
+| **Class Variable**    | `total_cars` (shared by all instances) | `static int totalCars;` (shared by all instances) | `static int totalCars;` (shared by all instances) |
+| **Instance Variable** | `self.brand`, `self.color`    | `private String brand, color;`    | `private string brand, color;`    |
+| **Instance Method**   | `def honk(self)`              | `public void honk()`              | `void honk()`                      |
+| **Class Method**      | `@classmethod def get_total_cars(cls)` | `public static int getTotalCars()` | `static int getTotalCars()`       |
+| **Static Method**     | `@staticmethod def check_engine(temp)` | `public static String checkEngine(int temp)` | `static string checkEngine(int temp)` |
+
 
 
 <br>
@@ -598,3 +607,283 @@ your_car (Toyota, Blue) ── honk() → "Toyota goes Beep Beep!"
 ✅ Classes define blueprints; objects are instances.<br>
 ✅ Instance variables are object-specific; class variables are shared.<br>
 ✅ Instance methods act on objects; class methods act on the class.<br>
+
+<br>
+<br>
+
+# Four Pillars of OOPs:
+
+## Encapsulation
+
+### Introduction
+
+In the [previous section](#classes-and-objects), we learned how classes and objects act as blueprints and instances. Now, let’s explore encapsulation—the art of protecting an object’s internal state from unintended interference. *Think of it as a "guardian" for your data*.
+
+**Why Encapsulation?**
+- Prevents accidental data corruption (e.g., setting a negative bank balance).
+- Hides complex internal logic (e.g., a coffee machine’s brewing process).
+- Makes code easier to maintain and debug.
+
+### Basic Concepts & Definitions
+
+***Encapsulation:*** 
+> Bundling data (attributes) and methods (functions) into a single unit (object), while restricting direct access to some components.
+
+- **Access Modifiers:** Rules defining visibility of attributes/methods:
+    - **Public:** Accessible anywhere (default in many languages).
+    - **Private:** Accessible only within the class.
+    - **Protected:** Accessible within the class and its subclasses.
+
+- **Getters/Setters:** Methods to safely read/modify private data.
+
+- **Data Hiding:** Keeping internal state private, exposing only what’s necessary.
+
+### Detailed Explanations
+
+
+***Plain Language***
+> - **Access Modifiers:** Access modifiers act like security clearances for your data.
+>     - **Public:** Open to everyone (like a park bench).
+>     - **Private:** Restricted to the class (like a diary with a lock).
+>     - **Protected:** Shared with trusted subclasses (like a family recipe).
+> 
+> - **Getters/Setters:** Getters and setters are "gatekeepers" that control how data is accessed or modified.
+> 
+> - **Data Hiding:** Data hiding is like a pill capsule—it protects the medicine (data) inside from external tampering.
+
+***Real-World Analogy***
+
+> - **Access Modifiers:** 
+>     - **Public:** A restaurant menu (anyone can see it).
+>     - **Private:** Secret recipes locked in the chef’s drawer.
+>     - **Protected:** Recipes shared only with sous-chefs.
+> 
+> - **Getters:** Asking a bank teller for your balance (they verify your ID first).<br>
+    **Setters:** Setter: Depositing money through a teller (they check if the amount is valid).
+> 
+> - **Data Hiding:** A car’s engine: You interact via the steering wheel and pedals, not by rewiring the engine.
+
+
+***Why It Matters***
+
+> - **Access Modifiers:** Prevents external code from meddling with critical data (e.g., account.balance = -1000). 
+>- **Getters/Setters:**
+>    - Validates input (e.g., ensuring age isn’t negative).
+>    - Allows you to change internal logic without breaking external code.
+> 
+> - **Data Hiding:** 
+>    - Reduces bugs caused by unintended side effects.
+>    - Simplifies code for users (they don’t need to understand internal details).
+
+
+### Practical Examples & Code Samples
+
+
+*Example*
+
+<summary>@Java</summary>
+
+```java
+class BankAccount {
+    // Private attribute (Encapsulation)
+    private double balance;
+    
+    // Public attribute
+    public String accountHolder;
+
+    // Constructor
+    public BankAccount(String accountHolder, double balance) {
+        this.accountHolder = accountHolder;
+        this.balance = balance;
+    }
+
+    // Getter for balance (public read access)
+    public double getBalance() {
+        return balance;
+    }
+
+    // Setter for balance (with validation)
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+        } else {
+            System.out.println("Invalid amount!");
+        }
+    }
+
+    // Protected method (accessible within package & subclasses)
+    protected void internalAudit() {
+        System.out.println("Audit in progress...");
+    }
+
+    public static void main(String[] args) {
+        // Using the class
+        BankAccount account = new BankAccount("Alice", 1000);
+        System.out.println(account.accountHolder);  // Output: "Alice" (public)
+        System.out.println(account.getBalance());   // Output: 1000 (via getter)
+
+        account.deposit(500);  // Valid
+        account.deposit(-200); // Output: "Invalid amount!"
+
+        // account.balance = 0;  // Error! Private attribute.
+        // account.internalAudit(); // Works if called from a subclass.
+    }
+}
+```
+<summary>@C++</summary>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class BankAccount {
+private:
+    // Private attribute (Encapsulation)
+    double balance;
+
+public:
+    // Public attribute
+    string accountHolder;
+
+    // Constructor
+    BankAccount(string accountHolder, double balance) {
+        this->accountHolder = accountHolder;
+        this->balance = balance;
+    }
+
+    // Getter for balance (public read access)
+    double getBalance() const {
+        return balance;
+    }
+
+    // Setter for balance (with validation)
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+        } else {
+            cout << "Invalid amount!" << endl;
+        }
+    }
+
+protected:
+    // Protected method (accessible within derived classes)
+    void internalAudit() {
+        cout << "Audit in progress..." << endl;
+    }
+};
+
+int main() {
+    // Using the class
+    BankAccount account("Alice", 1000);
+    cout << account.accountHolder << endl;  // Output: "Alice" (public)
+    cout << account.getBalance() << endl;   // Output: 1000 (via getter)
+
+    account.deposit(500);  // Valid
+    account.deposit(-200); // Output: "Invalid amount!"
+
+    // account.balance = 0;  // Error! Private attribute.
+    // account.internalAudit(); // Works if called from a derived class.
+
+    return 0;
+}
+```
+<summary>@Python</summary>
+
+```python
+class BankAccount:  
+    def __init__(self, account_holder, balance=0):  
+        self.__balance = balance           # Private attribute (double underscore)  
+        self.account_holder = account_holder  # Public attribute  
+
+    # Getter for balance (public read access)  
+    def get_balance(self):  
+        return self.__balance  
+
+    # Setter for balance (with validation)  
+    def deposit(self, amount):  
+        if amount > 0:  
+            self.__balance += amount  
+        else:  
+            print("Invalid amount!")  
+
+    # Protected method (single underscore convention)  
+    def _internal_audit(self):  
+        print("Audit in progress...")  
+
+# Using the class  
+account = BankAccount("Alice", 1000)  
+print(account.account_holder)      # Output: "Alice" (public)  
+print(account.get_balance())       # Output: 1000 (via getter)  
+account.deposit(500)               # Valid  
+account.deposit(-200)              # Output: "Invalid amount!"  
+
+# account.__balance = 0            # Error! Private attribute.  
+# account._internal_audit()        # Works, but "protected" by convention.
+```
+
+***Comparision:***
+
+| Feature               | Python                          | Java                                | C++                                |
+|-----------------------|--------------------------------|------------------------------------|------------------------------------|
+| **Private Attribute** | `self.__balance`              | `private double balance;`         | `private double balance;`         |
+| **Public Attribute**  | `self.account_holder`         | `public String accountHolder;`    | `public string accountHolder;`    |
+| **Getter Method**     | `def get_balance(self)`       | `public double getBalance()`      | `double getBalance() const`       |
+| **Setter with Validation** | `def deposit(self, amount)` | `public void deposit(double amount)` | `void deposit(double amount)` |
+| **Protected Method**  | `_internal_audit(self)` (by convention) | `protected void internalAudit()` | `protected void internalAudit()` |
+
+<br>
+
+> ⚠️ **Note:** Python uses naming conventions (e.g., __balance for private, _internal_audit for protected).
+<br>
+
+### Usage Guidelines & Best Practices
+
+***When to Use:***
+
+> ✔️ Private Attributes: For sensitive data (e.g., passwords, balances).<br>
+> ✔️ Getters/Setters: When you need validation or logging.<br>
+> ✔️ Protected Methods: For internal logic shared with subclasses.<br>
+
+***Pitfalls to Avoid:***
+
+> ❌ Exposing Everything: Making all attributes public invites bugs.<br>
+> ❌ Overusing Getters/Setters: Don’t add them blindly—only when needed.<br>
+> ❌ Ignoring Conventions: Follow language-specific norms (e.g., _ for protected in Python).<br>
+
+***Pro Tips:***
+
+- Use the @property decorator in Python for cleaner getters/setters:
+
+```python
+@property  
+def balance(self):  
+    return self.__balance  
+
+@balance.setter  
+def balance(self, value):  
+    if value >= 0:  
+        self.__balance = value
+```
+
+## Visual Aids & Diagrams
+
+**Encapsulation in Action:**
+
+```
+BankAccount Class  
+┌───────────────────────┐  
+│ Private: __balance    │  
+│ Public: account_holder│  
+├───────────────────────┤  
+│ Public Methods:       │  
+│ - get_balance()       │  
+│ - deposit()           │  
+│ Protected: _audit()   │  
+└───────────────────────┘  
+External Code → Can’t touch __balance directly!  
+```
+
+### Recap:
+
+✅ Encapsulation protects data via access modifiers and getters/setters.<br>
+✅ Data hiding reduces complexity and prevents misuse.
