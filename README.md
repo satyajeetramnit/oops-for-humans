@@ -22,7 +22,7 @@ Ever read about OOP, felt like you understood it, and then completely blanked ou
    - Classes, Objects, Attributes, Methods  
    - Real-World Analogies (LEGO, Library)  
 
-2. **Classes and Objects**  
+2. **[Classes and Objects](#classes-and-objects)**  
    - Class Declaration, Object Instantiation  
    - Instance vs. Class Variables/Methods  
 
@@ -339,21 +339,56 @@ Now, let’s dive deeper:
 **Class Method:** Operates on the class itself (e.g., modifying class variables).<br>
 
 ### Detailed Explanations
-#### Class Declaration
+<!-- #### Class Declaration -->
 
-*Plain Language*
-> A class is like a cookie cutter. You define it once, then stamp out cookies (objects) from it.
+***Plain Language***
+> *Class Declaration*<br>
+> --> A class is like a cookie cutter. You define it once, then stamp out cookies (objects) from it.<br>
 
-*Real-World Analogy*
+> *Object Instantiation*<br>
+> --> Creating an object from a class is like building a house from a blueprint.
 
-> Class = A recipe for chocolate chip cookies.
-> Object = The actual cookies you bake.
+> *Instance Variables vs. Class Variables*<br>
+> --> Instance Variable: Specific to an object (e.g., your car’s mileage).<br>
+> --> Class Variable: Shared by all objects (e.g., the legal speed limit for all cars).<br>
 
-*Why It Matters*
+> Instance Methods vs. Class Methods<br>
+> --> Instance Method: Needs an object to work (e.g., car.drive()).<br>
+> --> Class Method: Works on the class itself (e.g., Car.get_total_cars()).
 
-> Classes encapsulate data and behavior, making code modular and reusable.
+***Real-World Analogy***
 
-#### Object Instantiation
+> *Class Declaration*<br>
+> --> Class = A recipe for chocolate chip cookies.<br>
+> --> Object = The actual cookies you bake.<br>
+
+> *Object Instantiation*<br>
+> --> Blueprint (class) = Architectural plans for a house.<br>
+> --> House (object) = The physical house built from those plans.<br>
+
+> *Instance Variables vs. Class Variables*<br>
+> --> Instance Variable = Your phone’s wallpaper (unique to you).<br>
+> --> Class Variable = The iOS version (shared by all iPhones).<br>
+
+> Instance Methods vs. Class Methods<br>
+> --> Instance Method = “Wash my car” (needs your car).<br>
+> --> Class Method = “Recall all cars for a safety check” (affects every car).<br>
+
+***Why It Matters***
+
+> *Class Declaration*<br>
+> --> Classes encapsulate data and behavior, making code modular and reusable.
+
+> *Object Instantiation*<br>
+> --> Objects let you create multiple instances with unique data (e.g., 100 houses, each with different owners).
+
+> *Instance Variables vs. Class Variables*<br>
+> --> Class variables maintain shared state; instance variables store object-specific data.
+
+> Instance Methods vs. Class Methods<br>
+> --> Instance methods handle object-specific logic; class methods handle class-wide logic.
+
+<!-- #### Object Instantiation
 *Plain Language*
 > Creating an object from a class is like building a house from a blueprint.
 
@@ -386,7 +421,7 @@ Now, let’s dive deeper:
 > Class Method = “Recall all cars for a safety check” (affects every car).
 
 *Why It Matters*
-> Instance methods handle object-specific logic; class methods handle class-wide logic.
+> Instance methods handle object-specific logic; class methods handle class-wide logic. -->
 
 ### Practical Examples & Code Samples
 
@@ -539,7 +574,6 @@ print(Car.check_engine(90))  # Output: "OK" (static method)
 
 ***Comparision:***
 
-
 |Feature|Python|Java|C++|
 |:-|:-|:-|:-|
 |Instance Variable|self.brand|private String brand;|string brand;|
@@ -547,8 +581,7 @@ print(Car.check_engine(90))  # Output: "OK" (static method)
 |Instance Method|def honk(self)|public void honk()|void honk()|
 |Class Method|@classmethod def get_total_cars(cls)|public static int getTotalCars()|static int getTotalCars()|
 |Static Method|@staticmethod def check_engine(temp)|public static String checkEngine(int temp)|static string checkEngine(int temp)|
-|||||
-
+<br>
 
 ### Usage Guidelines & Best Practices
 
