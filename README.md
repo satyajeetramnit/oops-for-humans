@@ -192,11 +192,9 @@ Key Terms:
 
 ### **Practical Examples & Code Samples**
 
-*Car Class Implementation*
+*Example: Car Class Implementation*
 
-
-<details>
-  <summary>📌 Java Example</summary>
+<summary>@Java</summary>
 
 ```java
 // Class = Blueprint for a "Car"
@@ -222,11 +220,7 @@ class Car {
     }
 }
 ```
-</details>
-
-<details>
-  <summary>📌 C++ Example</summary>
-
+<summary>@C++</summary>
 
 ```cpp
 #include <iostream>
@@ -258,9 +252,7 @@ int main() {
     return 0;
 }
 ```
-</details>
-
-<details> <summary>📌 Python Example</summary>
+<summary>@Python</summary>
 
 ```python
 # Class = Blueprint for a "Car"  
@@ -276,11 +268,6 @@ class Car:
 my_car = Car("Tesla", "Cybertruck")  
 my_car.drive()  # Output: "Tesla Cybertruck is vrooming!"  
 ```
-
-</details>
-
-
-
 
 
 ### **Real-World Scenario**
