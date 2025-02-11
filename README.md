@@ -544,7 +544,7 @@ print(Car.get_total_cars())  # Output: "Total cars: 2" (class method)
 print(Car.check_engine(90))  # Output: "OK" (static method)
 ```
 
-***Comparision:***
+***Comparison:***
 
 <!-- |Feature|Python|Java|C++|
 |:-|:-|:-|:-|
@@ -828,7 +828,7 @@ account.deposit(-200)              # Output: "Invalid amount!"
 # account._internal_audit()        # Works, but "protected" by convention.
 ```
 
-***Comparision:***
+***Comparison:***
 
 | Feature               | Python                          | Java                                | C++                                |
 |-----------------------|--------------------------------|------------------------------------|------------------------------------|
@@ -1674,7 +1674,7 @@ public class Main {
 - Explicitly calls the desired interface’s method to resolve conflicts.
 - Possible with interfaces (resolved using default method rules).
 
-#### *Comparision*
+#### *Comparison*
 
 | Feature                    | Python (MRO & `super()`)         | Java (Interfaces)                      | C++ (Virtual Inheritance)            |
 |----------------------------|--------------------------------|----------------------------------|--------------------------------------|
@@ -1884,7 +1884,8 @@ Think of it as a universal remote: one button (e.g., "power") works differently 
 
 *Plain Language:*
 
-> Writing multiple methods with the same name but different parameters. The compiler picks the right one based on input.
+> Writing multiple methods with the same name but different parameters. The compiler picks the right one based on input.<br>
+*Example use case:* Makes APIs intuitive (e.g., `add(2, 3)` vs. `add(2, 3, 4)`), etc.
 
 *Real-World Analogy:*
 
@@ -1981,7 +1982,425 @@ print(math_obj.add(5, 10, 15)) # Output: 30 (three arguments)
 | Feature                  | Python (Simulated)            | Java (Native Overloading)       | C++ (Native Overloading)        |
 |--------------------------|------------------------------|---------------------------------|--------------------------------|
 | **Supports True Overloading?** | ❌ No (Only via `*args` or default values) | ✅ Yes (Different method signatures) | ✅ Yes (Different method signatures) |
-| **Compile-Time Resolution?** | ❌ No (Dynamic Dispatch at runtime) | ✅ Yes (Method chosen at compile-time) | ✅ Yes (Method chosen at compile-time) |
+| **Compile-Time Resolution?** | ❌ No ([Dynamic Dispatch](#dynamic-method-dispatch) at runtime) | ✅ Yes (Method chosen at compile-time) | ✅ Yes (Method chosen at compile-time) |
 | **Supports Different Parameter Types?** | ✅ Yes (via `*args` and `isinstance`) | ✅ Yes (Method signature must differ) | ✅ Yes (Method signature must differ) |
 | **Efficiency** | 🚀 Flexible but slower (runtime checks) | ⚡ Fast (Compile-time method resolution) | ⚡ Fast (Compile-time method resolution) |
+
+
+### Operator Overloading
+
+Operator Overloading allows operators (`+`, `-`, `*`, etc.) to be redefined to work with user-defined types.
+
+Key Benefits:
+- Makes custom objects behave like built-in types.
+- Improves code readability and usability. (Summation of imaginary numbers)
+
+#### ***C++ Implementation (Supports Operator Overloading)***
+
+C++ natively supports operator overloading.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Vector {
+public:
+    int x, y;
+
+    Vector(int x, int y) : x(x), y(y) {}
+
+    // Overloading '+' operator
+    Vector operator+(const Vector& other) {
+        return Vector(x + other.x, y + other.y);
+    }
+
+    void display() {
+        cout << "(" << x << ", " << y << ")" << endl;
+    }
+};
+
+int main() {
+    Vector v1(2, 3), v2(4, 5);
+    Vector v3 = v1 + v2;  // Uses overloaded '+'
+
+    v3.display();  // Output: (6, 8)
+    return 0;
+}
+```
+
+####  ___Python Implementation (Supports Operator Overloading)___
+
+Python natively supports operator overloading using `magic (dunder) methods`.
+
+```java
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __add__(self, other):  # Overloading '+'
+        return Vector(self.x + other.x, self.y + other.y)
+
+    def __str__(self):  # String representation
+        return f"({self.x}, {self.y})"
+
+v1 = Vector(2, 3)
+v2 = Vector(4, 5)
+v3 = v1 + v2  # Calls __add__
+
+print(v3)  # Output: (6, 8)
+```
+- Uses special methods (e.g., `__add__`, `__sub__`, `__mul__`, etc.).
+- The + operator calls `__add__` method internally.
+- Provides flexibility to redefine behavior.
+
+#### ___Java Implementation (Does Not Support Operator Overloading)___
+
+*Java does not support operator overloading*, but we can achieve similar behavior using methods.
+
+```java
+class Vector {
+    int x, y;
+
+    Vector(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    // Simulating operator overloading with a method
+    Vector add(Vector other) {
+        return new Vector(this.x + other.x, this.y + other.y);
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Vector v1 = new Vector(2, 3);
+        Vector v2 = new Vector(4, 5);
+        Vector v3 = v1.add(v2); // Cannot use '+', must call method
+
+        System.out.println(v3); // Output: (6, 8)
+    }
+}
+```
+
+#### ***Real-World Example (Bank Account Transactions)***
+
+💡 **Scenario:**
+Imagine a Bank Account where:
+
+- `+` is used to merge two accounts.
+- `-` is used to withdraw an amount.
+- `+=` is used to deposit money.
+
+<summary>@C++</summary>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class BankAccount {
+public:
+    string holder;
+    int balance;
+
+    BankAccount(string holder, int balance) {
+        this->holder = holder;
+        this->balance = balance;
+    }
+
+    // Overloading '+': Merging accounts
+    BankAccount operator+(const BankAccount& other) {
+        return BankAccount(holder + " & " + other.holder, balance + other.balance);
+    }
+
+    // Overloading '-': Withdraw money
+    BankAccount operator-(int amount) {
+        if (balance >= amount) {
+            return BankAccount(holder, balance - amount);
+        } else {
+            cout << "Insufficient balance!" << endl;
+            return *this;
+        }
+    }
+
+    // Overloading '+=': Deposit money
+    BankAccount& operator+=(int amount) {
+        balance += amount;
+        return *this;
+    }
+
+    void display() {
+        cout << "Account Holder: " << holder << ", Balance: " << balance << endl;
+    }
+};
+
+int main() {
+    BankAccount acc1("Alice", 5000);
+    BankAccount acc2("Bob", 3000);
+
+    BankAccount jointAcc = acc1 + acc2;
+    jointAcc.display();  // Account Holder: Alice & Bob, Balance: 8000
+
+    acc1 = acc1 - 2000;  // Withdraw 2000 from Alice's account
+    acc1.display();  // Account Holder: Alice, Balance: 3000
+
+    acc2 += 1000;  // Deposit 1000 into Bob's account
+    acc2.display();  // Account Holder: Bob, Balance: 4000
+
+    return 0;
+}
+```
+
+<summary>@Python</summary>
+
+```python
+class BankAccount:
+    def __init__(self, holder, balance):
+        self.holder = holder
+        self.balance = balance
+
+    def __add__(self, other):  # Merging accounts
+        new_balance = self.balance + other.balance
+        return BankAccount(f"{self.holder} & {other.holder}", new_balance)
+
+    def __sub__(self, amount):  # Withdrawal
+        if self.balance >= amount:
+            return BankAccount(self.holder, self.balance - amount)
+        else:
+            print("Insufficient balance!")
+            return self  # Return same account
+
+    def __iadd__(self, amount):  # Deposit
+        self.balance += amount
+        return self  # Return updated object
+
+    def __str__(self):
+        return f"Account Holder: {self.holder}, Balance: {self.balance}"
+
+# Example Usage
+acc1 = BankAccount("Alice", 5000)
+acc2 = BankAccount("Bob", 3000)
+
+joint_acc = acc1 + acc2  # Merging accounts
+print(joint_acc)  # Output: Account Holder: Alice & Bob, Balance: 8000
+
+acc1 -= 2000  # Withdraw 2000 from Alice
+print(acc1)  # Output: Account Holder: Alice, Balance: 3000
+
+acc2 += 1000  # Deposit 1000 in Bob's account
+print(acc2)  # Output: Account Holder: Bob, Balance: 4000
+```
+
+| Feature                  | Python (Supports)           | Java (No Support)              | C++ (Supports)                |
+|--------------------------|----------------------------|--------------------------------|--------------------------------|
+| **Supports Operator Overloading?** | ✅ Yes (via magic methods) | ❌ No (Only methods) | ✅ Yes (via `operator` keyword) |
+| **Example for `+` Operator** | `__add__` method | `.add()` method | `operator+()` function |
+| **Common Use Case** | Custom numeric types, vectors | Simulated with methods | Mathematical & custom objects |
+| **Efficiency** | 🟢 Dynamic but easy | 🔴 Verbose (extra method calls) | 🟢 Fast & efficient |
+
+
+### Runtime Polymorphism (Method Overriding)
+
+*Plain Language:*
+
+> A subclass provides its own implementation of a method inherited from a superclass.
+
+*Real-World Analogy:*
+
+> A power button behaves differently on a phone (sleep/wake) vs. a microwave (start/stop heating).
+
+*[Details/ Implementation/ Examples](#method-overriding)*
+
+### Dynamic Method Dispatch
+
+*Plain Language:*
+
+> The JVM (or Python interpreter) decides at runtime which overridden method to execute.
+
+*Real-World Analogy:*
+
+> A GPS navigation app picks the fastest route dynamically based on real-time traffic.
+
+*Why It Matters:*
+
+> Enables flexibility and late binding (decisions made during execution).
+
+#### ___Python Implementation (Uses Overriding + Dynamic Binding)___
+
+```python
+class Animal:
+    def speak(self):
+        print("Animal makes a sound")
+
+class Dog(Animal):
+    def speak(self):
+        print("Dog barks")
+
+class Cat(Animal):
+    def speak(self):
+        print("Cat meows")
+
+# Dynamic Dispatch
+def make_sound(animal):
+    animal.speak()  # Calls overridden method at runtime
+
+a = Animal()
+d = Dog()
+c = Cat()
+
+make_sound(a)  # Output: Animal makes a sound
+make_sound(d)  # Output: Dog barks
+make_sound(c)  # Output: Cat meows
+```
+
+- Uses method overriding (subclass redefines a method).
+- Python automatically resolves the correct method at runtime based on the object type.
+
+#### ___Java Implementation (Uses Method Overriding + Base Class Reference)___
+
+```Java
+class Animal {
+    void speak() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void speak() {
+        System.out.println("Dog barks");
+    }
+}
+
+class Cat extends Animal {
+    @Override
+    void speak() {
+        System.out.println("Cat meows");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal a;  // Base class reference
+
+        a = new Animal();
+        a.speak();  // Output: Animal makes a sound
+
+        a = new Dog();
+        a.speak();  // Output: Dog barks (runtime binding)
+
+        a = new Cat();
+        a.speak();  // Output: Cat meows (runtime binding)
+    }
+}
+```
+
+- Uses method overriding.
+- Uses base class reference (Animal a) to refer to derived class objects.
+- Method calls are resolved at runtime, not compile time (Dynamic Binding).
+
+#### ___C++ Implementation (Uses Virtual Functions for Dynamic Dispatch)___
+
+```c++
+#include <iostream>
+using namespace std;
+
+class Animal {
+public:
+    virtual void speak() {  // Virtual function
+        cout << "Animal makes a sound" << endl;
+    }
+};
+
+class Dog : public Animal {
+public:
+    void speak() override {  // Override method
+        cout << "Dog barks" << endl;
+    }
+};
+
+class Cat : public Animal {
+public:
+    void speak() override {
+        cout << "Cat meows" << endl;
+    }
+};
+
+int main() {
+    Animal* a;  // Base class pointer
+
+    a = new Animal();
+    a->speak();  // Output: Animal makes a sound
+
+    a = new Dog();
+    a->speak();  // Output: Dog barks (Runtime dispatch via virtual function)
+
+    a = new Cat();
+    a->speak();  // Output: Cat meows
+
+    delete a;  // Clean up memory
+    return 0;
+}
+```
+
+- Uses virtual functions for method overriding.
+- Base class pointer (Animal* a) allows runtime method resolution.
+- Without virtual keyword, C++ would perform compile-time binding (static dispatch).
+
+#### ___Comparison___
+
+| Feature                        | Python (Supports)            | Java (Supports)                  | C++ (Supports)                      |
+|--------------------------------|-----------------------------|----------------------------------|--------------------------------------|
+| **Dynamic Method Dispatch?**   | ✅ Yes (via method overriding) | ✅ Yes (via base class reference) | ✅ Yes (via virtual functions)       |
+| **Requires Special Keyword?**  | ❌ No (automatic)            | ❌ No (automatic)                | ✅ Yes (`virtual` keyword needed)   |
+| **Compile-Time Binding?**      | ❌ No (always dynamic)       | ❌ No (always dynamic)           | ⚠️ By default, **Yes** (unless `virtual` is used) |
+| **Base Class Reference?**      | ✅ Yes                        | ✅ Yes                            | ✅ Yes (pointer/reference)         |
+
+### Usage Guidelines & Best Practices
+
+*When to Use:*
+
+- Method Overloading: For similar actions with different inputs.
+
+- Method Overriding: To customize inherited behavior.
+
+- Polymorphism: When working with heterogeneous collections (e.g., a list of Animals).
+
+*Pitfalls to Avoid:*
+
+- Overcomplicating Overloading: Use optional parameters or type checks instead.
+
+- Ignoring `super()`: Call the parent method when overriding (if needed).
+
+<br>
+
+> Leverage duck typing: "If it quacks like a duck, treat it like a duck."
+
+### Visual Diagrams
+Polymorphism in Action:
+
+```
+Animal Interface  
+┌──────────────┐  
+│ + speak()    │  
+└──────────────┘  
+       ▲  
+       │  
+   Dog    Cat  
+ ┌─────┴─────┐  
+ │  speak()  │   
+ ▼           ▼  
+"Woof!"   "Meow!"  
+```
+### Recap:
+
+✅ Polymorphism lets objects behave differently based on their type.<br>
+✅ Method Overloading (compile-time) vs. Overriding (runtime).<br>
+✅ Dynamic Dispatch enables flexible runtime decisions.
 
