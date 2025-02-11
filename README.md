@@ -31,7 +31,7 @@ Ever read about OOP, felt like you understood it, and then completely blanked ou
    - Getters/Setters, Data Hiding  
 
 4. **[Inheritance](#inheritance)**  
-   - Types of Inheritance
+   - [Types of Inheritance](#types-of-inheritance)
         - [Single](#single-inheritance)
         - [Multiple](#multiple-inheritance)
         - [Multilevel](#multi-level-inheritance)
@@ -42,9 +42,11 @@ Ever read about OOP, felt like you understood it, and then completely blanked ou
    - [`super()` Keyword](#super-in-python-vs-super-in-java)
    - [Constructor Chaining](#constructor-chaining)  
 
-5. **Polymorphism**  
-   - Compile-Time (Method Overloading) vs. Runtime (Method Overriding)  
-   - Dynamic Method Dispatch  
+5. **[Polymorphism](#polymorphism)**  
+   - [Compile-Time (Method Overloading)](#compile-time-polymorphism)
+   - [Operator Overloading](#operator-overloading)
+   - [Runtime (Method Overriding)](#runtime-polymorphism-method-overriding)  
+   - [Dynamic Method Dispatch](#dynamic-method-dispatch)
 
 6. **Abstraction**  
    - Abstract Classes, Interfaces  
