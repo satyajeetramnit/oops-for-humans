@@ -1595,7 +1595,8 @@ int main() {
 
 Python handles multiple inheritance using the Method Resolution Order (MRO) with the C3 Linearization algorithm.
 
-> We use `super()` to avoid duplicate calls to the Vehicle class.
+> We use `super()` to avoid duplicate calls to the Vehicle class.<br>
+
 ```python
 class Vehicle:
     def description(self):
