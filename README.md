@@ -1845,5 +1845,143 @@ int main() {
 
 ### Key Takeaways
 ✅ Inheritance is a core OOP pillar, but implementations vary across languages.<br>
+✅ Inheritance promotes code reuse through parent-child relationships.
 ✅ Multiple Inheritance is powerful but risky; handle with care (MRO in Python, interfaces in Java).<br>
 ✅ Method Overriding ensures polymorphism, but syntax differs (`@Override` vs `virtual`).<br>
+
+
+## Polymorphism
+
+### Introduction & Recap
+In the [previous section](#inheritance), we learned how inheritance allows classes to reuse and customize code. Now, let’s explore <br>Polymorphism—the ability of objects to take many forms.<br> 
+Think of it as a universal remote: one button (e.g., "power") works differently for a TV, AC, or speaker.
+
+***Why Polymorphism?***
+- Write flexible code that works with any object type.
+
+- Simplify complex systems by treating objects as their superclass (e.g., all Animals can speak(), even if they bark or meow).
+
+### Basic Concepts & Definitions
+
+***Polymorphism:*** Greek for "*many forms*". Objects behave differently based on their type.
+
+***Types:***
+
+- Compile-Time (Static): Resolved during compilation (e.g., method overloading).
+
+- Runtime (Dynamic): Resolved during execution (e.g., method overriding).
+
+***Method Overloading:*** Multiple methods with the same name but different parameters.
+
+***Method Overriding:*** Redefining a method in a subclass (inherited from a superclass).
+
+***Dynamic Method Dispatch:*** The process of deciding which method to call at runtime.
+
+
+### Compile-Time Polymorphism 
+
+### Method Overloading
+
+*Plain Language:*
+
+> Writing multiple methods with the same name but different parameters. The compiler picks the right one based on input.
+
+*Real-World Analogy:*
+
+>A coffee machine with buttons for "espresso", "latte", or "cappuccino" – same machine, different outputs.
+
+#### ***Java Implementation (True Method Overloading)***
+Java natively supports method overloading by defining multiple methods with the same name but different parameters.
+
+```java
+class MathOperations {
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    double add(double a, double b) {
+        return a + b;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MathOperations mathObj = new MathOperations();
+        System.out.println(mathObj.add(5, 10));       // Output: 15
+        System.out.println(mathObj.add(5, 10, 15));   // Output: 30
+        System.out.println(mathObj.add(5.5, 2.5));    // Output: 8.0
+    }
+}
+```
+- Determines the method at compile-time based on parameter type and count.
+- Methods must differ in signature (parameter count or type).
+- Return type alone cannot differentiate overloaded methods.
+
+#### ***C++ Implementation (True Method Overloading)***
+
+C++ natively supports method overloading, just like Java.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class MathOperations {
+public:
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    double add(double a, double b) {
+        return a + b;
+    }
+};
+
+int main() {
+    MathOperations mathObj;
+    cout << mathObj.add(5, 10) << endl;       // Output: 15
+    cout << mathObj.add(5, 10, 15) << endl;   // Output: 30
+    cout << mathObj.add(5.5, 2.5) << endl;    // Output: 8.0
+    return 0;
+}
+```
+
+- Resolves method at compile-time based on parameter type and count.
+- Supports both function overloading and operator overloading.
+- Ensures efficient execution with no runtime overhead.
+
+
+#### ***Python Implementation (Simulating Method Overloading)***
+
+Python does not support true method overloading. However, we can achieve similar behavior using default arguments or *args.
+
+```python
+class MathOperations:
+    def add(self, a, b=0, c=0):
+        return a + b + c  # Handles different argument counts
+
+math_obj = MathOperations()
+print(math_obj.add(5))        # Output: 5 (one argument)
+print(math_obj.add(5, 10))     # Output: 15 (two arguments)
+print(math_obj.add(5, 10, 15)) # Output: 30 (three arguments)
+```
+
+- Uses default arguments (b=0, c=0) to handle different cases.
+- Alternatively, we could use *args for variable-length arguments.
+
+#### ***Comparison***
+
+| Feature                  | Python (Simulated)            | Java (Native Overloading)       | C++ (Native Overloading)        |
+|--------------------------|------------------------------|---------------------------------|--------------------------------|
+| **Supports True Overloading?** | ❌ No (Only via `*args` or default values) | ✅ Yes (Different method signatures) | ✅ Yes (Different method signatures) |
+| **Compile-Time Resolution?** | ❌ No (Dynamic Dispatch at runtime) | ✅ Yes (Method chosen at compile-time) | ✅ Yes (Method chosen at compile-time) |
+| **Supports Different Parameter Types?** | ✅ Yes (via `*args` and `isinstance`) | ✅ Yes (Method signature must differ) | ✅ Yes (Method signature must differ) |
+| **Efficiency** | 🚀 Flexible but slower (runtime checks) | ⚡ Fast (Compile-time method resolution) | ⚡ Fast (Compile-time method resolution) |
+
