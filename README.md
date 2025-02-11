@@ -26,14 +26,21 @@ Ever read about OOP, felt like you understood it, and then completely blanked ou
    - Class Declaration, Object Instantiation  
    - Instance vs. Class Variables/Methods  
 
-3. **Encapsulation**  
+3. **[Encapsulation](#encapsulation)**  
    - Access Modifiers (Public, Private, Protected)  
    - Getters/Setters, Data Hiding  
 
-4. **Inheritance**  
-   - Superclass vs. Subclass  
-   - Types of Inheritance (Single, Multiple, Multilevel, Hierarchical, Hybrid)  
-   - Method Overriding, `super()` Keyword  
+4. **[Inheritance](#inheritance)**  
+   - Types of Inheritance
+        - [Single](#single-inheritance)
+        - [Multiple](#multiple-inheritance)
+        - [Multilevel](#multi-level-inheritance)
+        - [Hierarchical](#hierarchical-inheritance)
+        - [Hybrid](#hybrid-inheritance)  
+   - [Method overriding](#method-overriding)
+   - [The Diamond Problem](#the-diamond-problem)
+   - [`super()` Keyword](#super-in-python-vs-super-in-java)
+   - [Constructor Chaining](#constructor-chaining)  
 
 5. **Polymorphism**  
    - Compile-Time (Method Overloading) vs. Runtime (Method Overriding)  
@@ -887,3 +894,955 @@ External Code → Can’t touch __balance directly!
 
 ✅ Encapsulation protects data via access modifiers and getters/setters.<br>
 ✅ Data hiding reduces complexity and prevents misuse.
+
+
+## Inheritance
+### Introduction & Recap
+
+In the [previous section](#encapsulation), we learned how encapsulation protects an object’s internal state. Now, let’s explore inheritance—the mechanism that lets classes inherit properties and methods from other classes. <br>
+Think of it as passing down family traits: children inherit genes from parents but can also have unique features.
+
+***Why Inheritance?***
+
+- **Reuse code:** Avoid rewriting common logic.
+- **Model real-world hierarchies:** E.g., Animal → Dog → GoldenRetriever.
+- **Override behavior:** Customize inherited methods in subclasses.
+
+### Basic Concepts, Definitions & Explanations
+
+A mechanism where a child class (subclass) inherits properties and behaviors from a parent class (superclass).
+
+*Superclass (Base Class): The parent class being inherited from. (A generic "Smartphone" blueprint.) <br>
+Subclass (Derived Class): The child class that inherits from the superclass. (Specific models like "iPhone 15" or "Galaxy S24")*
+
+***Quick overview***
+
+> **Single:** One subclass inherits from one superclass.<br>
+> **Multiple:** One subclass inherits from multiple superclasses.<br>
+> **Multilevel:** Subclass becomes a superclass for another subclass (e.g., A → B → C).<br>
+> **Hierarchical:** Multiple subclasses inherit from one superclass.<br>
+> **Hybrid:** A mix of inheritance types (e.g., multiple + hierarchical).<br>
+
+> **Method Overriding:** Redefining a method in the subclass to replace the inherited version.
+
+#### ***Key Concepts:***
+
+| Term                 | Definition                                          | Language-Specific Notes |
+|----------------------|--------------------------------------------------|-------------------------|
+| **Single Inheritance** | A class inherits from one parent class.          | Supported in Java, C++, Python. |
+| **Multiple Inheritance** | A class inherits from multiple parent classes.   | C++ and Python allow this. Java uses interfaces. |
+| **Method Overriding** | Child class redefines a method inherited from the parent. | Use `@Override` in Java, `virtual/override` in C++, implicit in Python. |
+| **super() Keyword**  | Calls the parent class’s constructor/method.    | `super()` in Java/Python; `ParentClass::method()` in C++. |
+
+---
+
+### Types of Inheritance
+
+#### *Single Inheritance:* 
+One subclass inherits from one superclass.<br> 
+
+```
+Example: A son inherits traits from his father
+
+    Father
+      │
+      ▼
+     Son
+```
+
+<summary>@Java</summary>
+
+```java
+class Vehicle {
+    void startEngine() {
+        System.out.println("Engine started");
+    }
+}
+
+class Car extends Vehicle {
+    void drive() {
+        System.out.println("Car is moving");
+    }
+}
+```
+<summary>@C++</summary>
+
+```cpp
+class Vehicle {
+public:
+    void startEngine() {
+        cout << "Engine started" << endl;
+    }
+};
+
+class Car : public Vehicle {
+public:
+    void drive() {
+        cout << "Car is moving" << endl;
+    }
+};
+```
+<summary>@Python</summary>
+
+```python
+class Vehicle:
+    def start_engine(self):
+        print("Engine started")
+
+class Car(Vehicle):
+    def drive(self):
+        print("Car is moving")
+```
+
+#### Key Points:
+- All languages enforce "is-a" relationships (e.g., Car *is a* Vehicle).
+- **Java:** Single inheritance for classes, multiple inheritance for interfaces.
+- **C++/Python:** Support multiple inheritance.
+
+
+#### *Multiple Inheritance*
+
+One subclass inherits from multiple superclasses.<br>
+
+```
+Example: A child inherits qualities from both the mother and father.
+
+  Mother    Father
+     │         │
+     └────┬────┘
+          ▼
+        Child
+```
+
+<summary>@Java</summary>
+
+```java
+interface Engine {
+    void start();
+}
+
+interface ElectricSystem {
+    void charge();
+}
+
+class HybridCar implements Engine, ElectricSystem {
+    public void start() { System.out.println("Engine running"); }
+    public void charge() { System.out.println("Battery charged"); }
+}
+```
+
+> ***Note:** Java does not support multiple inheritance directly due to the "[Diamond Problem](#the-diamond-problem)," so interfaces are used instead.*
+
+<summary>@C++</summary>
+
+```cpp
+class Engine {
+public:
+    void start() { cout << "Engine running" << endl; }
+};
+
+class ElectricSystem {
+public:
+    void charge() { cout << "Battery charged" << endl; }
+};
+
+class HybridCar : public Engine, public ElectricSystem {};
+```
+<summary>@Python</summary>
+
+```python
+class Engine:
+    def start(self):
+        print("Engine running")
+
+class ElectricSystem:
+    def charge(self):
+        print("Battery charged")
+
+class HybridCar(Engine, ElectricSystem):
+    pass
+```
+
+#### Key Differences
+
+| Language | Multiple Inheritance Support | Conflict Resolution |
+|----------|-----------------------------|----------------------|
+| **C++**  | Yes (for classes) | Explicit scope resolution (`Engine::start()` vs `ElectricSystem::start()`). |
+| **Python** | Yes (for classes) | Method Resolution Order (MRO) – follows the order of parent classes. |
+| **Java** | No (only via interfaces) | Interfaces have no method bodies until Java 8 (default methods). |
+
+⚠️ Pitfall: The "[diamond problem](#the-diamond-problem)" (conflicts if both parents have the same method).
+
+#### *Multi-Level Inheritance:* 
+A chain of inheritance where a class inherits from another class, which in turn inherits from a base class.<br>
+Subclass becomes a superclass for another subclass.<br>
+
+```
+Example: Traits pass from grandfather → father → son.
+
+   Grandfather
+       │
+       ▼
+     Father
+       │
+       ▼
+      Son
+```
+
+<summary>@Java</summary>
+
+```java
+class Animal {
+    void breathe() {
+        System.out.println("Breathing...");
+    }
+}
+
+class Mammal extends Animal {
+    void feedMilk() {
+        System.out.println("Feeding milk!");
+    }
+}
+
+class Dog extends Mammal {
+    // No additional methods, inherits from Mammal → Animal
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog buddy = new Dog();
+        buddy.breathe();    // Output: "Breathing..."
+        buddy.feedMilk();   // Output: "Feeding milk!"
+    }
+}
+```
+<summary>@C++</summary>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Animal {
+public:
+    void breathe() {
+        cout << "Breathing..." << endl;
+    }
+};
+
+class Mammal : public Animal {
+public:
+    void feedMilk() {
+        cout << "Feeding milk!" << endl;
+    }
+};
+
+class Dog : public Mammal {
+    // No additional methods, inherits from Mammal → Animal
+};
+
+int main() {
+    Dog buddy;
+    buddy.breathe();    // Output: "Breathing..."
+    buddy.feedMilk();   // Output: "Feeding milk!"
+    return 0;
+}
+```
+<summary>@Python</summary>
+
+```python
+class Animal:
+    def breathe(self):
+        print("Breathing...")
+
+class Mammal(Animal):
+    def feed_milk(self):
+        print("Feeding milk!")
+
+class Dog(Mammal):  # Inherits from Mammal → Animal
+    pass
+
+# Object Instantiation
+buddy = Dog()
+buddy.breathe()      # Output: "Breathing..."
+buddy.feed_milk()    # Output: "Feeding milk!"
+```
+
+#### *Hierarchical Inheritance:* 
+Multiple subclasses inherit from one superclass.<br>
+i.e. Multiple specialized classes share a common base.
+
+```
+Example: Both son and daughter inherit from the same parent.
+
+      Father
+      /    \
+     /      \
+   Son     Daughter
+```
+
+<summary>@Java</summary>
+
+```java
+class Animal {
+    void breathe() {
+        System.out.println("Breathing...");
+    }
+}
+
+class Dog extends Animal { // Inherits from Animal
+    void bark() {
+        System.out.println("Barking!");
+    }
+}
+
+class Cat extends Animal { // Inherits from Animal
+    void meow() {
+        System.out.println("Meowing!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog dog = new Dog();
+        dog.breathe(); // Output: "Breathing..."
+        dog.bark();    // Output: "Barking!"
+
+        Cat cat = new Cat();
+        cat.breathe(); // Output: "Breathing..."
+        cat.meow();    // Output: "Meowing!"
+    }
+}
+```
+<summary>@C++</summary>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Animal {
+public:
+    void breathe() {
+        cout << "Breathing..." << endl;
+    }
+};
+
+class Dog : public Animal { // Inherits from Animal
+public:
+    void bark() {
+        cout << "Barking!" << endl;
+    }
+};
+
+class Cat : public Animal { // Inherits from Animal
+public:
+    void meow() {
+        cout << "Meowing!" << endl;
+    }
+};
+
+int main() {
+    Dog dog;
+    dog.breathe(); // Output: "Breathing..."
+    dog.bark();    // Output: "Barking!"
+
+    Cat cat;
+    cat.breathe(); // Output: "Breathing..."
+    cat.meow();    // Output: "Meowing!"
+
+    return 0;
+}
+```
+<summary>@Python</summary>
+
+```python
+class Animal:
+    def breathe(self):
+        print("Breathing...")
+
+class Dog(Animal):  # Inherits from Animal
+    def bark(self):
+        print("Barking!")
+
+class Cat(Animal):  # Inherits from Animal
+    def meow(self):
+        print("Meowing!")
+
+# Object Instantiation
+dog = Dog()
+dog.breathe()  # Output: "Breathing..."
+dog.bark()     # Output: "Barking!"
+
+cat = Cat()
+cat.breathe()  # Output: "Breathing..."
+cat.meow()     # Output: "Meowing!"
+```
+
+#### *Hybrid Inheritance:* 
+A mix of inheritance types (e.g., multiple + hierarchical).<br>
+
+```
+Example: Grandfather has a son and a daughter. The son has a child. The child inherits from both parents.
+
+   Grandfather
+       │
+   ┌───┴───┐
+   │       │
+ Father  Aunt
+   │
+   ▼
+  Son
+```
+
+<summary>@Java</summary>
+
+```java
+interface Animal {
+    void breathe();
+}
+
+interface Mammal extends Animal {
+    void feedMilk();
+}
+
+interface Bird extends Animal {
+    void layEggs();
+}
+
+class Bat implements Mammal, Bird { // Implements both interfaces
+    public void breathe() {
+        System.out.println("Breathing...");
+    }
+
+    public void feedMilk() {
+        System.out.println("Feeding milk!");
+    }
+
+    public void layEggs() {
+        System.out.println("Laying eggs!");
+    }
+
+    public void fly() {
+        System.out.println("Flying!");
+    }
+
+    public static void main(String[] args) {
+        Bat bat = new Bat();
+        bat.breathe();    // From Animal
+        bat.feedMilk();   // From Mammal
+        bat.layEggs();    // From Bird
+        bat.fly();        // Own method
+    }
+}
+```
+
+> ***Note:** Java does not support multiple inheritance directly due to the "[Diamond Problem](#the-diamond-problem)," so interfaces are used instead.*
+
+<summary>@C++</summary>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Animal {
+public:
+    void breathe() {
+        cout << "Breathing..." << endl;
+    }
+};
+
+class Mammal : public Animal {
+public:
+    void feedMilk() {
+        cout << "Feeding milk!" << endl;
+    }
+};
+
+class Bird : public Animal {
+public:
+    void layEggs() {
+        cout << "Laying eggs!" << endl;
+    }
+};
+
+class Bat : public Mammal, public Bird { // Hybrid Inheritance
+public:
+    void fly() {
+        cout << "Flying!" << endl;
+    }
+};
+
+int main() {
+    Bat bat;
+    bat.breathe();    // Ambiguity may occur, use Animal::breathe() explicitly if needed
+    bat.feedMilk();   // From Mammal
+    bat.layEggs();    // From Bird
+    bat.fly();        // Own method
+    return 0;
+}
+```
+<summary>@Python</summary>
+
+```python
+class Animal:
+    def breathe(self):
+        print("Breathing...")
+
+class Mammal(Animal):
+    def feed_milk(self):
+        print("Feeding milk!")
+
+class Bird(Animal):
+    def lay_eggs(self):
+        print("Laying eggs!")
+
+class Bat(Mammal, Bird):  # Hybrid Inheritance: Combines Mammal and Bird
+    def fly(self):
+        print("Flying!")
+
+# Object Instantiation
+bat = Bat()
+bat.breathe()     # Inherited from Animal
+bat.feed_milk()   # Inherited from Mammal
+bat.lay_eggs()    # Inherited from Bird
+bat.fly()         # Own method
+```
+
+
+### ***Method Overriding***
+
+A subclass provides its own implementation of a method inherited from the superclass.
+- Same method signature (name and parameters) in the subclass.
+- Superclass method is replaced in the subclass.
+- Achieves [runtime polymorphism]().
+
+> Superclass Method: A generic "greet()" that says "Hello!"<br>
+> Subclass Override: A Indian subclass changes it to "Namaste🙏"
+
+```
+      Superclass (Person)
+             |
+             |  greet() → "Hello!"
+             ↓
+      -----------------
+      |               |
+  Instance 1       Instance 2 (Indian)
+ (Person)         (Overrides greet)
+  greet()          greet() → "Namaste🙏"
+```
+
+<summary>@Java</summary>
+
+```java
+class Person {
+    void greet() {
+        System.out.println("Hello!");
+    }
+}
+
+class Indian extends Person {
+    @Override
+    void greet() {
+        System.out.println("Namaste🙏");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Person p1 = new Person();
+        p1.greet(); // Output: Hello!
+
+        Person p2 = new Indian();  // Runtime polymorphism
+        p2.greet(); // Output: Namaste🙏
+    }
+}
+```
+
+<summary>@C++</summary>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Person {
+public:
+    virtual void greet() {  // Use 'virtual' for overriding
+        cout << "Hello!" << endl;
+    }
+};
+
+class Indian : public Person {
+public:
+    void greet() override {  // Override the greet method
+        cout << "Namaste🙏" << endl;
+    }
+};
+
+int main() {
+    Person p1;
+    p1.greet(); // Output: Hello!
+
+    Indian p2;
+    p2.greet(); // Output: Namaste🙏
+
+    Person* p3 = new Indian();
+    p3->greet(); // Output: Namaste🙏 (Polymorphism)
+
+    delete p3;
+    return 0;
+}
+```
+<summary>@Python</summary>
+
+```python
+class Person:
+    def greet(self):
+        print("Hello!")
+
+class Indian(Person):  # Subclass overriding greet()
+    def greet(self):
+        print("Namaste🙏")
+
+# Object Instantiation
+p1 = Person()
+p1.greet()  # Output: Hello!
+
+p2 = Indian()
+p2.greet()  # Output: Namaste🙏
+```
+
+#### Key Points:
+
+| Feature                        | Python                         | Java                              | C++                                  |
+|--------------------------------|--------------------------------|----------------------------------|--------------------------------------|
+| **Requires Keyword for Overriding?** | ❌ No explicit keyword required | ✅ `@Override` (Recommended) | ✅ `virtual` in base, `override` in derived |
+| **Supports Runtime Polymorphism?** | ✅ Yes                         | ✅ Yes                            | ✅ Yes (Using pointers/references) |
+
+
+
+### ***The Diamond Problem***
+
+The Diamond Problem occurs in languages that support multiple inheritance when a subclass inherits from two classes that both inherit from the same superclass.<br>
+This creates ambiguity because the subclass receives two copies of the same superclass methods.
+#### **Scenario:**
+
+> *Real-World Example: HybridCar 🚗*<br> 
+*A HybridCar inherits from both ElectricCar and FuelCar, which both inherit from Vehicle.
+Without proper handling, HybridCar would receive two copies of Vehicle.*
+```
+            Vehicle
+               ▲
+          ┌────┴────┐
+          │         │
+    ElectricCar  FuelCar
+          ▲         ▲
+          └─────┬───┘
+                │
+            HybridCar
+```
+
+#### ***C++ Implementation (Solves via Virtual Inheritance)***
+
+C++ allows multiple inheritance but requires virtual inheritance to avoid duplicates.
+
+> We use `virtual base class` to avoid duplicates.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Vehicle {
+public:
+    virtual void description() {
+        cout << "I am a vehicle." << endl;
+    }
+};
+
+class ElectricCar : virtual public Vehicle {  // Virtual inheritance
+public:
+    void description() override {
+        Vehicle::description();
+        cout << "I run on electricity." << endl;
+    }
+};
+
+class FuelCar : virtual public Vehicle {  // Virtual inheritance
+public:
+    void description() override {
+        Vehicle::description();
+        cout << "I run on fuel." << endl;
+    }
+};
+
+class HybridCar : public ElectricCar, public FuelCar {
+public:
+    void description() override {
+        ElectricCar::description();
+        FuelCar::description();
+    }
+};
+
+int main() {
+    HybridCar car;
+    car.description();
+    return 0;
+}
+```
+- Virtual inheritance ensures only one copy of Vehicle exists in HybridCar.
+- The method is called in the correct order without duplication.
+- Prevents redundant Vehicle data.
+
+#### ***Python Implementation (Using [super()](#super-in-python-vs-super-in-java) to Solve It)***
+
+Python handles multiple inheritance using the Method Resolution Order (MRO) with the C3 Linearization algorithm.
+
+> We use `super()` to avoid duplicate calls to the Vehicle class.
+```python
+class Vehicle:
+    def description(self):
+        print("I am a vehicle.")
+
+class ElectricCar(Vehicle):
+    def description(self):
+        super().description()  # Calls Vehicle's method
+        print("I run on electricity.")
+
+class FuelCar(Vehicle):
+    def description(self):
+        super().description()  # Calls Vehicle's method
+        print("I run on fuel.")
+
+class HybridCar(ElectricCar, FuelCar):  # Multiple Inheritance
+    def description(self):
+        super().description()  # Resolves method order using MRO
+
+# Object Instantiation
+car = HybridCar()
+car.description()
+
+# Output:
+# I am a vehicle.
+# I run on electricity.
+# I run on fuel.
+```
+- Uses MRO (Method Resolution Order) to determine which method to call. (MRO ensures Vehicle is called only once.)
+- super() follows a linear path (`HybridCar -> ElectricCar -> FuelCar -> Vehicle`).
+- super().description() ensures the base class method is called only once, preventing redundancy.
+
+
+#### ***Java Implementation (Avoids the Diamond Problem with Interfaces)***
+
+Java does not support multiple inheritance for classes but allows multiple interfaces to avoid ambiguity, so it uses interfaces instead.
+
+```java
+interface Vehicle {
+    default void description() {
+        System.out.println("I am a vehicle.");
+    }
+}
+
+interface ElectricCar extends Vehicle {
+    default void description() {
+        Vehicle.super.description();
+        System.out.println("I run on electricity.");
+    }
+}
+
+interface FuelCar extends Vehicle {
+    default void description() {
+        Vehicle.super.description();
+        System.out.println("I run on fuel.");
+    }
+}
+
+class HybridCar implements ElectricCar, FuelCar {
+    @Override
+    public void description() {
+        ElectricCar.super.description(); // Resolving ambiguity explicitly
+        FuelCar.super.description();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        HybridCar car = new HybridCar();
+        car.description();
+    }
+}
+```
+- Uses interfaces instead of multiple inheritance.
+- Explicitly calls the desired interface’s method to resolve conflicts.
+- Possible with interfaces (resolved using default method rules).
+
+#### *Comparision*
+
+| Feature                    | Python (MRO & `super()`)         | Java (Interfaces)                      | C++ (Virtual Inheritance)            |
+|----------------------------|--------------------------------|----------------------------------|--------------------------------------|
+| **Multiple Inheritance Support** | ✅ Yes                      | ❌ No (Only via Interfaces)      | ✅ Yes                               |
+| **Diamond Problem Exists?** | ✅ Yes (Handled via MRO)      | ❌ No (Interfaces prevent it)    | ✅ Yes (Handled via `virtual`)      |
+| **Solution Approach**      | `super()` with MRO             | Interfaces with explicit method calls | `virtual` inheritance in base class |
+| **Duplicate Calls Prevented?** | ✅ Yes                      | ✅ Yes (Explicit calls required) | ✅ Yes (Virtual base class ensures one copy) |
+| **Common Use Case**        | Simplifies multiple inheritance | Avoids class-based multiple inheritance | Needed for multiple inheritance in complex hierarchies |
+
+### `super()` in Python vs `super` in Java
+
+In both Java and Python, super() is used in the context of inheritance to refer to the superclass (Parent Class).\
+- Java
+    - `super` keyword: Can be used to refer to the parent class's members (variables and methods).
+        - `super.variableName` is used to access a variable of the parent class.
+        - `super.methodName()` is used to call a method of the parent class.
+    - `super()` constructor call: `super()` is specifically used to call the constructor of the parent class. 
+        - It must be the first statement in the child class's constructor. 
+        - This is crucial for initializing the parent class's part of the object.
+
+- Python
+    - `super()` function: Is a built-in function that returns a proxy object that allows you to access methods of the parent class.
+    - `super()` is primarily used to call methods of the parent class, including the constructor (`__init__`). It's often used to extend or override parent class behavior while still leveraging the parent's implementation.
+
+### Constructor Chaining
+
+***Plain Language:***
+
+> When one constructor calls another constructor within the same class or in a parent class, ensuring proper initialization.
+
+
+***Real-World Analogy:***
+
+Building a house:
+- Superclass Constructor = Laying the foundation.
+- Subclass Constructor = Adding walls and paint, but first calling the foundation layer.
+
+#### Python Implementation (Using super())
+> In Python, super() is used to call the constructor of the parent class to avoid redundant code.
+
+```python
+class Vehicle:
+    def __init__(self, brand):
+        self.brand = brand
+        print(f"Vehicle: {self.brand} initialized.")
+
+class Car(Vehicle):
+    def __init__(self, brand, model):
+        super().__init__(brand)  # Calls Vehicle's constructor
+        self.model = model
+        print(f"Car Model: {self.model} initialized.")
+
+class ElectricCar(Car):
+    def __init__(self, brand, model, battery_capacity):
+        super().__init__(brand, model)  # Calls Car's constructor
+        self.battery_capacity = battery_capacity
+        print(f"Battery Capacity: {self.battery_capacity} kWh initialized.")
+
+# Object Instantiation
+my_car = ElectricCar("Tesla", "Model S", 100)
+
+# Output:
+# Vehicle: Tesla initialized.
+# Car Model: Model S initialized.
+# Battery Capacity: 100 kWh initialized.  
+```
+- super().__init__() calls the parent class’s constructor.
+- Ensures the base class is always initialized first (constructor chaining).
+- Avoids redundant code when dealing with multiple inheritance.
+
+#### Java Implementation (Using super() & Constructor Chaining)
+
+> In Java, super() is used to call the parent class's constructor, ensuring that initialization is done in order.
+
+```java
+class Vehicle {
+    Vehicle(String brand) {
+        System.out.println("Vehicle: " + brand + " initialized.");
+    }
+}
+
+class Car extends Vehicle {
+    Car(String brand, String model) {
+        super(brand); // Calls Vehicle constructor
+        System.out.println("Car Model: " + model + " initialized.");
+    }
+}
+
+class ElectricCar extends Car {
+    ElectricCar(String brand, String model, int batteryCapacity) {
+        super(brand, model); // Calls Car constructor
+        System.out.println("Battery Capacity: " + batteryCapacity + " kWh initialized.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        ElectricCar myCar = new ElectricCar("Tesla", "Model S", 100);
+    }
+}
+
+// Output
+// Vehicle: Tesla initialized.
+// Car Model: Model S initialized.
+// Battery Capacity: 100 kWh initialized.
+```
+- `super(arguments)` explicitly calls the parent class constructor.
+- Constructor execution follows the inheritance hierarchy (`Vehicle → Car → ElectricCar`).
+- Ensures proper resource initialization across classes.
+
+####  C++ Implementation (Using Base Class Constructor Calls)
+
+>  C++, we typically use an initializer list to call the base class constructor explicitly. This ensures that base class members are properly initialized before the derived class constructor executes..
+
+*Initializer list:*
+- *Ensures Proper Initialization: Base class constructors run before derived class members.*
+- *Efficiency: Directly initializes members instead of default-initializing and then assigning values.*
+- *Mandatory for Const Members: If a class has const or reference members, they must be initialized using an initializer list.*
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Vehicle {
+public:
+    Vehicle(string brand) {
+        cout << "Vehicle: " << brand << " initialized." << endl;
+    }
+};
+
+class Car : public Vehicle {
+public:
+    Car(string brand, string model) : Vehicle(brand) { // Calls Vehicle's constructor
+        cout << "Car Model: " << model << " initialized." << endl;
+    }
+};
+
+class ElectricCar : public Car {
+public:
+    ElectricCar(string brand, string model, int batteryCapacity) 
+        : Car(brand, model) { // Calls Car's constructor
+        cout << "Battery Capacity: " << batteryCapacity << " kWh initialized." << endl;
+    }
+};
+
+int main() {
+    ElectricCar myCar("Tesla", "Model S", 100);
+    return 0;
+}
+
+// Output:
+// Vehicle: Tesla initialized.
+//Car Model: Model S initialized.
+//Battery Capacity: 100 kWh initialized.
+```
+
+- Uses constructor initializer lists (: Vehicle(brand)) to call parent constructors.
+- Ensures base class constructors execute first, avoiding uninitialized objects.
+- Similar to Java, but more explicit due to manual constructor calls.
+
+### Best Practices
+
+| Language | Guidelines |
+|----------|------------|
+| **Java**  | Prefer composition over inheritance. Use interfaces for multiple "traits". |
+| **C++**   | Use virtual inheritance sparingly. Favor interfaces (abstract classes). |
+| **Python**| Leverage mixins for reusable behaviors. Follow MRO conventions. |
+
+### Key Takeaways
+✅ Inheritance is a core OOP pillar, but implementations vary across languages.<br>
+✅ Multiple Inheritance is powerful but risky; handle with care (MRO in Python, interfaces in Java).<br>
+✅ Method Overriding ensures polymorphism, but syntax differs (`@Override` vs `virtual`).<br>
