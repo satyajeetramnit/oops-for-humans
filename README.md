@@ -2668,4 +2668,413 @@ Bird        Airplane
 - **Java**: Differentiates between **abstract classes** and **interfaces**. Only supports multiple inheritance with interfaces.<br>
 - **C++**: Uses **pure virtual functions** to implement abstract classes and interfaces. Multiple inheritance is supported for both.<br>
 <br>
-- **Java** enforces stricter compile-time checks, whereas **Python** is more flexible but dynamically checked at runtime. **C++** provides the most control with **manual memory management** and **explicit virtual functions**. 🚀
+- **Java** enforces stricter compile-time checks, whereas **Python** is more flexible but dynamically checked at runtime. **C++** provides the most control with **manual memory management** and **explicit virtual functions**. 
+
+---
+
+## Class Relationships**  
+### **Introduction & Recap**  
+
+In the [previous section](#abstraction), we learned how **abstraction** simplifies complexity by hiding unnecessary details. Now, let’s explore 
+
+**Class relationships**—the glue that connects objects in OOP. Think of these relationships as friendships: some are casual ("uses-a"), some are lifelong ("has-a"), and some are inseparable ("part-of").  
+
+***Why Class Relationships Matter***:  
+- Model real-world interactions (e.g., a `Driver` *drives* a `Car`).  
+- Define how objects collaborate and depend on each other.  
+
+
+
+### **Basic Concepts & Definitions**  
+- **Association**: A general relationship where one class knows about another (e.g., `Teacher` ↔ `Student`). <br>
+- **Aggregation**: A "has-a" relationship where parts *can exist independently* (e.g., `University` has `Departments`).<br>  
+- **Composition**: A "has-a" relationship where parts *cannot exist without the whole* (e.g., `House` has `Rooms`).<br>  
+- **Dependency**: A temporary "uses-a" relationship (e.g., `Person` uses a `CoffeeCup`).<br>  
+
+
+
+### **Association**  
+*Plain Language*:  
+> A simple, flexible link between two classes. They can interact, but neither owns the other.  
+
+*Real-World Analogy*:  
+> A **teacher** and **student** in a classroom:  
+> - The teacher knows the student (and vice versa).  
+> - Both exist independently (if the teacher leaves, the student remains).  
+
+---
+
+#### ***Examples:***  
+
+<summary>@Python</summary>
+
+```python  
+class Teacher:  
+    def __init__(self, name):  
+        self.name = name  
+
+class Student:  
+    def __init__(self, name, teacher):  
+        self.name = name  
+        self.teacher = teacher  # Association  
+
+# Creating objects  
+mr_smith = Teacher("Mr. Smith")  
+alice = Student("Alice", mr_smith)  
+print(alice.teacher.name)  # Output: Mr. Smith
+```
+
+<summary>@Java</summary> 
+
+```java
+class Teacher {
+    String name;
+
+    Teacher(String name) {
+        this.name = name;
+    }
+}
+
+class Student {
+    String name;
+    Teacher teacher;  // Association
+
+    Student(String name, Teacher teacher) {
+        this.name = name;
+        this.teacher = teacher;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Teacher mrSmith = new Teacher("Mr. Smith");
+        Student alice = new Student("Alice", mrSmith);
+        System.out.println(alice.teacher.name);  // Output: Mr. Smith
+    }
+}
+```
+
+<summary>@C++</summary>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Teacher {
+public:
+    string name;
+    Teacher(string n) : name(n) {}
+};
+
+class Student {
+public:
+    string name;
+    Teacher* teacher;  // Association
+
+    Student(string n, Teacher* t) : name(n), teacher(t) {}
+};
+
+int main() {
+    Teacher mrSmith("Mr. Smith");
+    Student alice("Alice", &mrSmith);
+    cout << alice.teacher->name << endl;  // Output: Mr. Smith
+    return 0;
+}
+```
+
+### **How It Works?**  
+- **No ownership**: Both classes can exist independently.
+- **Loose coupling**: Objects are linked without tight dependency.
+- **No lifecycle dependency**: Deleting one object doesn't affect the other.
+  
+
+### **Aggregation ("Has-a" with Independent Lifecycle)**  
+*Plain Language*:  
+> A whole *contains* parts, but parts can exist on their own.  
+
+*Real-World Analogy*:  
+> A **university** and its **departments**:  
+> - The university has departments (e.g., Computer Science, Biology).  
+> - Departments can exist even if the university closes.  
+
+
+#### ***Example*** 
+
+<summary>@python</summary>
+
+```python  
+class Department:  
+    def __init__(self, name):  
+        self.name = name  
+
+class University:  
+    def __init__(self, name):  
+        self.name = name  
+        self.departments = []  # Aggregation  
+
+    def add_department(self, department):  
+        self.departments.append(department)  
+
+# Independent objects  
+cs_dept = Department("Computer Science")  
+mit = University("MIT")  
+mit.add_department(cs_dept)  
+
+# Departments exist even if the university closes  
+del mit  
+print(cs_dept.name)  # Output: Computer Science  
+```
+
+<summary>@Java</summary>
+
+```java
+class Department {
+    String name;
+    Department(String name) {
+        this.name = name;
+    }
+}
+
+class University {
+    String name;
+    List<Department> departments = new ArrayList<>();  // Aggregation
+
+    University(String name) {
+        this.name = name;
+    }
+
+    void addDepartment(Department dept) {
+        departments.add(dept);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Department csDept = new Department("Computer Science");
+        University mit = new University("MIT");
+        mit.addDepartment(csDept);
+        mit = null;
+        System.out.println(csDept.name);  // Output: Computer Science
+    }
+}
+```
+
+
+#### <summary>@C++</summary> 
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Department {
+public:
+    string name;
+    Department(string n) : name(n) {}
+};
+
+class University {
+public:
+    string name;
+    vector<Department*> departments;  // Aggregation
+
+    University(string n) : name(n) {}
+
+    void addDepartment(Department* dept) {
+        departments.push_back(dept);
+    }
+};
+
+int main() {
+    Department csDept("Computer Science");
+    University mit("MIT");
+    mit.addDepartment(&csDept);
+    // mit is deleted, but csDept still exists
+    cout << csDept.name << endl;  // Output: Computer Science
+    return 0;
+}
+```
+
+**How It Works?**  
+- **Has-a relationship**: Whole contains parts, but parts **can exist independently**.
+- **No lifecycle dependency**: If the whole is deleted, parts **still exist**.
+- **Weaker ownership** compared to Composition.
+
+
+### Composition ("Has-a" with Dependent Lifecycle) 
+*Plain Language*:  
+> A whole *owns* parts that cannot exist independently.  
+
+*Real-World Analogy*:  
+> A **car** and its **engine**:  
+> - The engine is part of the car.  
+> - If the car is scrapped, the engine is destroyed too.  
+
+*Code Example*:  
+
+<summary>@Python</summary>
+
+```python  
+class Engine:  
+    def __init__(self, type):  
+        self.type = type  
+
+class Car:  
+    def __init__(self, model):  
+        self.model = model  
+        self.engine = Engine("V8")  # Composition  
+
+tesla = Car("Model S")  
+# If the car is deleted, the engine dies with it.  
+```  
+
+
+#### ***Composition ("Has-a" with Dependent Lifecycle)***  
+*Plain Language*:  
+> A whole *owns* parts that cannot exist independently.  
+
+*Real-World Analogy*:  
+> A **car** and its **engine**:  
+> - The engine is part of the car.  
+> - If the car is scrapped, the engine is destroyed too.  
+
+
+
+<summary>@Python</summary>
+
+
+```python  
+class Engine:  
+    def __init__(self, type):  
+        self.type = type  
+
+class Car:  
+    def __init__(self, model):  
+        self.model = model  
+        self.engine = Engine("V8")  # Composition  
+
+tesla = Car("Model S")  
+print(tesla.engine.type)  # Output: V8  
+
+# If the car is deleted, the engine dies with it.  
+del tesla
+# print(tesla.engine.type)  # Error! tesla no longer exists  
+```
+
+
+<summary>@Java</summary>
+
+```java
+class Engine {
+    String type;
+    Engine(String type) {
+        this.type = type;
+    }
+}
+
+class Car {
+    String model;
+    Engine engine;  // Composition
+
+    Car(String model) {
+        this.model = model;
+        this.engine = new Engine("V8");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car tesla = new Car("Model S");
+        System.out.println(tesla.engine.type);  // Output: V8
+        tesla = null;
+        // Engine is also destroyed since it's part of the car
+    }
+}
+```
+
+<summary>@C++</summary> 
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Engine {
+public:
+    string type;
+    Engine(string t) : type(t) {}
+};
+
+class Car {
+public:
+    string model;
+    Engine engine;  // Composition
+
+    Car(string m) : model(m), engine("V8") {}
+};
+
+int main() {
+    Car tesla("Model S");
+    cout << tesla.engine.type << endl;  // Output: V8
+    // When tesla is destroyed, engine is also destroyed
+    return 0;
+}
+```
+
+***How It Works?***
+- **Has-a relationship**: Whole contains parts that **cannot exist independently**.
+- **Lifecycle dependency**: If the whole is deleted, parts **die with it**.
+- **Strong ownership** compared to Aggregation.
+
+
+#### ***Summary Table***  
+
+| Concept         | Association            | Aggregation                 | Composition                   |
+|-----------------|-------------------------|------------------------------|-------------------------------|
+| **Definition**  | Relationship without ownership | Whole-part with independent parts | Whole-part with dependent parts |
+| **Lifecycle**   | Independent             | Independent                  | Dependent                      |
+| **Ownership**   | No ownership            | Weak ownership                | Strong ownership               |
+| **Example**     | Teacher & Student       | University & Departments     | Car & Engine                   |
+
+
+
+### **Practical Examples & Code Samples**  
+#### **Visual Diagrams / UML Representation (Simplified)**  
+```  
+Association: Teacher — Student  
+Aggregation: University ◇— Department  
+Composition: Car ◆— Engine  
+Dependency: Person ╌> CoffeeCup  
+```  
+**Aggregation vs. Composition**:  
+```  
+Aggregation (University ◇— Department):  
+┌─────────────┐        ┌─────────────┐  
+│  University │        │  Department │  
+└─────────────┘        └─────────────┘  
+       ◇                      ▲  
+       └──────────────────────┘  
+
+Composition (Car ◆— Engine):  
+┌──────────┐        ┌─────────┐  
+│   Car    │◆───────│ Engine  │  
+└──────────┘        └─────────┘  
+```  
+---
+
+### **Usage Guidelines & Best Practices**  
+**When to Use**:  
+- **Aggregation**: For loosely coupled parts (e.g., shopping cart and items).  
+- **Composition**: For tightly coupled parts (e.g., a human and their heart).  
+- **Dependency**: For short-term collaborations (e.g., passing a logger to a function).  
+
+**Pitfalls to Avoid**:  
+- **Confusing Aggregation & Composition**: Ask, "Can the part exist alone?"  
+- **Circular Dependencies**: Class A depends on B, and B depends on A (creates spaghetti code).  
+
+**Pro Tips**:  
+- Prefer **composition over inheritance** for code flexibility.  
+- Use dependency injection to manage temporary relationships.  
+
+**Key Takeaways**  
+- **Aggregation**: Independent parts (e.g., playlist and songs).  
+- **Composition**: Inseparable parts (e.g., brain and body).  
+- **Dependency**: Temporary collaboration (e.g., a function using a logger).
