@@ -48,9 +48,10 @@ Ever read about OOP, felt like you understood it, and then completely blanked ou
    - [Runtime (Method Overriding)](#runtime-polymorphism-method-overriding)  
    - [Dynamic Method Dispatch](#dynamic-method-dispatch)
 
-6. **Abstraction**  
-   - Abstract Classes, Interfaces  
-   - Pure Virtual Functions  
+6. **[Abstraction](#abstraction)**  
+   - [Abstract Classes](#abstract-classes)
+   - [Interfaces](#interfaces)  
+   - [Pure Virtual Functions](#pure-virtual-functions)  
 
 7. **Class Relationships**  
    - Association, Aggregation, Composition, Dependency  
@@ -932,7 +933,7 @@ Subclass (Derived Class): The child class that inherits from the superclass. (Sp
 | Term                 | Definition                                          | Language-Specific Notes |
 |----------------------|--------------------------------------------------|-------------------------|
 | **Single Inheritance** | A class inherits from one parent class.          | Supported in Java, C++, Python. |
-| **Multiple Inheritance** | A class inherits from multiple parent classes.   | C++ and Python allow this. Java uses interfaces. |
+| **Multiple Inheritance** | A class inherits from multiple parent classes.   | C++ and Python allow this. Java uses [interfaces](#interfaces). |
 | **Method Overriding** | Child class redefines a method inherited from the parent. | Use `@Override` in Java, `virtual/override` in C++, implicit in Python. |
 | **super() Keyword**  | Calls the parent class’s constructor/method.    | `super()` in Java/Python; `ParentClass::method()` in C++. |
 
@@ -998,7 +999,7 @@ class Car(Vehicle):
 
 #### Key Points:
 - All languages enforce "is-a" relationships (e.g., Car *is a* Vehicle).
-- **Java:** Single inheritance for classes, multiple inheritance for interfaces.
+- **Java:** Single inheritance for classes, multiple inheritance for [interfaces](#interfaces).
 - **C++/Python:** Support multiple inheritance.
 
 
@@ -1033,7 +1034,7 @@ class HybridCar implements Engine, ElectricSystem {
 }
 ```
 
-> ***Note:** Java does not support multiple inheritance directly due to the "[Diamond Problem](#the-diamond-problem)," so interfaces are used instead.*
+> ***Note:** Java does not support multiple inheritance directly due to the "[Diamond Problem](#the-diamond-problem)," so [interfaces](#interfaces) are used instead.*
 
 <summary>@C++</summary>
 
@@ -1071,7 +1072,7 @@ class HybridCar(Engine, ElectricSystem):
 |----------|-----------------------------|----------------------|
 | **C++**  | Yes (for classes) | Explicit scope resolution (`Engine::start()` vs `ElectricSystem::start()`). |
 | **Python** | Yes (for classes) | Method Resolution Order (MRO) – follows the order of parent classes. |
-| **Java** | No (only via interfaces) | Interfaces have no method bodies until Java 8 (default methods). |
+| **Java** | No (only via [interfaces](#interfaces)) | [Interfaces](#interfaces) have no method bodies until Java 8 (default methods). |
 
 ⚠️ Pitfall: The "[diamond problem](#the-diamond-problem)" (conflicts if both parents have the same method).
 
@@ -1337,7 +1338,7 @@ class Bat implements Mammal, Bird { // Implements both interfaces
 }
 ```
 
-> ***Note:** Java does not support multiple inheritance directly due to the "[Diamond Problem](#the-diamond-problem)," so interfaces are used instead.*
+> ***Note:** Java does not support multiple inheritance directly due to the "[Diamond Problem](#the-diamond-problem)," so [interfaces](#interfaces) are used instead.*
 
 <summary>@C++</summary>
 
@@ -1672,13 +1673,13 @@ public class Main {
     }
 }
 ```
-- Uses interfaces instead of multiple inheritance.
+- Uses [interfaces](#interfaces) instead of multiple inheritance.
 - Explicitly calls the desired interface’s method to resolve conflicts.
 - Possible with interfaces (resolved using default method rules).
 
 #### *Comparison*
 
-| Feature                    | Python (MRO & `super()`)         | Java (Interfaces)                      | C++ (Virtual Inheritance)            |
+| Feature                    | Python (MRO & `super()`)         | Java ([Interfaces](#interfaces))                      | C++ (Virtual Inheritance)            |
 |----------------------------|--------------------------------|----------------------------------|--------------------------------------|
 | **Multiple Inheritance Support** | ✅ Yes                      | ❌ No (Only via Interfaces)      | ✅ Yes                               |
 | **Diamond Problem Exists?** | ✅ Yes (Handled via MRO)      | ❌ No (Interfaces prevent it)    | ✅ Yes (Handled via `virtual`)      |
@@ -1841,8 +1842,8 @@ int main() {
 
 | Language | Guidelines |
 |----------|------------|
-| **Java**  | Prefer composition over inheritance. Use interfaces for multiple "traits". |
-| **C++**   | Use virtual inheritance sparingly. Favor interfaces (abstract classes). |
+| **Java**  | Prefer composition over inheritance. Use [interfaces](#interfaces) for multiple "traits". |
+| **C++**   | Use virtual inheritance sparingly. Favor interfaces ([abstract classes](#abstract-classes)). |
 | **Python**| Leverage mixins for reusable behaviors. Follow MRO conventions. |
 
 ### Key Takeaways
