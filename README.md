@@ -53,8 +53,11 @@ Ever read about OOP, felt like you understood it, and then completely blanked ou
    - [Interfaces](#interfaces)  
    - [Pure Virtual Functions](#pure-virtual-functions)  
 
-7. **Class Relationships**  
-   - Association, Aggregation, Composition, Dependency  
+7. **[Class Relationships](#class-relationships)**  
+   - [Association](#association)
+   - [Aggregation](#aggregation-has-a-with-independent-lifecycle)
+   - [Composition](#composition-has-a-with-dependent-lifecycle)
+   - [Dependency](#composition-has-a-with-dependent-lifecycle)  
 
 ---
 
@@ -2702,9 +2705,7 @@ In the [previous section](#abstraction), we learned how **abstraction** simplifi
 > - The teacher knows the student (and vice versa).  
 > - Both exist independently (if the teacher leaves, the student remains).  
 
----
-
-#### ***Examples:***  
+#### ***Code Examples:***  
 
 <summary>@Python</summary>
 
@@ -2782,13 +2783,13 @@ int main() {
 }
 ```
 
-### **How It Works?**  
+***How It Works?***  
 - **No ownership**: Both classes can exist independently.
 - **Loose coupling**: Objects are linked without tight dependency.
 - **No lifecycle dependency**: Deleting one object doesn't affect the other.
   
 
-### **Aggregation ("Has-a" with Independent Lifecycle)**  
+#### **Aggregation ("Has-a" with Independent Lifecycle)**  
 *Plain Language*:  
 > A whole *contains* parts, but parts can exist on their own.  
 
@@ -2798,7 +2799,7 @@ int main() {
 > - Departments can exist even if the university closes.  
 
 
-#### ***Example*** 
+*Code Example*
 
 <summary>@python</summary>
 
@@ -2860,7 +2861,8 @@ public class Main {
 ```
 
 
-#### <summary>@C++</summary> 
+<summary>@C++</summary> 
+
 ```cpp
 #include <iostream>
 #include <vector>
@@ -2894,13 +2896,13 @@ int main() {
 }
 ```
 
-**How It Works?**  
+***How It Works?***  
 - **Has-a relationship**: Whole contains parts, but parts **can exist independently**.
 - **No lifecycle dependency**: If the whole is deleted, parts **still exist**.
 - **Weaker ownership** compared to Composition.
 
 
-### Composition ("Has-a" with Dependent Lifecycle) 
+#### **Composition ("Has-a" with Dependent Lifecycle)**  
 *Plain Language*:  
 > A whole *owns* parts that cannot exist independently.  
 
@@ -2909,38 +2911,7 @@ int main() {
 > - The engine is part of the car.  
 > - If the car is scrapped, the engine is destroyed too.  
 
-*Code Example*:  
-
 <summary>@Python</summary>
-
-```python  
-class Engine:  
-    def __init__(self, type):  
-        self.type = type  
-
-class Car:  
-    def __init__(self, model):  
-        self.model = model  
-        self.engine = Engine("V8")  # Composition  
-
-tesla = Car("Model S")  
-# If the car is deleted, the engine dies with it.  
-```  
-
-
-#### ***Composition ("Has-a" with Dependent Lifecycle)***  
-*Plain Language*:  
-> A whole *owns* parts that cannot exist independently.  
-
-*Real-World Analogy*:  
-> A **car** and its **engine**:  
-> - The engine is part of the car.  
-> - If the car is scrapped, the engine is destroyed too.  
-
-
-
-<summary>@Python</summary>
-
 
 ```python  
 class Engine:  
@@ -3036,8 +3007,7 @@ int main() {
 
 
 
-### **Practical Examples & Code Samples**  
-#### **Visual Diagrams / UML Representation (Simplified)**  
+### **Visual Diagrams / UML Representation (Simplified)**  
 ```  
 Association: Teacher — Student  
 Aggregation: University ◇— Department  
