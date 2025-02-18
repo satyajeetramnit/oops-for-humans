@@ -3216,13 +3216,15 @@ public class Main {
     print(obj.x)  # Output: 0
     ```
 
-#### **Key Differences:**  
+#### **Key Differences:** 
+
 | Aspect               | C++                                 | Java and Python                        |
 |----------------------|-------------------------------------|-----------------------------------------|
 | When provided        | Always, if no constructor is defined | Only if no constructor (default or parameterized) is defined |
 | Behavior             | Does nothing; leaves members uninitialized | Initializes members to default values (e.g., `0`, `null`, `None`) |
 | Customization        | Can be explicitly defined or suppressed | Must be explicitly defined if any other constructor is present |
 | Member Initialization | Garbage values for primitive types  | Default values for primitive types and references |
+
 
 > This distinction is crucial for understanding object initialization and avoiding uninitialized variables in C++ while ensuring consistent default behavior in Java and Python.
 <br>
