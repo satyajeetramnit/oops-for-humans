@@ -3557,6 +3557,7 @@ with open("example.txt", "r") as file:
         - Use `contextlib` for custom context managers.  
 
 #### **Comparative Analysis Table**  
+
 | Feature          | C++             | Java              | Python              |
 |------------------|-----------------|-------------------|---------------------|
 | Default Constructor | Implicit if no other constructor | Implicit if no other constructor | Implicit if no other constructor |
@@ -3565,6 +3566,7 @@ with open("example.txt", "r") as file:
 | Move Constructor | Yes | No | No |
 | Destructor | Explicit (`~ClassName()`) | No (Garbage Collection) | `__del__()` (Unreliable) |
 | Resource Cleanup | Manual | `try-with-resources` | Context Managers (`with`) |
+
 
 #### **Key Takeaways**   
 - **Constructors** initialize objects; **destructors** clean them up.  
