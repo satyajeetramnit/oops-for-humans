@@ -62,9 +62,13 @@ Ever read about OOP, felt like you understood it, and then completely blanked ou
 ---
 
 ### **Advanced OOP Topics**  
-8. **Constructors and Destructors**  
-   - Default, Parameterized, Copy Constructors  
-   - Destructors in Java/Python/C++  
+8. **[Constructors and Destructors](#constructors-and-destructors)**  
+   - [Constructors in Java/Python/C++](#concepts--definitions)
+        - [Default](#default-constructor) 
+        - [Parameterized](#parameterized-constructor)
+        - [Copy](#copy-constructor-c-specific)
+        - [Move](#move-constructor-c-specific)
+   - [Destructors in Java/Python/C++](#destructors)  
 
 9. **Object Lifetime & Memory Management**  
    - Garbage Collection vs. Manual Memory Management  
@@ -3067,7 +3071,7 @@ In the [previous section](#class-relationships), we explored how classes relate 
   - Play a crucial role in manual memory management (e.g., C++).  
 
 
-### **Basic Concepts & Definitions**  
+### **Concepts & Definitions**  
 - **Constructor**  
 A special method called when an object is created. It initializes the object's attributes and sets up any necessary resources.  
     - **Types of Constructors**:  
