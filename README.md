@@ -4212,10 +4212,10 @@ Think of generics as reusable molds: you can cast them in different materials (t
 
 ### **Type Parameterization**  
 *Plain Language*:  
-Define classes/methods with a placeholder type (`T`) that is specified later.  
+> Define classes/methods with a placeholder type (`T`) that is specified later.  
 
 *Real-World Analogy*:  
-A coffee machine (**generic class**) that works with any pod type (**`T`** = coffee, tea, hot chocolate).  
+> A coffee machine (**generic class**) that works with any pod type (**`T`** = coffee, tea, hot chocolate).  
 
 
 #### **C++ Templates**  
@@ -4277,10 +4277,10 @@ print(int_box.get())  # Output: 42
 
 ### **Bounded Types**  
 *Plain Language*:  
-Restrict generics to types that meet certain conditions (e.g., "must be a subclass of `Animal`").  
+> Restrict generics to types that meet certain conditions (e.g., "must be a subclass of `Animal`").  
 
 *Real-World Analogy*:  
-A printer that only accepts **USB-compatible devices** (bounded by the USB interface).  
+> A printer that only accepts **USB-compatible devices** (bounded by the USB interface).  
 
 
 #### **C++ Concepts (C++20)**  
@@ -4388,3 +4388,169 @@ Animal Shelter
  
 - **Generics/Templates** enable reusable, type-safe code.  
 - **Bounded Types** restrict generics to specific type families.  
+
+
+## **Exception Handling**  
+### **Introduction**  
+In the [previous section](#), we covered generics/templates for type-safe code. Now, let’s tackle <br>
+**exception handling**—the safety net for gracefully managing runtime errors. <br>
+Think of it like a seatbelt: you hope you never need it, but it saves you when things go wrong.  
+
+***Why Exception Handling?***  
+- Prevent crashes from unexpected errors (e.g., file not found, division by zero).  
+- Separate error handling from business logic for cleaner code.  
+
+### **Custom Exceptions**  
+*Plain Language*:  
+> Custom exceptions let you define *domain-specific errors* (e.g., `InvalidEmailException` for user signups).  
+
+*Real-World Analogy*:  
+> A restaurant’s custom error codes:  
+> - `TableFullException` (no seats left).  
+> - `OutOfStockException` (dish unavailable).  
+
+
+#### **Java**  
+```java  
+// Custom exception  
+class InvalidEmailException extends Exception {  
+    public InvalidEmailException(String message) {  
+        super(message);  
+    }  
+}  
+
+// Usage  
+public class UserService {  
+    public void register(String email) throws InvalidEmailException {  
+        if (!email.contains("@")) {  
+            throw new InvalidEmailException("Invalid email: " + email);  
+        }  
+    }  
+}  
+```  
+
+#### **Python**  
+```python  
+# Custom exception  
+class InvalidEmailError(Exception):  
+    def __init__(self, message):  
+        super().__init__(message)  
+
+# Usage  
+def register(email):  
+    if "@" not in email:  
+        raise InvalidEmailError(f"Invalid email: {email}")  
+```  
+
+#### **C++**  
+```cpp  
+#include <stdexcept>  
+
+// Custom exception  
+class InvalidEmailException : public std::runtime_error {  
+public:  
+    InvalidEmailException(const std::string& msg)  
+        : std::runtime_error(msg) {}  
+};  
+
+// Usage  
+void registerUser(const std::string& email) {  
+    if (email.find("@") == std::string::npos) {  
+        throw InvalidEmailException("Invalid email: " + email);  
+    }  
+}  
+```  
+
+### **Try-Catch Blocks**  
+*Plain Language*:  
+> - **Try**: Code that might throw an exception.  
+> - **Catch**: Handle specific exceptions.  
+> - **Finally (Java/Python)**: Cleanup code (always runs).  
+
+*Real-World Analogy*:  
+> - **Try** = Driving a car.  
+> - **Catch** = Airbags deploying on collision.  
+> - **Finally** = Towing the car afterward, regardless of crash.  
+
+#### **Java**  
+```java  
+try {  
+    userService.register("alice.example.com");  
+} catch (InvalidEmailException e) {  
+    System.out.println("Error: " + e.getMessage());  
+} finally {  
+    System.out.println("Cleanup: Closing DB connection.");  
+}  
+```  
+
+#### **Python**  
+```python  
+try:  
+    register("alice.example.com")  
+except InvalidEmailError as e:  
+    print(f"Error: {e}")  
+finally:  
+    print("Cleanup: Closing file handles.")  
+```  
+
+#### **C++**  
+```cpp  
+try {  
+    registerUser("alice.example.com");  
+} catch (const InvalidEmailException& e) {  
+    std::cout << "Error: " << e.what() << std::endl;  
+}  
+// No 'finally' in C++ – use RAII (smart pointers) for cleanup!  
+```  
+
+### **Cross-Language Comparison**  
+| **Feature**           | **Java**                          | **Python**                      | **C++**                        |  
+|-----------------------|-----------------------------------|---------------------------------|--------------------------------|  
+| **Custom Exception**  | Extend `Exception`/`RuntimeException` | Extend `Exception`            | Extend `std::exception`        |  
+| **Try-Catch**         | `try`-`catch`-`finally`           | `try`-`except`-`else`-`finally` | `try`-`catch`                |  
+| **Finally Block**     | Yes                               | Yes                             | No (use destructors/RAII)      |  
+| **Checked Exceptions**| Yes (must declare `throws`)       | No                              | No                             |  
+
+
+
+### **Usage Guidelines & Best Practices**  
+*When to Use*:  
+- **Custom Exceptions**: For domain-specific errors (e.g., `PaymentFailedException`).  
+- **Try-Catch**: For recoverable errors (e.g., network timeouts, invalid input).  
+
+*Pitfalls to Avoid*:  
+- **Swallowing Exceptions**: Empty `catch` blocks hide bugs.  
+- **Catching Generic Exceptions**: Prefer specific handlers (e.g., `catch (IOException e)` over `catch (Exception e)`).  
+- **Resource Leaks**: Always release resources (use `finally` or RAII).  
+
+*Pro Tips*:  
+- **Java**: Use `try-with-resources` for auto-closing files/streams.  
+- **Python**: Use `with` statements for context managers (files, sockets).  
+- **C++**: Use smart pointers (`unique_ptr`, `shared_ptr`) for automatic cleanup.  
+
+
+### **Visual Representation**  
+#### **Exception Handling Flow**  
+```  
+   Try Block  
+      │  
+      ▼  
+   Error? ───Y───▶ Catch Block  
+      │  
+      N  
+      ▼  
+   Continue  
+```  
+
+#### **Custom Exception Hierarchy**  
+```  
+          Exception (Base)  
+             ▲  
+             │  
+InvalidEmailException (Custom)  
+```  
+
+### **Key Takeaways**  
+
+- **Custom Exceptions** make error handling meaningful.  
+- **Try-Catch** blocks isolate error-prone code.  
