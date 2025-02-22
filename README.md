@@ -6300,3 +6300,184 @@ class ReportGenerator {
 3. **LSP**: Subclasses must behave like parents.  
 4. **ISP**: Keep interfaces lean.  
 5. **DIP**: Code to abstractions, not details.  
+
+
+## **Coupling and Cohesion**  
+### **Introduction**  
+**Coupling** and **Cohesion** are two pillars of maintainable OOP design. <br>Together, they determine how modular, flexible, and understandable your codebase is.  
+
+### **Coupling**  
+*Definition*:  
+> - **Coupling** measures how closely two classes/modules depend on each other.  
+
+| **Low Coupling**                          | **High Coupling**                          |  
+|-------------------------------------------|--------------------------------------------|  
+| Classes interact through interfaces/abstract contracts. | Classes directly depend on concrete implementations. |  
+| Changes in one class rarely affect others. | Changes cascade across the system. |  
+| **Example**: A `PaymentService` depends on a `PaymentGateway` interface, not a specific provider. | **Example**: A `ReportGenerator` tightly coupled to a `MySQLDatabase` class. |  
+
+#### **Code Example**:  
+**High Coupling (Bad)**:  
+```java  
+class MySQLDatabase { /* ... */ }  
+
+class ReportGenerator {  
+    private MySQLDatabase database;  // Direct dependency on MySQL  
+    public ReportGenerator() {  
+        this.database = new MySQLDatabase();  
+    }  
+}  
+```  
+
+**Low Coupling (Good)**:  
+```java  
+interface Database { void connect(); }  
+
+class MySQLDatabase implements Database { /* ... */ }  
+class MongoDB implements Database { /* ... */ }  
+
+class ReportGenerator {  
+    private Database database;  // Depends on abstraction  
+    public ReportGenerator(Database database) {  
+        this.database = database;  
+    }  
+}  
+```  
+
+### **Cohesion**  
+*Definition*:  
+> - **Cohesion** measures how closely the responsibilities of a class/module are related.  
+
+| **High Cohesion**                         | **Low Cohesion**                          |  
+|-------------------------------------------|--------------------------------------------|  
+| A class has a single, focused purpose. | A class handles multiple unrelated tasks. |  
+| **Example**: A `UserAuthenticator` class that only handles login/logout. | **Example**: A `UserManager` that handles authentication, emailing, and database storage. |  
+
+#### **Code Example**:  
+**Low Cohesion (Bad)**:  
+```python  
+class UserManager:  
+    def authenticate(self, user): ...  
+    def send_email(self, user): ...  
+    def save_to_db(self, user): ...  
+```  
+
+**High Cohesion (Good)**:  
+```python  
+class UserAuthenticator:  
+    def authenticate(self, user): ...  
+
+class EmailService:  
+    def send_email(self, user): ...  
+
+class UserRepository:  
+    def save_to_db(self, user): ...  
+```  
+
+### **Key Takeaways**:  
+- **Low Coupling**: Reduces ripple effects of changes.  
+- **High Cohesion**: Makes code easier to test, debug, and reuse.  
+
+
+## **Composition Over Inheritance Principle**  
+The **Composition Over Inheritance Principle** advocates building complex objects by combining smaller, reusable components rather than inheriting from a hierarchy.  
+
+***Why It Matters?***:  
+- **Flexibility**: Swap components at runtime (e.g., change a bird’s flying behavior).  
+- **Avoids Fragile Base Class**: Changes in parent classes won’t break subclasses.  
+
+
+### **Inheritance vs. Composition**  
+#### **Inheritance Example (Problem)**:  
+```java  
+class Bird {  
+    void fly() { System.out.println("Flying!"); }  
+}  
+
+class Penguin extends Bird {  
+    // Penguins can’t fly! Override with empty method?  
+    @Override  
+    void fly() { throw new UnsupportedOperationException(); }  
+}  
+```  
+**Issues**:  
+- Violates **Liskov Substitution Principle** (Penguin isn’t substitutable for Bird).  
+- Rigid hierarchy: Can’t reuse `fly()` logic for non-bird objects (e.g., airplanes).  
+
+#### **Composition Example (Solution)**:  
+```java  
+interface Flyable { void fly(); }  
+
+class CanFly implements Flyable {  
+    public void fly() { System.out.println("Flying!"); }  
+}  
+
+class CannotFly implements Flyable {  
+    public void fly() { System.out.println("Can’t fly!"); }  
+}  
+
+class Bird {  
+    private Flyable flyBehavior;  
+    public Bird(Flyable flyBehavior) {  
+        this.flyBehavior = flyBehavior;  
+    }  
+    void fly() { flyBehavior.fly(); }  
+}  
+
+// Usage  
+Bird eagle = new Bird(new CanFly());  
+Bird penguin = new Bird(new CannotFly());  
+```  
+
+### **Benefits of Composition**  
+- **Reusability**: Components like `Flyable` can be reused across unrelated classes (e.g., `Airplane`).  
+- **Runtime Flexibility**: Change behavior dynamically (e.g., a bird losing wings).  
+- **Simpler Testing**: Mock components in isolation.  
+
+### **Cross-Language Examples**  
+#### **Python**:  
+```python  
+class Flyable:  
+    def fly(self): pass  
+
+class CanFly(Flyable):  
+    def fly(self): print("Flying!")  
+
+class Bird:  
+    def __init__(self, fly_behavior):  
+        self.fly_behavior = fly_behavior  
+
+    def fly(self):  
+        self.fly_behavior.fly()  
+
+penguin = Bird(CanFly())  # Wait, penguins can’t fly!  
+penguin.fly_behavior = CannotFly()  # Fix at runtime!  
+```  
+
+#### **C++**:  
+```cpp  
+class FlyBehavior {  
+public:  
+    virtual void fly() = 0;  
+};  
+
+class CanFly : public FlyBehavior {  
+public:  
+    void fly() override { cout << "Flying!"; }  
+};  
+
+class Bird {  
+    FlyBehavior* flyBehavior;  
+public:  
+    Bird(FlyBehavior* fb) : flyBehavior(fb) {}  
+    void fly() { flyBehavior->fly(); }  
+};  
+```  
+
+***When to Use Inheritance?***:  
+- **“Is-a” Relationships**: Model strict hierarchies (e.g., `Car` is a `Vehicle`).  
+- **Shared Core Logic**: When subclasses truly extend (not replace) parent behavior.  
+
+### **Key Takeaways**:  
+- **Prefer Composition**: For code reuse, flexibility, and avoiding hierarchy pitfalls.  
+- **Use Inheritance Sparingly**: Only when subclasses truly specialize (not just share code).  
