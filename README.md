@@ -5562,3 +5562,244 @@ Deep Copy: Person ──▶ New Address
 
 - **Shallow Copy**: Fast but risky for mutable objects.  
 - **Deep Copy**: Safe but resource-intensive.  
+
+## **Immutable Objects**  
+### **Introduction & Recap**  
+In the [previous section](#object-cloning-shallow-vs-deep-copy), we learned about object cloning. Now, let’s explore <br>
+**immutable objects**—objects whose state *cannot change* after creation. 
+
+Think of them as ancient artifacts: once crafted, they stay the same forever.  
+
+***Why Immutable Objects?***  
+- **Thread-safe**: No risk of concurrent modification.  
+- **Predictable**: State remains constant, simplifying debugging.  
+- **Cacheable**: Safe to reuse (e.g., `String` in Java).  
+
+
+### **Cross-Language Implementation**  
+#### **Java**  
+```java  
+// All fields are final, no setters  
+public final class ImmutablePerson {  
+    private final String name;  
+    private final int age;  
+
+    public ImmutablePerson(String name, int age) {  
+        this.name = name;  
+        this.age = age;  
+    }  
+
+    // Return new instance for "modifications"  
+    public ImmutablePerson withAge(int newAge) {  
+        return new ImmutablePerson(this.name, newAge);  
+    }  
+}  
+```  
+
+#### **Python**  
+```python  
+from dataclasses import dataclass  
+
+@dataclass(frozen=True)  # Makes fields immutable  
+class ImmutablePerson:  
+    name: str  
+    age: int  
+
+# Usage  
+alice = ImmutablePerson("Alice", 30)  
+# alice.age = 31 → Error: FrozenInstanceError  
+```  
+
+#### **C++**  
+```cpp  
+class ImmutablePerson {  
+public:  
+    const std::string name;  
+    const int age;  
+
+    ImmutablePerson(std::string name, int age) : name(name), age(age) {}  
+};  
+
+// Usage  
+ImmutablePerson alice("Alice", 30);  
+// alice.age = 31 → Error: assignment of read-only member  
+```  
+
+
+### **Best Practices & Pitfalls**  
+*When to Use*:  
+- Configuration data, DTOs (Data Transfer Objects), or shared constants.  
+- Multi-threaded environments.  
+
+*Pitfalls to Avoid*:  
+- Accidentally exposing mutable references in immutable objects.  
+
+## **Event-Driven Programming**  
+### **Introduction**  
+Immutable objects ensure stability, but **event-driven programming** (EDP) embraces change by responding to events (e.g., clicks, messages). Think of it like a restaurant: the chef (event handler) reacts to orders (events) from the waiter (event emitter).  
+
+***Why EDP?***  
+- Decouples components (producers vs. consumers).  
+- Handles asynchronous operations (e.g., UI interactions, HTTP requests).  
+
+
+### **Cross-Language Implementation**  
+#### **Java (Event Listener Pattern)**  
+```java  
+// Event class  
+class ClickEvent {  
+    private final int x, y;  
+    public ClickEvent(int x, int y) { this.x = x; this.y = y; }  
+}  
+
+// Event listener interface  
+interface ClickListener {  
+    void onClick(ClickEvent event);  
+}  
+
+// Event emitter  
+class Button {  
+    private List<ClickListener> listeners = new ArrayList<>();  
+
+    public void addListener(ClickListener listener) {  
+        listeners.add(listener);  
+    }  
+
+    public void click() {  
+        listeners.forEach(l -> l.onClick(new ClickEvent(10, 20)));  
+    }  
+}  
+```  
+
+#### **Python (Callbacks)**  
+```python  
+class Button:  
+    def __init__(self):  
+        self.click_handlers = []  
+
+    def add_handler(self, handler):  
+        self.click_handlers.append(handler)  
+
+    def click(self):  
+        for handler in self.click_handlers:  
+            handler({"x": 10, "y": 20})  
+
+# Usage  
+button = Button()  
+button.add_handler(lambda event: print(f"Clicked at {event['x']}, {event['y']}"))  
+button.click()  
+```  
+
+#### **C++ (Signals and Slots with Qt)**  
+```cpp  
+#include <QObject>  
+#include <QDebug>  
+
+class Button : public QObject {  
+    Q_OBJECT  
+signals:  
+    void clicked(int x, int y);  
+};  
+
+class Logger : public QObject {  
+    Q_OBJECT  
+public slots:  
+    void logClick(int x, int y) { qDebug() << "Clicked at" << x << y; }  
+};  
+
+// Usage  
+Button button;  
+Logger logger;  
+QObject::connect(&button, &Button::clicked, &logger, &Logger::logClick);  
+emit button.clicked(10, 20);  
+```  
+
+### **Best Practices & Pitfalls**  
+*When to Use*:  
+- GUIs, IoT systems, or message brokers (e.g., RabbitMQ).  
+- Handling asynchronous workflows.  
+
+*Pitfalls to Avoid*:  
+- **Callback Hell**: Nested callbacks → hard-to-read code. Use promises/async-await.  
+
+## **Dependency Injection**  
+### **Introduction**  
+Event-driven systems react to changes, but **dependency injection (DI)** ensures components get what they need to function. Think of it like a car assembly line: instead of building its own engine, the car receives one pre-built.  
+
+***Why DI?***  
+- **Decoupling**: Classes don’t create their dependencies.  
+- **Testability**: Easily swap real implementations with mocks.  
+
+
+### **Cross-Language Implementation**  
+#### **Java (Manual DI)**  
+```java  
+interface Engine { void start(); }  
+
+class Car {  
+    private final Engine engine;  
+    public Car(Engine engine) { // Constructor injection  
+        this.engine = engine;  
+    }  
+}  
+
+class V8Engine implements Engine {  
+    public void start() { System.out.println("V8 started!"); }  
+}  
+
+// Usage  
+Car car = new Car(new V8Engine());  
+```  
+
+#### **Python (Manual DI)**  
+```python  
+class Engine:  
+    def start(self):  
+        print("Engine started!")  
+
+class Car:  
+    def __init__(self, engine):  
+        self.engine = engine  
+
+# Usage  
+car = Car(Engine())  
+car.engine.start()  
+```  
+
+#### **C++ (Constructor Injection)**  
+```cpp  
+class Engine {  
+public:  
+    virtual void start() = 0;  
+};  
+
+class V8Engine : public Engine {  
+public:  
+    void start() override { std::cout << "V8 started!\n"; }  
+};  
+
+class Car {  
+    Engine& engine;  
+public:  
+    Car(Engine& engine) : engine(engine) {}  
+};  
+
+// Usage  
+V8Engine engine;  
+Car car(engine);  
+```  
+
+### **Best Practices & Pitfalls**  
+**When to Use**:  
+- Large applications with interchangeable components.  
+- Unit testing (inject mocks).  
+
+**Pitfalls to Avoid**:  
+- **Service Locator Pattern**: Hides dependencies → use explicit DI instead.  
+
+
+### **Key Takeaways**  
+
+- **Immutable Objects**: Stability through unchangeable state.  
+- **Event-Driven Programming**: React to events for asynchronous workflows.  
+- **Dependency Injection**: Decouple components by externalizing dependencies.  
