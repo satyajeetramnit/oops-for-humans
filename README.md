@@ -5803,3 +5803,142 @@ Car car(engine);
 - **Immutable Objects**: Stability through unchangeable state.  
 - **Event-Driven Programming**: React to events for asynchronous workflows.  
 - **Dependency Injection**: Decouple components by externalizing dependencies.  
+
+## **Unit Testing in OOP (Mock Objects & Testing Frameworks)**  
+### **Introduction**  
+In the [previous section](#dependency-injection), we explored dependency injection (DI) for decoupling components. Now, let’s dive into <br>
+**unit testing**—the practice of verifying individual parts of your code in isolation. 
+
+Think of it like quality control for car parts: you test each engine component separately before assembling the whole vehicle.  
+
+***Why Unit Testing?***  
+- Catch bugs early (before they reach production).  
+- Enable safe refactoring (tests act as a safety net).  
+- Document expected behavior (tests are living documentation).  
+
+### **Basic Concepts**  
+#### **Mock Objects**:  
+- Simulate dependencies (e.g., databases, APIs) to isolate the code under test.  
+- **Analogy**: A stunt double for an actor—mocks mimic real objects but are controlled.  
+
+#### **Testing Frameworks**:  
+- Provide tools to write, organize, and run tests (e.g., assertions, test suites).  
+
+
+### **Testing Frameworks & Mocking Libraries**  
+| **Language** | **Testing Framework** | **Mocking Library**         |  
+|--------------|-----------------------|------------------------------|  
+| **Java**     | JUnit 5               | Mockito                      |  
+| **Python**   | `unittest`, `pytest`  | `unittest.mock`, `pytest-mock` |  
+| **C++**      | Google Test (GTest)   | Google Mock (GMock)          |  
+
+### **Code Examples**  
+> **Scenario**: Test a `PaymentService` that depends on a `PaymentGateway`.  
+
+#### **Java (JUnit + Mockito)**  
+```java  
+import static org.mockito.Mockito.*;  
+
+class PaymentServiceTest {  
+    @Test  
+    void testProcessPayment() {  
+        // 1. Create mock  
+        PaymentGateway mockGateway = mock(PaymentGateway.class);  
+
+        // 2. Stub mock behavior  
+        when(mockGateway.charge(100.0)).thenReturn(true);  
+
+        // 3. Inject mock into service  
+        PaymentService service = new PaymentService(mockGateway);  
+
+        // 4. Test  
+        boolean result = service.processPayment(100.0);  
+        assertTrue(result);  
+
+        // 5. Verify interaction  
+        verify(mockGateway).charge(100.0);  
+    }  
+}  
+```  
+
+#### **Python (pytest + pytest-mock)**  
+```python  
+def test_process_payment(mocker):  
+    # 1. Create mock  
+    mock_gateway = mocker.Mock()  
+    mock_gateway.charge.return_value = True  
+
+    # 2. Inject mock  
+    service = PaymentService(mock_gateway)  
+
+    # 3. Test  
+    result = service.process_payment(100.0)  
+    assert result is True  
+
+    # 4. Verify interaction  
+    mock_gateway.charge.assert_called_once_with(100.0)  
+```  
+
+#### **C++ (Google Test + Google Mock)**  
+```cpp  
+#include <gmock/gmock.h>  
+#include <gtest/gtest.h>  
+
+class MockPaymentGateway : public PaymentGateway {  
+public:  
+    MOCK_METHOD(bool, charge, (double amount), (override));  
+};  
+
+TEST(PaymentServiceTest, ProcessPaymentSucceeds) {  
+    // 1. Create mock  
+    MockPaymentGateway mockGateway;  
+
+    // 2. Stub mock behavior  
+    EXPECT_CALL(mockGateway, charge(100.0))  
+        .WillOnce(Return(true));  
+
+    // 3. Inject mock  
+    PaymentService service(mockGateway);  
+
+    // 4. Test  
+    bool result = service.processPayment(100.0);  
+    EXPECT_TRUE(result);  
+}  
+```  
+
+### **Best Practices & Pitfalls**  
+*When to Use Mocks*:  
+- External services (APIs, databases).  
+- Slow or flaky dependencies (e.g., network calls).  
+
+*Pitfalls to Avoid*:  
+- **Over-Mocking**: Don’t mock everything—test real behavior where possible.  
+- **Brittle Tests**: Tests that break due to internal implementation details (not behavior).  
+
+*Pro Tips*:  
+- Follow **AAA** (Arrange-Act-Assert) pattern for test structure.  
+- Use **dependency injection** to easily swap real objects with mocks.  
+- Test edge cases (e.g., negative values, null inputs).  
+
+### **Visual Representation**  
+#### **Unit Testing Flow**:  
+```  
+Test Case  
+├── Arrange: Set up mocks, inputs  
+├── Act: Execute the method under test  
+├── Assert: Verify the output  
+└── Verify: Check mock interactions  
+```  
+
+#### **Mock Object Interaction**:  
+```  
+Test → Mock PaymentGateway → Returns Stubbed Response  
+          ▲  
+          │  
+PaymentService (Under Test)  
+```  
+
+### **Key Takeaways**  
+
+- **Mock Objects** isolate code under test from dependencies.  
+- **Testing Frameworks** automate test execution and assertions.  
