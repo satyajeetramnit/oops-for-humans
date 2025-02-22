@@ -5942,3 +5942,91 @@ PaymentService (Under Test)
 
 - **Mock Objects** isolate code under test from dependencies.  
 - **Testing Frameworks** automate test execution and assertions.  
+
+## **Root Object Class**  
+### **Introduction**  
+In the [previous section](#unit-testing-in-oop-mock-objects--testing-frameworks), we explored unit testing with mock objects. Now, let’s discuss the <br>
+**root object class**—a concept where all classes in a language implicitly inherit from a single base class. 
+
+Think of it as the "Adam/Eve" of a programming language’s class hierarchy.  
+
+***Why It Matters***:  
+- Provides default methods (e.g., `toString()`, `hashCode()`).  
+- Enables universal polymorphism (treat any object as the root type).  
+
+
+### **Java: The `Object` Class**  
+*Definition*:  
+> Every class in Java implicitly inherits from `java.lang.Object` (unless explicitly extending another class).  
+
+*Key Methods*:  
+> - `toString()`: Returns a string representation.  
+> - `equals()`: Checks object equality (vs. reference equality).  
+> - `hashCode()`: Returns a hash code for hash-based collections.  
+> - `getClass()`: Returns the runtime class of the object.  
+
+*Code Example*:  
+```java  
+public class Dog { /* ... */ }  
+
+// Equivalent to:  
+public class Dog extends Object { /* ... */ }  
+
+// Usage  
+Dog dog = new Dog();  
+System.out.println(dog.getClass()); // Output: class Dog  
+```  
+
+### **Python: The `object` Class**  
+*Definition*:  
+> Every class in Python 3 implicitly inherits from `object` (explicit in Python 2).  
+
+*Key Methods*:  
+> - `__str__()`: String representation (like `toString()`).  
+> - `__eq__()`: Defines equality behavior.  
+> - `__dict__`: Dictionary of class attributes.  
+
+*Code Example*:  
+```python  
+class Cat:  
+    pass  
+
+# Equivalent to:  
+class Cat(object):  
+    pass  
+
+# Usage  
+print(isinstance(Cat(), object))  # Output: True  
+print(dir(Cat()))  # Lists inherited methods from 'object'  
+```  
+
+### **C++: No Universal Root Class**  
+> C++ **does not enforce a root object class**. Classes can exist independently without a common ancestor.  
+
+*Workarounds (Optional)*:  
+- Create a custom base class (e.g., `class Root {};`), but this is **not enforced by the language**.  
+- Use `void*` for generic pointers, but this sacrifices type safety.  
+
+*Code Example*:  
+```cpp  
+class Bird { /* No implicit root class */ };  
+class Fish { /* Another independent class */ };  
+
+// No common ancestor for Bird and Fish.  
+```  
+
+### **Cross-Language Comparison**  
+| **Language** | **Root Object?** | **Default Methods**          | **Universal Polymorphism** |  
+|--------------|-------------------|-------------------------------|----------------------------|  
+| **Java**     | ✅ `Object`       | `toString()`, `equals()`, etc.| `Object` reference          |  
+| **Python**   | ✅ `object`       | `__str__()`, `__eq__()`, etc. | `object` type               |  
+| **C++**      | ❌                | None (user-defined)           | Not natively supported     |  
+
+***Why the Difference?***  
+- **Java/Python**: Designed with a unified type system for simplicity and reflection.  
+- **C++**: Prioritizes flexibility and zero-overhead abstraction (no forced inheritance).  
+
+
+### **Key Takeaways**  
+- **Java/Python**: All classes derive from a root object, enabling consistent default behavior.  
+- **C++**: No universal root class—supports diverse, independent hierarchies.
