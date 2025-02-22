@@ -4554,3 +4554,152 @@ InvalidEmailException (Custom)
 
 - **Custom Exceptions** make error handling meaningful.  
 - **Try-Catch** blocks isolate error-prone code.  
+
+## **Reflection (Introspection of Classes/Methods at Runtime)**  
+### **Introduction**  
+In the [previous section](#try-catch-blocks), we explored exception handling. Now, let’s dive into <br>
+**reflection**—the ability of a program to inspect and modify its own structure and behavior at runtime. <br>
+
+Think of it as a mirror: your code can "look at itself" to discover class names, methods, attributes, and more, even if they weren’t known at compile-time.  
+
+*Why Reflection?*  
+- Build dynamic systems (e.g., plugins, ORM frameworks).  
+- Debugging tools, serializers, or dependency injection.  
+
+### **Basic Concepts**  
+***What is Introspection?***  
+> A subset of reflection where code examines:  
+> - Class names, methods, fields, annotations.  
+> - Object types and hierarchies.  
+
+*Real-World Analogy*:  
+> A **passport scanner** reading your personal details (name, age, nationality) at runtime.  
+
+### **Language-Specific Implementation**  
+#### **Java Reflection API**  
+> Java provides a robust reflection API via `java.lang.reflect` and `Class` objects.  
+
+**Example**: Inspect a `Person` class:  
+```java  
+import java.lang.reflect.*;  
+
+public class Person {  
+    private String name;  
+    public void greet() { System.out.println("Hello!"); }  
+
+    public static void main(String[] args) {  
+        Class<?> personClass = Person.class;  
+
+        // Get class name  
+        System.out.println("Class: " + personClass.getName()); // Output: Person  
+
+        // List methods  
+        for (Method method : personClass.getDeclaredMethods()) {  
+            System.out.println("Method: " + method.getName()); // Output: greet, main  
+        }  
+
+        // Create instance dynamically  
+        Person p = (Person) personClass.getDeclaredConstructor().newInstance();  
+        p.greet(); // Output: Hello!  
+    }  
+}  
+```  
+
+#### **Python Introspection**  
+> Python’s dynamic nature makes introspection trivial using built-in functions and the `inspect` module.  
+
+**Example**: Inspect a `Person` class:  
+```python  
+import inspect  
+
+class Person:  
+    def __init__(self, name):  
+        self.name = name  
+
+    def greet(self):  
+        print(f"Hello, {self.name}!")  
+
+# Get class name  
+print(Person.__name__)  # Output: Person  
+
+# List methods  
+print(inspect.getmembers(Person, predicate=inspect.isfunction))  
+# Output: [('__init__', <function ...>), ('greet', <function ...>)]  
+
+# Create instance dynamically  
+p = Person.__new__(Person)  
+p.__init__("Alice")  
+p.greet()  # Output: Hello, Alice!  
+```  
+
+---
+
+#### **C++ (Limited Support)**  
+> C++ has minimal built-in introspection. Use **RTTI (Run-Time Type Information)** or libraries like Boost.Hana.  
+
+**Example**: Basic type info using `typeid`:  
+```cpp  
+#include <iostream>  
+#include <typeinfo>  
+
+class Person {};  
+
+int main() {  
+    Person p;  
+    std::cout << "Type: " << typeid(p).name() << std::endl; // Output: 6Person (mangled)  
+    return 0;  
+}  
+```  
+**Limitations**:  
+- No method/field introspection without third-party tools.  
+- `typeid` returns compiler-specific mangled names (use `demangle` for readability).  
+
+### **Cross-Language Comparison**
+
+| **Feature**              | **Java**                          | **Python**                      | **C++**                        |  
+|--------------------------|-----------------------------------|---------------------------------|--------------------------------|  
+| **Class Name**           | `Class.getName()`                | `__name__`                     | `typeid().name()` (mangled)   |  
+| **List Methods**         | `Class.getDeclaredMethods()`     | `inspect.getmembers()`         | Not supported natively        |  
+| **Dynamic Instantiation**| `Class.newInstance()`            | `__new__()` + `__init__()`     | Requires factories            |  
+| **Modify Private Fields**| `Field.setAccessible(true)`      | No restrictions (all public)   | Not supported                 |  
+
+
+### **Use Cases & Best Practices**  
+*When to Use*:  
+- **Frameworks**: Dependency injection (Spring), ORM (Hibernate).  
+- **Debugging**: Logging object structures.  
+- **Scripting**: Dynamic execution (e.g., Python’s `eval()`).  
+
+*Pitfalls to Avoid*:  
+- **Performance Overhead**: Reflection is slower than direct calls.  
+- **Security Risks**: Bypassing access controls (e.g., Java’s `setAccessible`).  
+- **Maintainability**: Hard-to-track "magic" behavior.  
+
+*Pro Tips*:  
+- **Java**: Cache reflective objects (e.g., `Method`, `Class`) for reuse.  
+- **Python**: Prefer `getattr()`/`setattr()` over `eval()` for safety.  
+- **C++**: Use code generation tools (e.g., Clang AST) for introspection.  
+
+### **Visual Representation**  
+#### **Reflection Workflow**  
+```  
+           ┌────────────────┐  
+           │  Class Info    │  
+           │ (Name, Methods)│ 
+           └────────┬───────┘  
+                    ▼  
+           ┌────────────────┐  
+           │  Dynamic       │  
+           │  Instantiation │
+           └────────┬───────┘  
+                    ▼  
+           ┌────────────────┐  
+           │  Method        │  
+           │  Invocation    │  
+           └────────────────┘  
+```  
+
+### **Key Takeaways**  
+
+- **Reflection** enables dynamic inspection/modification of code at runtime.  
+- **Java/Python**: Rich introspection; **C++**: Limited without libraries.  
