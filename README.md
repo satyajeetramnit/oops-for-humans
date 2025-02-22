@@ -6030,3 +6030,112 @@ class Fish { /* Another independent class */ };
 ### **Key Takeaways**  
 - **Java/Python**: All classes derive from a root object, enabling consistent default behavior.  
 - **C++**: No universal root class—supports diverse, independent hierarchies.
+
+## **Object-Oriented Design & Modeling**  
+### **Introduction**  
+Before writing code, **object-oriented design (OOD)** helps you plan how classes and objects will interact. 
+<br>
+Think of it like architecting a building: blueprints (UML diagrams) ensure the structure is logical, scalable, and meets user needs.  
+
+**Why OOD Matters**:  
+- Clarifies relationships between components (e.g., inheritance, associations).  
+- Reduces development time by identifying flaws early.  
+
+
+### **UML Diagrams**  
+> **Unified Modeling Language (UML)** is a visual toolkit for designing and documenting OOP systems. Below are the most essential diagrams for OOP:  
+
+
+### **Class Diagrams**  
+*What They Show*:  
+- Classes, their **attributes**, **methods**, and **relationships** (inheritance, associations, dependencies).  
+
+*Example*:  
+```  
+┌──────────────────┐          ┌──────────────────┐  
+│      Animal      │          │      Vehicle     │  
+├──────────────────┤          ├──────────────────┤  
+│ + name: String   │◄─┐       │ + startEngine()  │  
+│ + age: int       │  │       └──────────────────┘  
+└──────────────────┘  │               ▲  
+           ▲          │               │  
+           │          │               │  
+           │          └───────┐       │  
+┌──────────────────┐    ┌──────────────────┐  
+│       Dog        │    │       Car        │  
+├──────────────────┤    ├──────────────────┤  
+│ + breed: String  │    │ + model: String  │  
+│ + bark()         │    └──────────────────┘  
+└──────────────────┘  
+```  
+
+*Key Symbols*:  
+- **`+`**: Public, **`-`**: Private.  
+- **Solid Arrow**: Inheritance (`Dog` → `Animal`).  
+- **Dashed Arrow**: Dependency (`Car` depends on `Vehicle` interface).  
+
+### **Sequence Diagrams**  
+*What They Show*:  
+- **Interaction** between objects over time (e.g., method calls, responses).  
+
+*Example*:  
+```  
+User            ShoppingCart       PaymentGateway  
+  │                   │                   │  
+  ├─Add Item───────►  │                   │  
+  │                   │                   │  
+  ├─Checkout────────► │                   │  
+  │                   ├─Process Payment──►│  
+  │                   │◄─────Success──────┤  
+  │ 
+  │◄────────Order Confirmed───────────────┤  
+```  
+
+*Key Symbols*:  
+- **Lifelines**: Vertical lines for objects (e.g., `User`, `ShoppingCart`).  
+- **Arrows**: Messages (method calls).  
+- **Activation Bars**: Duration of a process.  
+
+### **Use Case Diagrams**  
+*What They Show*:  
+- **User goals** and how the system fulfills them.  
+
+*Example*:  
+```  
+          ┌──────────────┐  
+          │   Online     │  
+          │   Shopping   │  
+          └──────┬───────┘  
+                 │  
+┌────────────────┼─────────────────┐  
+│                ▼                 │  
+│      (Customer)                  │  
+│ ┌─────────────────────────────┐  │  
+│ │          Use Cases          │  │  
+│ ├─────────────────────────────┤  │  
+│ │► Browse Products            │  │  
+│ │► Add to Cart                │  │  
+│ │► Checkout                   │  │  
+│ └─────────────────────────────┘  │  
+└──────────────────────────────────┘  
+```  
+
+*Key Symbols*:  
+- **Actor**: A user role (e.g., `Customer`).  
+- **Use Case**: Oval with action (e.g., `Checkout`).  
+- **Lines**: Associations between actors and use cases.  
+
+### **Cross-Language Tools**  
+- **Java**: Tools like **PlantUML**, **StarUML**, or **IntelliJ UML plugins**.  
+- **Python**: **PyCharm’s Diagram View**, **Pyreverse** (generates UML from code).  
+- **C++**: **Enterprise Architect**, **Visual Studio’s Class Designer**.  
+
+### **Best Practices**  
+1. **Keep It Simple**: Focus on critical components (avoid cluttering diagrams).  
+2. **Iterate**: Update diagrams as the system evolves.  
+3. **Use Tools**: Automate diagram generation from code where possible.  
+
+### **Key Takeaways**  
+- **Class Diagrams** = Blueprint of classes and relationships.  
+- **Sequence Diagrams** = Storyboard of object interactions.  
+- **Use Case Diagrams** = User-centric system functionality.  
