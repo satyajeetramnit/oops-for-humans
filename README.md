@@ -6139,3 +6139,164 @@ User            ShoppingCart       PaymentGateway
 - **Class Diagrams** = Blueprint of classes and relationships.  
 - **Sequence Diagrams** = Storyboard of object interactions.  
 - **Use Case Diagrams** = User-centric system functionality.  
+
+## **SOLID Principles**  
+**SOLID** is a set of golden rules for writing maintainable, scalable OOP code. Think of it as the "grammar" of good software design—ignoring these principles leads to spaghetti code, while following them keeps your system modular and resilient to change.  
+
+### **Single Responsibility Principle (SRP)**  
+> **Definition**: A class should have **only one reason to change** (i.e., one responsibility).  
+
+> **Real-World Analogy**: A chef who also handles accounting → chaos. Split roles!  
+
+#### **Violation (Bad Code)**:  
+```python  
+class UserManager:  
+    def __init__(self, user):  
+        self.user = user  
+
+    def save_user(self):  # Database logic  
+        print(f"Saving {self.user} to DB...")  
+
+    def send_email(self):  # Email logic  
+        print(f"Sending email to {self.user}...")  
+```  
+
+#### **Solution**:  
+```python  
+class UserDB:  
+    def save(self, user):  
+        print(f"Saving {user} to DB...")  
+
+class EmailService:  
+    def send(self, user):  
+        print(f"Sending email to {user}...")  
+
+# Each class has one job!  
+```  
+
+### **Open/Closed Principle (OCP)**  
+> **Definition**: Classes should be **open for extension** but **closed for modification**.  
+
+> **Real-World Analogy**: A universal power adapter—add new plugs without rewiring the core.  
+
+#### **Violation**:  
+```java  
+class Shape {  
+    String type;  
+    // Adding a new shape requires modifying AreaCalculator  
+}  
+
+class AreaCalculator {  
+    double calculate(Shape shape) {  
+        if (shape.type.equals("circle")) { /* ... */ }  
+        else if (shape.type.equals("square")) { /* ... */ }  
+    }  
+}  
+```  
+
+#### **Solution**:  
+```java  
+abstract class Shape {  
+    abstract double area();  
+}  
+
+class Circle extends Shape {  
+    double radius;  
+    double area() { return Math.PI * radius * radius; }  
+}  
+
+// New shapes extend Shape without changing AreaCalculator!  
+```  
+
+### **Liskov Substitution Principle (LSP)**  
+> **Definition**: Subtypes must be substitutable for their base types without breaking code.  
+
+> **Real-World Analogy**: A toy duck should quack like a real duck.  
+
+#### **Violation**:  
+```python  
+class Bird:  
+    def fly(self):  
+        print("Flying!")  
+
+class Ostrich(Bird):  # Ostriches can’t fly!  
+    def fly(self):  
+        raise Exception("Can’t fly!")  # Breaks LSP  
+```  
+
+#### **Solution**:  
+```python  
+class FlightlessBird(Bird):  
+    def fly(self):  
+        print("I walk instead!")  # Valid substitution  
+```  
+
+### **Interface Segregation Principle (ISP)**  
+> **Definition**: Clients shouldn’t depend on interfaces they don’t use.  
+
+> **Real-World Analogy**: A Swiss Army knife with unused tools → bulky. Split into smaller tools!  
+
+#### **Violation**:  
+```java  
+interface MultiFunctionPrinter {  
+    void print();  
+    void scan();  
+    void fax();  
+}  
+
+class BasicPrinter implements MultiFunctionPrinter {  
+    public void fax() { /* Not needed! */ }  // Forced to implement  
+}  
+```  
+
+#### **Solution**:  
+```java  
+interface Printer { void print(); }  
+interface Scanner { void scan(); }  
+
+class BasicPrinter implements Printer { /* Only print() */ }  
+```  
+
+### **Dependency Inversion Principle (DIP)**  
+> **Definition**: Depend on **abstractions**, not concretions.  
+
+> **Real-World Analogy**: A TV remote (abstraction) works with any TV brand (concretion).  
+
+#### **Violation**:  
+```cpp  
+class MySQLDatabase { /* ... */ };  
+
+class ReportGenerator {  
+    MySQLDatabase db;  // Direct dependency on concrete class  
+};  
+```  
+
+#### **Solution**:  
+```cpp  
+class Database {  // Abstraction  
+public:  
+    virtual void connect() = 0;  
+};  
+
+class MySQLDatabase : public Database { /* ... */ };  
+
+class ReportGenerator {  
+    Database& db;  // Depends on abstraction  
+};  
+```  
+
+### **Cross-Language Comparison**  
+| **Principle**       | **Java**                          | **Python**                      | **C++**                        |  
+|----------------------|-----------------------------------|---------------------------------|--------------------------------|  
+| **SRP**              | Split classes by responsibility  | Use modules/packages            | Separate headers/implementations |  
+| **OCP**              | Abstract classes/interfaces       | ABCs, protocols                 | Abstract base classes          |  
+| **LSP**              | Avoid overriding with stricter rules | Duck typing                  | Virtual functions              |  
+| **ISP**              | Small interfaces                  | Protocols, ABCs                | Interface segregation          |  
+| **DIP**              | Dependency injection frameworks   | Duck typing, ABCs              | Abstract base classes          |  
+
+### **Key Takeaways**  
+1. **SRP**: One class, one job.  
+2. **OCP**: Extend with new code, don’t modify old.  
+3. **LSP**: Subclasses must behave like parents.  
+4. **ISP**: Keep interfaces lean.  
+5. **DIP**: Code to abstractions, not details.  
