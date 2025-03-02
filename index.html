@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OOP for Humans</title>
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
-  <link rel="stylesheet" href="custom.css">
+  <!-- <link rel="stylesheet" href="custom.css"> -->
 </head>
 <body>
   <div id="app">Loading...</div>
@@ -19,11 +19,18 @@
       autoHeader: true,  // Uses first header as page title
       coverpage: false,  // Set true if you want a homepage cover
       executeScript: true,
+      darkMode: {
+        default: false,
+        toggle: true
+      }
     };
   </script>
   
   <script src="https://cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
 
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+
+  <script src="//cdn.jsdelivr.net/npm/docsify-dark-mode@latest"></script>
+
 </body>
 </html>
