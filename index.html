@@ -4,16 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OOP for Humans</title>
+  
+  <!-- Docsify Default Theme (Light Mode) -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
-  <!-- Add Darklight Theme -->
+  <!-- Dark-Light Theme Plugin CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-darklight-theme@3/dist/docsify-darklight-theme.min.css">
-<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-  <!-- <link rel="stylesheet" href="custom.css"> -->
+  
+  <!-- Optional: Custom style to force the toggle button to be visible -->
+  <style>
+    .darklight-theme-toggle {
+      position: fixed;
+      top: 10px;
+      right: 15px;
+      cursor: pointer;
+      font-size: 16px;
+      z-index: 9999;
+    }
+  </style>
 </head>
-<body class="bg-red-100">
+<body>
   <div id="app">Loading...</div>
   
   <script>
+    // Optionally, read a URL parameter to set the theme on load:
+    const params = new URLSearchParams(window.location.search);
+    const urlTheme = params.get('theme');
+    if (urlTheme === 'dark' || urlTheme === 'light') {
+      localStorage.setItem('DARK_LIGHT_THEME', urlTheme);
+    }
+    
+    // Docsify configuration
     window.$docsify = {
       name: 'OOP for Humans',
       repo: 'https://github.com/satyajeetramnit/oops-for-humans',
@@ -25,10 +45,10 @@
       search: {
         maxAge: 86400000,
         paths: 'auto',
-        placeholder: 'Search topics...',
+        placeholder: 'Search topics...'
       },
       darklightTheme: {
-        defaultTheme: 'dark',   // 'light' or 'dark'
+        defaultTheme: 'dark',  // Change to 'light' to have light mode by default
         siteFont: 'Arial',
         bodyFontSize: '16px',
         dark: {
@@ -44,18 +64,14 @@
       }
     };
   </script>
-
-  <!-- Dark Mode -->
-  <script src="https://cdn.jsdelivr.net/npm/docsify-darklight-theme@3/dist/docsify-darklight-theme.min.js"></script>
-
-  <!-- Sidebar Collapse -->
-  <script src="https://cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
-
-  <!-- Docsify Core -->
+  
+  <!-- Load Docsify Core -->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-
-  <!-- Search Plugin -->
+  <!-- Load Sidebar Collapse Plugin (if needed) -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
+  <!-- Load Search Plugin -->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
-
+  <!-- Finally, load the Dark-Light Theme Plugin AFTER the core scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-darklight-theme@3/dist/docsify-darklight-theme.min.js"></script>
 </body>
 </html>
