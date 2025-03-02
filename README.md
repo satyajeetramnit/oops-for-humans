@@ -26,6 +26,8 @@ Ever read about OOP, felt like you understood it, and then completely blanked ou
    - Class Declaration, Object Instantiation  
    - Instance vs. Class Variables/Methods  
 
+---
+
 ### **[Four Pillars of OOPs](#four-pillars-of-oops-1)**  
 
 3. **[Encapsulation](#encapsulation)**  
@@ -52,9 +54,11 @@ Ever read about OOP, felt like you understood it, and then completely blanked ou
 
 6. **[Abstraction](#abstraction)**  
    - [Abstract Classes](#abstract-classes)
-   - [Interfaces](#interfaces)  
+   - [Interfaces](#interfaces)
    - [Pure Virtual Functions](#pure-virtual-functions)  
+
 ---
+
 ### **[Class Relationships & Design](#class-relationships--design-1)**  
 
 7. **[Class Relationships](#class-relationships)**  
@@ -84,7 +88,7 @@ Ever read about OOP, felt like you understood it, and then completely blanked ou
 11. **[Interfaces vs. Abstract Classes](#interface-vs-abstract-class)**  
     - [Default Methods in Interfaces](#default-methods-in-interfaces)
     - [Abstract Methods](#abstract-methods) 
----
+
 ### **[Advanced OOP Topics](#advanced-oop-topics-1)**  
 
 12. **[Generics/Templates](#genericstemplates)**  
@@ -127,7 +131,9 @@ Ever read about OOP, felt like you understood it, and then completely blanked ou
     - [Testing Frameworks](#testing-frameworks)  
 
 26. **[Root Object Class](#root-object-class)**  
+
 ---
+
 ### **[Design Principles & Patterns](#design-principles--patterns-1)**  
 
 27. **[Object-Oriented Design & Modeling](#object-oriented-design--modeling)**  
@@ -145,8 +151,9 @@ Ever read about OOP, felt like you understood it, and then completely blanked ou
 
 29. **[Coupling and Cohesion](#coupling-and-cohesion)**  
     - [Coupling](#coupling)
-        - Low Coupling, High Cohesion
+        - Low Coupling, High Coupling
     - [Cohesion](#cohesion)  
+        - - Low Cohesion, High Cohesion
 
 30. **[Composition Over Inheritance Principle](#composition-over-inheritance-principle)**  
 
@@ -3676,12 +3683,14 @@ int main() {
 
 
 ### **Cross-Language Comparison**  
+
 | **Aspect**              | **C++**                          | **Java**                          | **Python**                        |  
 |-------------------------|-----------------------------------|-----------------------------------|-----------------------------------|  
 | **Memory Management**   | Manual (`new`/`delete`)          | Automatic (GC)                   | Automatic (GC + reference count) |  
 | **Object Lifetime**     | Until `delete` is called         | Until GC collects it             | Until reference count hits 0     |  
 | **Common Pitfalls**     | Leaks, dangling pointers         | GC overhead, `OutOfMemoryError`  | Circular references              |  
 | **Best Practice**       | Use smart pointers (`unique_ptr`)| Avoid `finalize()`, nullify refs | Use `with` for resource cleanup |  
+
 
 
 ### **Practical Examples & Code Samples**  
@@ -3913,8 +3922,10 @@ Counter.reset()
 > - **Final Class** = A sealed vault (no subclasses allowed).  
 
 #### **C++**  
+
 - **`const`**: For constants (variables).  
 - **`final`** (C++11): Prevent overriding (methods) or inheritance (classes).  
+
 ```cpp  
 class Base final { // Class can’t be inherited  
 public:  
@@ -3924,9 +3935,11 @@ public:
 class Derived : public Base { // Error: Base is final  
     void foo() {} // Error: foo is final  
 };  
-```  
+```
+
 
 #### **Java**  
+
 ```java  
 final class MathUtils { // Class can’t be inherited  
     public static final double PI = 3.14; // Final variable  
@@ -3937,9 +3950,12 @@ final class MathUtils { // Class can’t be inherited
 }  
 ```  
 
+
 #### **Python**  
+
 - **Conventions Only**: No `final` keyword, but use `_` prefixes for constants.  
 - **Libraries**: Use `typing.final` (PEP 591) for hints.  
+
 ```python  
 from typing import final  
 
@@ -3952,7 +3968,9 @@ class MathUtils:  # Class can’t be inherited (hint only)
         print("Logged!")  
 ```  
 
-### **Cross-Language Comparison**  
+
+### **Cross-Language Comparison** 
+
 | **Feature**           | **C++**                     | **Java**                     | **Python**                   |  
 |-----------------------|-----------------------------|------------------------------|------------------------------|  
 | **Static Variable**   | `static int x;`             | `static int x;`              | Class variable `x = 0`       |  
@@ -4016,6 +4034,7 @@ In the [previous section](#static-and-final-keywords), we explored `static` and 
 
 
 #### **Java Example**:  
+
 ```java  
 interface Payment {  
     void pay(int amount);  // Abstract method  
@@ -4039,7 +4058,9 @@ card.printReceipt();    // Uses default method
 ```  
 
 #### **Python Example**:  
+
 > Python uses abstract classes with `@abstractmethod` and `@defaultmethod` (via `abc` module):  
+
 ```python  
 from abc import ABC, abstractmethod  
 
@@ -4062,7 +4083,9 @@ card.print_receipt()    # Output: "Receipt printed!"
 ```  
 
 #### **C++ Example**:  
-> C++ has no interfaces but uses **abstract classes** with pure virtual functions. Default behavior is achieved via inheritance:  
+
+> C++ has no interfaces but uses **abstract classes** with pure virtual functions. Default behavior is achieved via inheritance: 
+
 ```cpp  
 class Payment {  
 public:  
@@ -4089,6 +4112,7 @@ card.printReceipt();    // Output: "Receipt printed!"
 
 
 ### **Abstract Methods**  
+
 *Plain Language*:  
 > Abstract methods declare *what* a class should do but leave the *how* to subclasses.  
 
@@ -4097,6 +4121,7 @@ card.printReceipt();    // Output: "Receipt printed!"
 
 
 #### **Java Example**:  
+
 ```java  
 abstract class Animal {  
     abstract void makeSound(); // Abstract method  
@@ -4114,6 +4139,7 @@ class Dog extends Animal {
 ```  
 
 #### **Python Example**:  
+
 ```python  
 from abc import ABC, abstractmethod  
 
@@ -4131,6 +4157,7 @@ class Dog(Animal):
 ```  
 
 #### **C++ Example**:  
+
 ```cpp  
 class Animal {  
 public:  
@@ -4151,6 +4178,7 @@ public:
 
 
 ### **Cross-Language Comparison**  
+
 | **Feature**               | **Java**                                | **C++**                     | **Python**                          |  
 |---------------------------|-----------------------------------------|-----------------------------|-------------------------------------|  
 | **Interface**             | `interface` keyword                     | Abstract class with pure virtual methods | `ABC` with `@abstractmethod` |  
@@ -4182,6 +4210,7 @@ public:
 
 ### **Visual Representation**  
 #### **Interface vs. Abstract Class**  
+
 ```  
 Abstract Class (Partial Blueprint)  
 ┌────────────────────┐  
@@ -4234,6 +4263,7 @@ Think of generics as reusable molds: you can cast them in different materials (t
 
 
 #### **C++ Templates**  
+
 ```cpp  
 template <typename T>  
 class Box {  
@@ -4252,6 +4282,7 @@ int main() {
 ```  
 
 #### **Java Generics**  
+
 ```java  
 class Box<T> {  
     private T content;  
@@ -4270,6 +4301,7 @@ public class Main {
 ```  
 
 #### **Python Type Hints**  
+
 ```python  
 from typing import TypeVar, Generic  
 
@@ -4354,6 +4386,7 @@ shelter = Shelter(Dog())  # Valid
 ---
 
 ### **Cross-Language Comparison**  
+
 | **Feature**           | **C++**                     | **Java**                     | **Python**                   |  
 |-----------------------|-----------------------------|------------------------------|------------------------------|  
 | **Syntax**            | `template<typename T>`      | `class Box<T>`               | `class Box(Generic[T])`      |  
@@ -4361,7 +4394,9 @@ shelter = Shelter(Dog())  # Valid
 | **Type Safety**       | Compile-time                | Compile-time (erasure)       | Runtime checks (optional)    |  
 | **Runtime Overhead**  | None (compile-time resolve) | Minimal (type erasure)       | None (type hints ignored)    |  
 
+
 ---
+
 
 ### **Usage Guidelines & Best Practices**  
 **When to Use**:  
@@ -4519,6 +4554,7 @@ try {
 ```  
 
 ### **Cross-Language Comparison**  
+
 | **Feature**           | **Java**                          | **Python**                      | **C++**                        |  
 |-----------------------|-----------------------------------|---------------------------------|--------------------------------|  
 | **Custom Exception**  | Extend `Exception`/`RuntimeException` | Extend `Exception`            | Extend `std::exception`        |  
@@ -4901,12 +4937,14 @@ ia >> alice;
 - **Encrypt/Authenticate**: Sign/encrypt sensitive data.  
 
 ### **Cross-Language Comparison**  
+
 | **Aspect**          | **C++**                      | **Java**                      | **Python**                    |  
 |----------------------|------------------------------|-------------------------------|-------------------------------|  
 | **JSON Library**     | nlohmann/json, Boost         | Jackson, Gson                 | Built-in `json`               |  
 | **Binary Library**   | Boost.Serialization          | `Serializable`, Kryo          | `pickle` (unsafe), `marshal`  |  
 | **Security Risk**    | Buffer overflows             | CWE-502 (Untrusted deserialization) | `pickle` arbitrary code |  
 | **Safe Alternative** | Protocol Buffers, FlatBuffers| JSON with schema validation   | JSON with Pydantic            |  
+
 
 ### **Visual Representation**  
 #### **Serialization Workflow**  
@@ -5040,12 +5078,14 @@ public:
 ---
 
 ### **Cross-Language Comparison**  
+
 | **Feature**          | **Java**                          | **Python**                      | **C++**                        |  
 |----------------------|-----------------------------------|---------------------------------|--------------------------------|  
 | **Lock Mechanism**   | `synchronized` keyword, `ReentrantLock` | `threading.Lock`            | `std::mutex`, `std::lock_guard` |  
 | **Atomic Types**     | `AtomicInteger`, `AtomicReference` | None (use locks)             | `std::atomic<int>`             |  
 | **Thread-Safe DS**   | `ConcurrentHashMap`, `CopyOnWriteArrayList` | `queue.Queue`      | Intel TBB, `std::atomic`       |  
 | **Concurrency Model**| Thread pools, `ExecutorService`   | `threading`, `asyncio` (async) | `std::thread`, `std::async`    |  
+
 
 ### **Visual Representation**  
 #### **Race Condition vs. Synchronization**  
@@ -5152,12 +5192,14 @@ is_dog = isinstance(animal, Dog)
 ```  
 
 ### **Cross-Language Comparison**  
+
 | **Concept**       | **Java**                          | **C++**                        | **Python**                      |  
 |-------------------|-----------------------------------|--------------------------------|---------------------------------|  
 | **Upcasting**     | Implicit (safe)                  | Implicit (safe)               | Implicit (dynamic typing)      |  
 | **Downcasting**   | `(Subclass) obj` + `instanceof`  | `dynamic_cast<>` (RTTI)       | `isinstance()` checks          |  
 | **Type Check**    | `instanceof`                     | `typeid`/`dynamic_cast`       | `isinstance()`/`type()`        |  
 | **Safety**        | `ClassCastException` if invalid  | `nullptr`/`bad_cast`          | `AttributeError` if unchecked  |  
+
 
 ### **Best Practices & Pitfalls**  
 *When to Use*:  
@@ -5536,12 +5578,14 @@ Person p2 = p1; // Deep copy (p2.address ≠ p1.address)
 ```  
 
 ### **Cross-Language Comparison**  
+
 | **Aspect**        | **Java**                          | **Python**                      | **C++**                        |  
 |--------------------|-----------------------------------|---------------------------------|--------------------------------|  
 | **Shallow Copy**   | `clone()` (implements `Cloneable`)| `copy.copy()`                   | Default copy constructor       |  
 | **Deep Copy**      | Manual recursion or serialization | `copy.deepcopy()`               | Custom copy constructor        |  
 | **Nested Objects** | Shared unless explicitly cloned   | Shared in shallow, new in deep  | Shared in shallow, new in deep |  
 | **Pitfalls**       | `CloneNotSupportedException`      | Circular references in `deepcopy`| Manual memory management       |  
+
 
 
 ### **Best Practices & Pitfalls**  
@@ -5841,11 +5885,13 @@ Think of it like quality control for car parts: you test each engine component s
 
 
 ### **Testing Frameworks & Mocking Libraries**  
+
 | **Language** | **Testing Framework** | **Mocking Library**         |  
 |--------------|-----------------------|------------------------------|  
 | **Java**     | JUnit 5               | Mockito                      |  
 | **Python**   | `unittest`, `pytest`  | `unittest.mock`, `pytest-mock` |  
 | **C++**      | Google Test (GTest)   | Google Mock (GMock)          |  
+
 
 ### **Code Examples**  
 > **Scenario**: Test a `PaymentService` that depends on a `PaymentGateway`.  
@@ -6031,11 +6077,13 @@ class Fish { /* Another independent class */ };
 ```  
 
 ### **Cross-Language Comparison**  
+
 | **Language** | **Root Object?** | **Default Methods**          | **Universal Polymorphism** |  
 |--------------|-------------------|-------------------------------|----------------------------|  
 | **Java**     | ✅ `Object`       | `toString()`, `equals()`, etc.| `Object` reference          |  
 | **Python**   | ✅ `object`       | `__str__()`, `__eq__()`, etc. | `object` type               |  
 | **C++**      | ❌                | None (user-defined)           | Not natively supported     |  
+
 
 ***Why the Difference?***  
 - **Java/Python**: Designed with a unified type system for simplicity and reflection.  
@@ -6306,6 +6354,7 @@ class ReportGenerator {
 ```  
 
 ### **Cross-Language Comparison**  
+
 | **Principle**       | **Java**                          | **Python**                      | **C++**                        |  
 |----------------------|-----------------------------------|---------------------------------|--------------------------------|  
 | **SRP**              | Split classes by responsibility  | Use modules/packages            | Separate headers/implementations |  
@@ -6637,6 +6686,7 @@ class User : public JSONSerializable<User> {
 
 
 ### **Cross-Language Comparison**  
+
 | **Feature**         | **C++**                     | **Java**                     | **Python**                   |  
 |----------------------|-----------------------------|------------------------------|------------------------------|  
 | **Friend**           | `friend` keyword            | No equivalent                | No enforcement (conventions) |  
