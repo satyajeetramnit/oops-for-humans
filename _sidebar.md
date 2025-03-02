@@ -1,18 +1,12 @@
 - [Home](/)  
 
 - [Core Concepts](#core-concepts-1)  
-    - What is Object-Oriented Programming (OOP)?](#what-is-object-oriented-programming-oop)  
-        - Classes, Objects, Attributes, Methods  
-        - Real-World Analogies (LEGO, Library)  
+    - [What is Object-Oriented Programming (OOP)?](#what-is-object-oriented-programming-oop)  
 
     - [Classes and Objects](#classes-and-objects)  
-        - Class Declaration, Object Instantiation  
-        - Instance vs. Class Variables/Methods  
 
 - [Four Pillars of OOPs](#four-pillars-of-oops-1)  
     - [Encapsulation](#encapsulation)  
-        - Access Modifiers (Public, Private, Protected)  
-        - Getters/Setters, Data Hiding  
 
     - [Inheritance](#inheritance)  
         - [Types of Inheritance](#types-of-inheritance)
@@ -125,9 +119,7 @@
 
     - [Coupling and Cohesion](#coupling-and-cohesion)  
         - [Coupling](#coupling)
-            - Low Coupling, High Coupling
         - [Cohesion](#cohesion)  
-            - Low Cohesion, High Cohesion
 
     - [Composition Over Inheritance Principle](#composition-over-inheritance-principle)  
 
