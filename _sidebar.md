@@ -1,11 +1,9 @@
-- [Home](/)  
-
-- [Core Concepts](#core-concepts-1)  
+- [**Core Concepts**](#core-concepts-1)  
     - [What is Object-Oriented Programming (OOP)?](#what-is-object-oriented-programming-oop)  
 
     - [Classes and Objects](#classes-and-objects)  
 
-- [Four Pillars of OOPs](#four-pillars-of-oops-1)  
+- [**Four Pillars of OOPs**](#four-pillars-of-oops-1)  
     - [Encapsulation](#encapsulation)  
 
     - [Inheritance](#inheritance)  
@@ -31,7 +29,7 @@
         - [Interfaces](#interfaces)
         - [Pure Virtual Functions](#pure-virtual-functions)  
 
-- [Class Relationships & Design](#class-relationships--design-1)  
+- [**Class Relationships & Design**](#class-relationships--design-1)  
     - [Class Relationships](#class-relationships)  
         - [Association](#association)
         - [Aggregation](#aggregation-has-a-with-independent-lifecycle)
@@ -60,7 +58,7 @@
         - [Default Methods in Interfaces](#default-methods-in-interfaces)
         - [Abstract Methods](#abstract-methods) 
 
-- [Advanced OOP Topics](#advanced-oop-topics-1)  
+- [**Advanced OOP Topics**](#advanced-oop-topics-1)  
     - [Generics/Templates](#genericstemplates)  
         - [Type Parameterization](#type-parameterization)
         - [Bounded Types](#bounded-types)  
@@ -102,7 +100,7 @@
 
     - [Root Object Class](#root-object-class)  
 
-- [Design Principles & Patterns](#design-principles--patterns-1)  
+- [**Design Principles & Patterns**](#design-principles--patterns-1)  
 
     - [Object-Oriented Design & Modeling](#object-oriented-design--modeling)  
         - [UML Diagrams](#uml-diagrams)
@@ -123,7 +121,7 @@
 
     - [Composition Over Inheritance Principle](#composition-over-inheritance-principle)  
 
-- [Language-Specific Features](#language-specific-features-1)  
+- [**Language-Specific Features**](#language-specific-features-1)  
 
     - [Friend Classes/Functions (C++)](#friend-classesfunctions-c)  
     - [Inner/Nested Classes](#innernested-classes)  
