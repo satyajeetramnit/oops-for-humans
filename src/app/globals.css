@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-pencil: var(--pencil);
+
+  --color-accent-blue: #3b82f6;
+  --color-accent-orange: #f97316;
+  --color-accent-green: #22c55e;
+
+  --font-sans: var(--font-nunito), sans-serif;
+  --font-mono: var(--font-fira-code), monospace;
+
+  --shadow-sketch: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-sketch-sm: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-sketch-hover: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+}
+
+:root {
+  --background: #fdfbf7;
+  --foreground: #1e293b;
+  --paper: #fdfbf7;
+  --ink: #1e293b;
+  --pencil: #64748b;
+  --font-nunito: 'Nunito', sans-serif;
+  --font-fira-code: 'Fira Code', monospace;
+
+  /* New variables for polish */
+  --code-bg: #f3f4f6;
+  --code-border: #d1d5db;
+  --card-bg: #ffffff;
+  --card-border: #000000;
+  --btn-bg: #ffffff;
+  --btn-border: #000000;
+  --btn-hover: #f9fafb;
+  --dot-color: #e5e7eb;
+  --card-hover: #f9fafb;
+  --analogy-bg: #eff6ff;
+  /* blue-50 */
+  --analogy-text: #111827;
+  /* gray-900 */
+}
+
+.dark {
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --paper: #0f172a;
+  --ink: #f1f5f9;
+  --pencil: #94a3b8;
+  --shadow-sketch: 4px 4px 0px 0px rgba(255, 255, 255, 0.2);
+  --shadow-sketch-sm: 2px 2px 0px 0px rgba(255, 255, 255, 0.2);
+  --shadow-sketch-hover: 6px 6px 0px 0px rgba(255, 255, 255, 0.2);
+
+  /* New variables for polish */
+  --code-bg: #1e293b;
+  --code-border: #334155;
+  --card-bg: #1e293b;
+  --card-border: #94a3b8;
+  --btn-bg: #1e293b;
+  --btn-border: #94a3b8;
+  --btn-hover: #f9fafb;
+  --dot-color: #334155;
+  --card-hover: #334155;
+  --analogy-bg: #1e293b;
+  --analogy-text: #f1f5f9;
+}
+
+@layer base {
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl mb-6;
+  }
+
+  h2 {
+    @apply text-2xl mb-4 mt-8 border-b-2 border-[var(--card-border)] pb-2;
+  }
+
+  code {
+    @apply font-mono text-sm bg-[var(--code-bg)] px-1 py-0.5 rounded border border-[var(--code-border)];
+  }
+
+  /* Force dark mode styles for form elements */
+  .dark select,
+  .dark option {
+    background-color: #1e293b !important;
+    color: #f1f5f9 !important;
+    border-color: #475569 !important;
+  }
+}
+
+@layer components {
+  .sketch-card {
+    @apply bg-[var(--card-bg)] border-2 border-[var(--card-border)] shadow-sketch rounded-lg p-6 transition-all duration-200 hover:shadow-sketch-hover hover:-translate-y-0.5;
+  }
+
+  .sketch-btn {
+    @apply bg-[var(--btn-bg)] border-2 border-[var(--btn-border)] shadow-sketch-sm rounded px-4 py-2 font-bold transition-all active:translate-y-0.5 active:shadow-none hover:bg-[var(--btn-hover)];
+  }
+
+  .sketch-btn-primary {
+    @apply bg-black text-white border-2 border-black shadow-sketch-sm rounded px-4 py-2 font-bold transition-all active:translate-y-0.5 active:shadow-none hover:bg-gray-800;
+  }
+}
