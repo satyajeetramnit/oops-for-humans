@@ -17,8 +17,49 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "OOPs for Humans Academy",
-  description: "Master OOP concepts with interactive toys and real-world analogies.",
+  metadataBase: new URL('https://oops-for-humans.vercel.app'),
+  title: {
+    default: "OOPs for Humans Academy",
+    template: "%s | OOPs for Humans"
+  },
+  description: "Master Object-Oriented Programming with interactive toys, real-world analogies, and polyglot code examples. Learn Java, Python, C++, and TypeScript concepts visually.",
+  keywords: ["OOP", "Object Oriented Programming", "Learn Coding", "Java", "Python", "TypeScript", "C++", "Programming Concepts", "Interactive Learning"],
+  authors: [{ name: "OOPs for Humans Team" }],
+  creator: "OOPs for Humans Academy",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://oops-for-humans.vercel.app",
+    title: "OOPs for Humans Academy",
+    description: "Master OOP concepts with interactive toys and real-world analogies.",
+    siteName: "OOPs for Humans",
+    images: [
+      {
+        url: "/og-image.png", // We'll need to ensure this exists or use a placeholder
+        width: 1200,
+        height: 630,
+        alt: "OOPs for Humans Academy"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "OOPs for Humans Academy",
+    description: "Master OOP concepts with interactive toys and real-world analogies.",
+    images: ["/og-image.png"],
+    creator: "@oopsforhumans"
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 import { LanguageProvider } from "../context/LanguageContext";

@@ -12,6 +12,34 @@ export async function generateStaticParams() {
     return slugs.map((slug) => ({ slug }));
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    const data = await getMdxContent(slug);
+
+    if (!data) {
+        return {
+            title: 'Page Not Found',
+            description: 'The requested object could not be found.'
+        };
+    }
+
+    return {
+        title: data.frontmatter.title,
+        description: data.frontmatter.description,
+        openGraph: {
+            title: data.frontmatter.title,
+            description: data.frontmatter.description,
+            type: 'article',
+            url: `https://oops-for-humans.vercel.app/learn/${slug}`,
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: data.frontmatter.title,
+            description: data.frontmatter.description,
+        }
+    };
+}
+
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const data = await getMdxContent(slug);
