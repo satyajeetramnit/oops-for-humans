@@ -1,0 +1,53 @@
+---
+title: Type System
+description: Upcasting, Downcasting, and Type Checks.
+---
+
+# Type System
+
+<AnalogyBox type="concept">
+  Type Casting is like **Disguises**:
+  
+  - **Upcasting**: A Doctor puts on a generic "Human" mask. They are still a Doctor, but you only treat them as a Human. (Safe).
+  - **Downcasting**: You ask the "Human" to take off the mask. If they really ARE a Doctor, great! If they are actually a Firefighter, you have a problem. (Unsafe).
+</AnalogyBox>
+
+## The Transformer
+
+See how objects can be viewed as their Parent type (Upcasting) or cast back to their specific type (Downcasting).
+
+<TypeTransformer />
+
+### Key Concepts
+
+1.  **Upcasting**: Treating a Child object as a Parent object.
+    - Always safe.
+    - `Shape s = new Circle();`
+
+2.  **Downcasting**: Treating a Parent reference as a Child object.
+    - Risky! Requires a check.
+    - `Circle c = (Circle) s;`
+
+3.  **Type Checking**: Using `instanceof` (Java) or `typeof` to verify the object before casting.
+
+### The Code
+
+```java
+class Shape {}
+class Circle extends Shape { void roll() {} }
+class Square extends Shape { void slide() {} }
+
+// Upcasting (Safe)
+Shape s = new Circle(); 
+
+// Downcasting (Risky)
+if (s instanceof Circle) {
+    Circle c = (Circle) s; // Safe now!
+    c.roll();
+} else {
+    System.out.println("Not a Circle!");
+}
+
+// Bad Downcast
+Square sq = (Square) s; // Error! ClassCastException.
+```

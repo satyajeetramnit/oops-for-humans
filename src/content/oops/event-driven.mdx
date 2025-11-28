@@ -1,0 +1,121 @@
+---
+title: Event-Driven Programming
+description: Don't call us, we'll call you.
+---
+
+# Event-Driven Programming
+
+<AnalogyBox type="concept">
+  Event-Driven Programming is like a **Radio Station**:
+  
+  - **The Emitter (Station)**: Broadcasts a signal (Event).
+  - **The Listener (Radio)**: Tunes in to specific frequencies.
+  - **The Handler**: The song or news that plays when the signal is received.
+  
+  The Station doesn't know WHO is listening. It just broadcasts.
+</AnalogyBox>
+
+## The Signal Tower
+
+Emit different signals and see who reacts. Notice that some listeners care about multiple events, while others ignore them.
+
+<SignalTower />
+
+### Key Concepts
+
+1.  **Event**: Something that happens (Click, Keypress, Data Loaded).
+2.  **Emitter**: The object that announces the event.
+3.  **Listener (Observer)**: The object waiting for the event.
+4.  **Decoupling**: The Emitter doesn't need to know the Listener's details.
+
+### The Code
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    // 1. Define the Listener Interface
+    interface AlarmListener {
+        void onAlarm();
+    }
+
+    // 2. The Emitter
+    class FireAlarm {
+        List<AlarmListener> listeners = new ArrayList<>();
+        void addListener(AlarmListener l) { listeners.add(l); }
+        void trigger() {
+            for (AlarmListener l : listeners) l.onAlarm(); // Notify!
+        }
+    }
+
+    // 3. The Listener
+    class FireStation implements AlarmListener {
+        public void onAlarm() { System.out.println("Trucks deployed!"); }
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    # 1. The Emitter
+    class FireAlarm:
+        def __init__(self):
+            self.listeners = []
+
+        def add_listener(self, callback):
+            self.listeners.append(callback)
+
+        def trigger(self):
+            for callback in self.listeners:
+                callback() # Notify!
+
+    # 2. The Listener (Function or Method)
+    def fire_station_response():
+        print("Trucks deployed!")
+
+    alarm = FireAlarm()
+    alarm.add_listener(fire_station_response)
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    // 1. Define the Listener Interface
+    class AlarmListener {
+    public:
+        virtual void onAlarm() = 0;
+    };
+
+    // 2. The Emitter
+    class FireAlarm {
+        vector<AlarmListener*> listeners;
+    public:
+        void addListener(AlarmListener* l) { listeners.push_back(l); }
+        void trigger() {
+            for (auto l : listeners) l->onAlarm(); // Notify!
+        }
+    };
+
+    // 3. The Listener
+    class FireStation : public AlarmListener {
+    public:
+        void onAlarm() override { cout << "Trucks deployed!" << endl; }
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    // 1. Define the Listener Type
+    type AlarmListener = () => void;
+
+    // 2. The Emitter
+    class FireAlarm {
+        private listeners: AlarmListener[] = [];
+        addListener(l: AlarmListener) { this.listeners.push(l); }
+        trigger() {
+            this.listeners.forEach(l => l()); // Notify!
+        }
+    }
+
+    // 3. The Listener
+    const fireStation = () => console.log("Trucks deployed!");
+    ```
+  </div>
+</CodeSwitcher>

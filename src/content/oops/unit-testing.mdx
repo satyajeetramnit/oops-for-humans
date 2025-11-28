@@ -1,0 +1,48 @@
+---
+title: Unit Testing
+description: Proving your code works, one piece at a time.
+---
+
+# Unit Testing
+
+<AnalogyBox type="concept">
+  Unit Testing is like **Quality Control in a Factory**:
+  
+  Before a car leaves the factory, you test each part individually:
+  - Does the door lock? (Pass/Fail)
+  - Does the window roll down? (Pass/Fail)
+  - Does the engine start? (Pass/Fail)
+  
+  If one test fails, you don't ship the car.
+</AnalogyBox>
+
+## The Test Runner
+
+Run a suite of automated tests. Introduce a "bug" to see what happens when a test fails.
+
+<TestRunner />
+
+### Key Concepts
+
+1.  **Unit Test**: A small piece of code that tests a specific function or method in isolation.
+2.  **Assertion**: A statement that checks if a result matches the expectation (e.g., `assert(2 + 2 == 4)`).
+3.  **Mocking**: Creating fake objects (like a fake Database) so you can test your code without relying on external systems.
+
+### The Code
+
+```java
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class CalculatorTest {
+    
+    @Test
+    public void shouldAddNumbers() {
+        Calculator calc = new Calculator();
+        int result = calc.add(2, 3);
+        
+        // Assertion: Expect 5, get result
+        assertEquals(5, result); 
+    }
+}
+```

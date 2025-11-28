@@ -1,0 +1,33 @@
+---
+title: SOLID Principles
+description: The Architect's Code.
+---
+
+# SOLID Principles
+
+<AnalogyBox type="architect">
+  SOLID is a set of 5 rules to keep your code clean and maintainable.
+  
+  Think of it like **Building a House**:
+  - You don't want the kitchen sink in the bedroom (**SRP**).
+  - You want to be able to add a garage without tearing down the living room (**OCP**).
+</AnalogyBox>
+
+## The SOLID Lab
+
+Explore the principles interactively.
+
+<SolidLab />
+
+### 1. Single Responsibility Principle (SRP)
+A class should do **one thing** well.
+- **Bad**: A `GodBot` that cooks AND cleans.
+- **Good**: A `ChefBot` and a `CleanerBot`.
+
+### 2. Open/Closed Principle (OCP)
+Open for **Extension**, Closed for **Modification**.
+- You should be able to add a **Jetpack** to a robot without rewriting the robot's internal code.
+
+### 3. Liskov Substitution Principle (LSP)
+If it looks like a Duck and quacks like a Duck, it should accept batteries... wait, no!
+- A **Rubber Duck** cannot replace a **Real Duck** if the code expects it to fly.

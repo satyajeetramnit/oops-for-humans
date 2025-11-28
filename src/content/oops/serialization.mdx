@@ -1,0 +1,50 @@
+---
+title: Serialization
+description: Turning objects into dust (and back again).
+---
+
+# Serialization
+
+<AnalogyBox type="concept">
+  Serialization is like **Freezing Food**:
+  
+  - **Serialize**: You take a fresh meal (Object), freeze it (Convert to Bytes/JSON), and ship it across the world.
+  - **Deserialize**: The receiver takes the frozen package and heats it up (Reconstructs the Object) to eat it.
+</AnalogyBox>
+
+## The Freeze Ray
+
+Turn a live Hero object into static data (JSON or Binary) to save it or send it over a network.
+
+<FreezeRay />
+
+### Key Concepts
+
+1.  **Serialization**: Converting an object's state into a byte stream or text format (like JSON or XML).
+    - Used for: Saving to files, sending over networks (APIs), caching.
+
+2.  **Deserialization**: The reverse process—recreating the object from the serialized data.
+
+3.  **Security Warning**: Never deserialize data from untrusted sources! It's like eating food you found on the street—it might contain a virus (literally).
+
+### The Code
+
+```java
+import java.io.*;
+
+class Hero implements Serializable {
+    String name = "SuperDev";
+}
+
+// Serialize (Freeze)
+FileOutputStream fileOut = new FileOutputStream("hero.ser");
+ObjectOutputStream out = new ObjectOutputStream(fileOut);
+out.writeObject(new Hero());
+out.close();
+
+// Deserialize (Thaw)
+FileInputStream fileIn = new FileInputStream("hero.ser");
+ObjectInputStream in = new ObjectInputStream(fileIn);
+Hero h = (Hero) in.readObject();
+in.close();
+```

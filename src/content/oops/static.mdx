@@ -1,0 +1,142 @@
+---
+title: Static Keyword
+description: Shared by everyone.
+---
+
+# The Static Keyword
+
+<AnalogyBox type="community">
+  **Static** is like a **Town Clock**.
+  
+  - Everyone in the town looks at the *same* clock.
+  - If you change the time on the clock, it changes for *everyone*.
+  
+  **Non-Static** is like a **Wristwatch**.
+  - Everyone has their *own* watch.
+  - Changing your watch doesn't affect anyone else.
+</AnalogyBox>
+
+## The Global Scoreboard
+
+Imagine a game where all players contribute to a **Team Score**.
+- If `score` is **static**, all players share the same score variable.
+- If `score` is **not static**, each player has their own private score.
+
+<GlobalScoreboard />
+
+## The Code
+
+Use the `static` keyword to make a variable shared.
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    class Player {
+        static int teamScore = 0; // Shared!
+        int personalScore = 0;    // Not Shared
+    }
+
+    Player p1 = new Player();
+    Player p2 = new Player();
+
+    p1.teamScore += 10;
+    // p2.teamScore is ALSO 10 now!
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    class Player:
+        team_score = 0 # Class Variable (Static)
+
+        def __init__(self):
+            self.personal_score = 0 # Instance Variable
+
+    p1 = Player()
+    p2 = Player()
+
+    Player.team_score += 10
+    # p2.team_score is ALSO 10 now!
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class Player {
+    public:
+        static int teamScore; // Declaration
+        int personalScore;
+    };
+
+    int Player::teamScore = 0; // Definition
+
+    Player p1;
+    Player p2;
+    p1.teamScore += 10;
+    // p2.teamScore is ALSO 10 now!
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    class Player {
+        static teamScore: number = 0; // Shared!
+        personalScore: number = 0;    // Not Shared
+    }
+
+    const p1 = new Player();
+    const p2 = new Player();
+
+    Player.teamScore += 10;
+    // Player.teamScore is 10 for everyone
+    ```
+  </div>
+</CodeSwitcher>
+
+## Advanced Concepts
+
+### The Final Keyword
+While `static` means "shared", `final` means "unchangeable".
+- **Final Variable**: A constant. Once assigned, it cannot be changed.
+- **Final Method**: Cannot be overridden by a subclass.
+- **Final Class**: Cannot be inherited from.
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    class MathConstants {
+        // static final = Global Constant
+        static final double PI = 3.14159;
+    }
+
+    // MathConstants.PI = 3.14; // Error!
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    # Python doesn't have true constants, but by convention:
+    class MathConstants:
+        PI = 3.14159 # Uppercase implies constant
+
+    # MathConstants.PI = 3.14 # Possible, but bad practice!
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class MathConstants {
+    public:
+        // static const = Global Constant
+        static const double PI;
+    };
+
+    const double MathConstants::PI = 3.14159;
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    class MathConstants {
+        // static readonly = Global Constant
+        static readonly PI: number = 3.14159;
+    }
+
+    // MathConstants.PI = 3.14; // Error!
+    ```
+  </div>
+</CodeSwitcher>

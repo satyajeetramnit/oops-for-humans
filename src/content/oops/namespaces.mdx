@@ -1,0 +1,64 @@
+---
+title: Namespaces
+description: Organizing your code.
+---
+
+# Namespaces (Packages)
+
+<AnalogyBox type="folder">
+  Namespaces are like **Folders on your Computer**:
+  
+  You can have a file named `Resume.docx` in your "Work" folder AND in your "Personal" folder. They don't conflict because they are in different **Namespaces**.
+  
+  Without folders, you'd have to name them `Work_Resume.docx` and `Personal_Resume.docx`. Messy!
+</AnalogyBox>
+
+## Why use Packages?
+
+1.  **Avoid Naming Conflicts**: Two libraries can both have a `User` class if they are in different packages.
+2.  **Organization**: Group related classes together (e.g., `java.util` for utilities, `java.io` for input/output).
+3.  **Access Control**: `protected` members are only visible to classes in the *same* package.
+
+## The Code
+
+### Java (Packages)
+```java
+// File: src/com/myapp/users/User.java
+package com.myapp.users;
+
+public class User {
+    // ...
+}
+```
+
+```java
+// File: src/com/myapp/Main.java
+package com.myapp;
+
+import com.myapp.users.User; // Import to use
+
+class Main {
+    User u = new User();
+}
+```
+
+### C# (Namespaces)
+```csharp
+namespace MyApp.Users {
+    public class User {
+        // ...
+    }
+}
+```
+
+### Python (Modules)
+Every file is a module.
+```python
+# File: users.py
+class User:
+    pass
+
+# File: main.py
+from users import User
+u = User()
+```

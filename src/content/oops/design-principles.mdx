@@ -1,0 +1,84 @@
+---
+title: Design Principles
+description: Writing clean, maintainable code.
+---
+
+# Design Principles
+
+<AnalogyBox type="concept">
+  Good design is about **Organization**:
+  - **Coupling**: How tangled your headphones are. (High Coupling = Bad, Low Coupling = Good).
+  - **Cohesion**: How well-organized your toolbox is. (High Cohesion = Good, Low Cohesion = Bad).
+</AnalogyBox>
+
+## Coupling Meter
+
+Visualize the difference between High and Low Coupling.
+
+<CouplingMeter />
+
+### Key Concepts
+
+1.  **Coupling**: The degree of dependency between modules.
+    - **High Coupling**: Changing one module breaks another. (Spaghetti Code).
+    - **Low Coupling**: Modules are independent and communicate via simple interfaces.
+
+2.  **Cohesion**: The degree to which elements inside a module belong together.
+    - **High Cohesion**: A class does one thing well (SRP).
+    - **Low Cohesion**: A class does everything (God Object).
+
+3.  **Composition Over Inheritance**: Prefer building objects from smaller parts ("has-a") rather than inheriting from a giant parent ("is-a").
+
+### Composition Over Inheritance
+Why favor Composition?
+- **Flexibility**: You can change parts at runtime (e.g., swap an Engine).
+- **Avoids Fragile Base Class**: Changes in a parent class won't break unrelated children.
+- **No Diamond Problem**: Since you don't inherit implementation, you avoid multiple inheritance issues.
+
+**Inheritance (Rigid):**
+```java
+class Bird { void fly() {} }
+class Ostrich extends Bird { /* Can't fly! Inheritance fails here. */ }
+```
+
+**Composition (Flexible):**
+```java
+class Bird {
+    FlyingBehavior wings; // Has-A
+    
+    void setFlyingAbility(FlyingBehavior fb) {
+        this.wings = fb;
+    }
+}
+// Ostrich gets NoFlyingAbility, Eagle gets HighFlyingAbility.
+```
+
+### The Code
+
+**High Coupling (Bad):**
+```java
+class Order {
+    // Direct dependency on a specific database class
+    MySQLDatabase db = new MySQLDatabase(); 
+    
+    void save() {
+        db.insert("orders", this);
+    }
+}
+```
+
+**Low Coupling (Good):**
+```java
+class Order {
+    // Depends on an interface, not a specific class
+    Database db;
+    
+    Order(Database db) {
+        this.db = db;
+    }
+    
+    void save() {
+        db.insert("orders", this);
+    }
+}
+```

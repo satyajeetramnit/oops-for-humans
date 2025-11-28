@@ -1,0 +1,51 @@
+---
+title: Immutable Objects
+description: Objects that never change.
+---
+
+# Immutable Objects
+
+<AnalogyBox type="concept">
+  Immutable Objects are like **Diamonds**:
+  
+  Once formed, they cannot be changed. If you want a different shape, you have to cut a **new** diamond. You can't just mold the old one like clay.
+</AnalogyBox>
+
+## The Shielded Vault
+
+Try to modify the content of the Vault. Since it's immutable, you can't! You have to create a new one.
+
+<ShieldedVault />
+
+### Key Concepts
+
+1.  **Immutability**: An object whose state cannot be modified after it is created.
+2.  **Benefits**:
+    - **Thread Safety**: No need for locks because data never changes.
+    - **Security**: No one can secretly modify your data.
+    - **Simplicity**: Easier to understand and debug.
+3.  **Examples**: `String` in Java, `tuple` in Python.
+
+### The Code
+
+How to make a class immutable in Java:
+1.  Make the class `final` (so no one can extend it).
+2.  Make all fields `private` and `final`.
+3.  Don't provide "Setters".
+4.  Initialize everything in the Constructor.
+
+```java
+final class ImmutablePoint {
+    private final int x;
+    private final int y;
+
+    public ImmutablePoint(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() { return x; }
+    public int getY() { return y; }
+    // No setX() or setY()!
+}
+```

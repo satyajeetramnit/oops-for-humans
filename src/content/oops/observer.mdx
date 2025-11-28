@@ -1,0 +1,91 @@
+---
+title: Observer Pattern
+description: Don't call us, we'll call you.
+---
+
+# Observer Pattern
+
+<AnalogyBox type="pattern">
+  The Observer Pattern is like a **News Station**.
+  
+  Subscribers (TVs, Phones) sign up to receive updates.
+  
+  When breaking news happens, the Station **Broadcasts** it to everyone at once. You don't have to keep checking the station ("Is there news? Is there news?").
+</AnalogyBox>
+
+## The News Station
+
+1. Add Subscribers (Phone, TV, Email).
+2. Type a message and Broadcast.
+3. Watch everyone get updated instantly!
+
+<NewsStation />
+
+## The Code
+
+The `Subject` (Station) keeps a list of `Observers` (Subscribers).
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    class NewsStation {
+        private List<Observer> subscribers = new ArrayList<>();
+
+        public void addSubscriber(Observer sub) {
+            subscribers.add(sub);
+        }
+
+        public void broadcast(String news) {
+            for (Observer sub : subscribers) {
+                sub.update(news);
+            }
+        }
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    class NewsStation:
+        def __init__(self):
+            self.subscribers = []
+
+        def add_subscriber(self, sub):
+            self.subscribers.append(sub)
+
+        def broadcast(self, news):
+            for sub in self.subscribers:
+                sub.update(news)
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class NewsStation {
+        vector<Observer*> subscribers;
+    public:
+        void addSubscriber(Observer* sub) {
+            subscribers.push_back(sub);
+        }
+        void broadcast(string news) {
+            for (auto sub : subscribers) {
+                sub->update(news);
+            }
+        }
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    class NewsStation {
+        private subscribers: Observer[] = [];
+
+        addSubscriber(sub: Observer): void {
+            this.subscribers.push(sub);
+        }
+
+        broadcast(news: string): void {
+            this.subscribers.forEach(sub => sub.update(news));
+        }
+    }
+    ```
+  </div>
+</CodeSwitcher>

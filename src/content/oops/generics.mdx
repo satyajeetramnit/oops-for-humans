@@ -1,0 +1,179 @@
+---
+title: Generics
+description: Type-safe containers.
+---
+
+# Generics
+
+<AnalogyBox type="label">
+  Generics are like **Labels on Boxes**.
+  
+  If you label a box "Books", you shouldn't be able to put a "Sandwich" in it.
+  
+  Without Generics, every box is a "Mystery Box" (Object), and you might get a nasty surprise when you reach in!
+</AnalogyBox>
+
+## The Magic Box
+
+Define the type of the box (`<T>`) and see what fits.
+- **Box&lt;String&gt;**: Only accepts text.
+- **Box&lt;Integer&gt;**: Only accepts numbers.
+- **Box&lt;Fruit&gt;**: Only accepts fruit.
+
+<MagicBox />
+
+## The Code
+
+Use angle brackets `<T>` to define a generic type.
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    // A Generic Class
+    class Box<T> {
+        private T content;
+        public void set(T content) { this.content = content; }
+        public T get() { return content; }
+    }
+
+    Box<String> stringBox = new Box<>();
+    stringBox.set("Hello"); // OK
+    // stringBox.set(123); // Compile Error!
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    from typing import TypeVar, Generic
+
+    T = TypeVar('T')
+
+    class Box(Generic[T]):
+        def __init__(self):
+            self.content = None
+        def set(self, content: T):
+            self.content = content
+        def get(self) -> T:
+            return self.content
+
+    string_box = Box[str]()
+    string_box.set("Hello") # OK
+    # Type checkers (like MyPy) would flag string_box.set(123)
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    template <typename T>
+    class Box {
+    private:
+        T content;
+    public:
+        void set(T content) { this->content = content; }
+        T get() { return content; }
+    };
+
+    Box<string> stringBox;
+    stringBox.set("Hello"); // OK
+    // stringBox.set(123); // Compile Error!
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    class Box<T> {
+        private content: T | undefined;
+        set(content: T): void { this.content = content; }
+        get(): T | undefined { return this.content; }
+    }
+
+    const stringBox = new Box<string>();
+    stringBox.set("Hello"); // OK
+    // stringBox.set(123); // Compile Error!
+    ```
+  </div>
+</CodeSwitcher>
+
+## Advanced Concepts
+
+### Bounded Types
+Sometimes you want to restrict what types can be used.
+- **Upper Bound**: `<T extends Number>` (Must be Number or subclass).
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    // Only accepts Numbers (Integer, Double, etc.)
+    class Calculator<T extends Number> {
+        // ...
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    # Python TypeVar with bound
+    T = TypeVar('T', bound=int) # Or float, or Number
+
+    class Calculator(Generic[T]):
+        pass
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    // C++20 Concepts (or SFINAE in older C++)
+    template <typename T>
+    requires std::is_arithmetic_v<T> // Restricts to numbers
+    class Calculator {
+        // ...
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    // Only accepts types that extend Number
+    class Calculator<T extends number> {
+        // ...
+    }
+    ```
+  </div>
+</CodeSwitcher>
+
+### Wildcards
+When you don't know the exact type.
+- **Unbounded**: `<?>` (Any type).
+- **Upper Bounded**: `<? extends Number>` (Number or subclass).
+- **Lower Bounded**: `<? super Integer>` (Integer or superclass).
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    // Wildcard: ? means "Any Type"
+    void printBox(Box<?> box) {
+        System.out.println(box.get());
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    # Python uses Any
+    from typing import Any
+
+    def print_box(box: Box[Any]):
+        print(box.get())
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    // C++ Templates are naturally "wildcards" until instantiated
+    template <typename T>
+    void printBox(Box<T>& box) {
+        cout << box.get() << endl;
+    }
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    // TypeScript uses any or unknown
+    function printBox(box: Box<any>): void {
+        console.log(box.get());
+    }
+    ```
+  </div>
+</CodeSwitcher>

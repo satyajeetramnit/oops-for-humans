@@ -1,0 +1,47 @@
+---
+title: Reflection
+description: Code that looks in the mirror.
+---
+
+# Reflection
+
+<AnalogyBox type="concept">
+  Reflection is like **X-Ray Specs**:
+  
+  Normally, you can only see the outside of an object (Public methods).
+  With Reflection, you can see the inside (Private fields), check what type it is, and even change its internal organs (Data) while it's alive!
+</AnalogyBox>
+
+## X-Ray Specs
+
+Inspect a "SecretBox" object to see its private fields, and then hack it!
+
+<XRaySpecs />
+
+### Key Concepts
+
+1.  **Introspection**: The ability of a program to examine the type or properties of an object at runtime.
+2.  **Reflection**: The ability to modify the structure and behavior of the program at runtime.
+3.  **Use Cases**:
+    - IDEs (Auto-completion)
+    - Debuggers
+    - Testing Frameworks (JUnit uses reflection to find `@Test` methods)
+    - Serialization Libraries (JSON parsers)
+
+### The Code
+
+```java
+import java.lang.reflect.*;
+
+class Secret {
+    private String password = "123";
+}
+
+Secret s = new Secret();
+// s.password; // Error! Private access.
+
+// Using Reflection
+Field f = s.getClass().getDeclaredField("password");
+f.setAccessible(true); // Bypass security!
+System.out.println(f.get(s)); // Output: "123"
+```

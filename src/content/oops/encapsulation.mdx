@@ -1,0 +1,76 @@
+---
+title: Encapsulation
+description: Protecting your data.
+---
+
+# Encapsulation
+
+<AnalogyBox type="security">
+  Encapsulation is like a **Vending Machine**.
+  
+  - You **cannot** reach inside and grab a soda (Private Data).
+  - You **must** use the coin slot and buttons (Public Interface).
+  
+  This protects the machine from being robbed or broken!
+</AnalogyBox>
+
+## Getters and Setters
+
+In code, we use `private` variables and `public` methods.
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    class BankAccount {
+        private double balance; // Hidden!
+
+        public void deposit(double amount) {
+            if (amount > 0) {
+                balance += amount; // Safe access
+            }
+        }
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    class BankAccount:
+        def __init__(self):
+            self.__balance = 0.0 # Hidden! (Double underscore)
+
+        def deposit(self, amount):
+            if amount > 0:
+                self.__balance += amount # Safe access
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class BankAccount {
+    private:
+        double balance; // Hidden!
+
+    public:
+        void deposit(double amount) {
+            if (amount > 0) {
+                balance += amount; // Safe access
+            }
+        }
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    class BankAccount {
+        private balance: number = 0; // Hidden!
+
+        deposit(amount: number): void {
+            if (amount > 0) {
+                this.balance += amount; // Safe access
+            }
+        }
+    }
+    ```
+  </div>
+</CodeSwitcher>
+
+If `balance` was public, anyone could set it to `-1000000`! Encapsulation prevents this.

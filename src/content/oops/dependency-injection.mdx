@@ -1,0 +1,117 @@
+---
+title: Dependency Injection
+description: Giving objects what they need instead of letting them make it.
+---
+
+# Dependency Injection
+
+<AnalogyBox type="concept">
+  Dependency Injection (DI) is like **Changing Batteries**:
+  
+  You don't solder a battery into a remote control. You provide a slot so you can swap batteries (AA, AAA, Rechargeable) easily.
+  
+  The remote doesn't care *which* battery it is, as long as it fits.
+</AnalogyBox>
+
+## The Injector
+
+Inject different engines into the car. The car works with any engine because it depends on the *interface*, not the specific implementation.
+
+<InjectorArm />
+
+### Key Concepts
+
+1.  **Dependency**: An object that another object needs to function (e.g., Car needs an Engine).
+2.  **Injection**: Passing the dependency from the outside (via constructor or setter) rather than creating it inside.
+3.  **Inversion of Control (IoC)**: Giving control of dependency creation to a framework or caller.
+
+### The Code
+
+**Without DI (Bad):**
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    class Car {
+        private GasEngine engine;
+        
+        Car() {
+            engine = new GasEngine(); // Hardcoded! Can't use ElectricEngine.
+        }
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    class Car:
+        def __init__(self):
+            self.engine = GasEngine() # Hardcoded!
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class Car {
+        GasEngine engine;
+    public:
+        Car() {
+            // Engine created automatically or hardcoded here
+        }
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    class Car {
+        private engine: GasEngine;
+        constructor() {
+            this.engine = new GasEngine(); // Hardcoded!
+        }
+    }
+    ```
+  </div>
+</CodeSwitcher>
+
+**With DI (Good):**
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    class Car {
+        private Engine engine;
+        
+        // Inject via Constructor
+        Car(Engine e) {
+            this.engine = e; // Flexible! Can be Gas, Electric, or Hybrid.
+        }
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    class Car:
+        # Inject via Constructor (__init__)
+        def __init__(self, engine):
+            self.engine = engine # Flexible!
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class Car {
+        Engine* engine;
+    public:
+        // Inject via Constructor
+        Car(Engine* e) : engine(e) {} // Flexible!
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    class Car {
+        private engine: Engine;
+        
+        // Inject via Constructor
+        constructor(engine: Engine) {
+            this.engine = engine; // Flexible!
+        }
+    }
+    ```
+  </div>
+</CodeSwitcher>

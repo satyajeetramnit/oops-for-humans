@@ -1,0 +1,190 @@
+---
+title: Class Relationships
+description: How objects interact with each other.
+---
+
+# Class Relationships
+
+<AnalogyBox type="concept">
+  Objects don't live in isolation. They interact, own, and depend on each other.
+  
+  Think of it like **Human Relationships**:
+  - **Association**: Friends (Independent).
+  - **Aggregation**: Team & Player (Weak Ownership).
+  - **Composition**: Body & Heart (Strong Ownership).
+  - **Dependency**: Driver & Car Key (Temporary Need).
+</AnalogyBox>
+
+## The Relationship Graph
+
+Explore the three main types of relationships.
+
+<RelationshipGraph />
+
+### 1. Association ("Uses-A")
+Two independent objects interacting.
+- **Example**: A `Doctor` treats a `Patient`.
+- **Lifecycle**: If the Doctor leaves, the Patient still exists.
+
+### 2. Aggregation ("Has-A")
+Weak ownership. The child can exist independently of the parent.
+- **Example**: A `Department` has `Teachers`.
+- **Lifecycle**: If the Department closes, the Teachers can join another department.
+
+### 3. Composition ("Part-Of")
+Strong ownership. The child **cannot** exist without the parent.
+- **Example**: A `House` has `Rooms`.
+- **Lifecycle**: If the House is destroyed, the Rooms are destroyed too.
+
+### 4. Dependency ("Depends-On")
+The weakest relationship. One class uses another temporarily, usually as a parameter.
+- **Example**: A `Printer` needs a `Document` to print.
+- **Lifecycle**: The Printer doesn't own the Document; it just uses it for a moment.
+
+## Messaging Between Objects
+How do objects talk to each other? Through **Methods**!
+- **Message**: The data sent (arguments).
+- **Receiver**: The object receiving the message.
+- **Method**: The code that runs in response.
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    class Person {
+        void speak(String message) {
+            System.out.println("Says: " + message);
+        }
+    }
+
+    Person alice = new Person();
+    alice.speak("Hello!"); // Sending a message "Hello!" to object 'alice'
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    class Person:
+        def speak(self, message):
+            print(f"Says: {message}")
+
+    alice = Person()
+    alice.speak("Hello!") # Sending a message "Hello!" to object 'alice'
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class Person {
+    public:
+        void speak(string message) {
+            cout << "Says: " << message << endl;
+        }
+    };
+
+    Person alice;
+    alice.speak("Hello!"); // Sending a message "Hello!" to object 'alice'
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    class Person {
+        speak(message: string): void {
+            console.log(`Says: ${message}`);
+        }
+    }
+
+    const alice = new Person();
+    alice.speak("Hello!"); // Sending a message "Hello!" to object 'alice'
+    ```
+  </div>
+</CodeSwitcher>
+
+## The Code
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    // Composition
+    class House {
+        private Room room;
+        House() { room = new Room(); } // Created with House
+    }
+
+    // Aggregation
+    class Department {
+        private List<Teacher> teachers;
+        void addTeacher(Teacher t) { teachers.add(t); } // Teacher exists outside
+    }
+
+    // Dependency
+    class Printer {
+        void print(Document doc) {
+            System.out.println(doc.getText()); // Uses Document temporarily
+        }
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    # Composition
+    class House:
+        def __init__(self):
+            self.room = Room() # Created with House
+
+    # Aggregation
+    class Department:
+        def __init__(self):
+            self.teachers = []
+        def add_teacher(self, t):
+            self.teachers.append(t) # Teacher exists outside
+
+    # Dependency
+    class Printer:
+        def print_doc(self, doc):
+            print(doc.get_text()) # Uses Document temporarily
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    // Composition
+    class House {
+        Room room; // Created with House (Value type)
+    };
+
+    // Aggregation
+    class Department {
+        vector<Teacher*> teachers; // Pointers to existing Teachers
+    public:
+        void addTeacher(Teacher* t) { teachers.push_back(t); }
+    };
+
+    // Dependency
+    class Printer {
+    public:
+        void print(Document& doc) {
+            cout << doc.getText() << endl; // Uses Document temporarily
+        }
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    // Composition
+    class House {
+        private room: Room;
+        constructor() { this.room = new Room(); } // Created with House
+    }
+
+    // Aggregation
+    class Department {
+        private teachers: Teacher[] = [];
+        addTeacher(t: Teacher): void { this.teachers.push(t); } // Teacher exists outside
+    }
+
+    // Dependency
+    class Printer {
+        print(doc: Document): void {
+            console.log(doc.getText()); // Uses Document temporarily
+        }
+    }
+    ```
+  </div>
+</CodeSwitcher>

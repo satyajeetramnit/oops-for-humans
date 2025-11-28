@@ -1,0 +1,41 @@
+---
+title: Enums
+description: A fixed set of constants.
+---
+
+# Enums (Enumerations)
+
+<AnalogyBox type="state">
+  An Enum is like a **Traffic Light**.
+  
+  It can ONLY be **RED**, **YELLOW**, or **GREEN**.
+  
+  It cannot be "PURPLE" or "BANANA". Enums restrict a variable to a specific set of allowed values.
+</AnalogyBox>
+
+## The Traffic Light
+
+Control the traffic light using an Enum.
+- **RED**: Stop!
+- **YELLOW**: Slow down.
+- **GREEN**: Go!
+
+<TrafficLight />
+
+## The Code
+
+Use the `enum` keyword.
+
+```java
+enum TrafficLight {
+    RED,
+    YELLOW,
+    GREEN
+}
+
+TrafficLight currentLight = TrafficLight.RED;
+
+if (currentLight == TrafficLight.RED) {
+    System.out.println("STOP!");
+}
+```

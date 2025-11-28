@@ -1,0 +1,93 @@
+---
+title: Singleton Pattern
+description: There can be only one.
+---
+
+# Singleton Pattern
+
+<AnalogyBox type="pattern">
+  The Singleton Pattern is like a **King**.
+  
+  A Kingdom can only have **ONE** King. If you ask for the King, you get the *same person* every time. You don't get a new King cloned for every request.
+</AnalogyBox>
+
+## The King
+
+Try to create multiple Kings.
+- The first time, a King is born (Created).
+- Every subsequent time, the **SAME** King is returned.
+
+<TheKing />
+
+## The Code
+
+Make the constructor `private` and provide a `static` method to get the instance.
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    class King {
+        private static King instance;
+
+        // Private Constructor
+        private King() {}
+
+        public static King getInstance() {
+            if (instance == null) {
+                instance = new King();
+            }
+            return instance;
+        }
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    class King:
+        _instance = None
+
+        def __new__(cls):
+            if cls._instance is None:
+                cls._instance = super(King, cls).__new__(cls)
+            return cls._instance
+
+    # Usage
+    k1 = King()
+    k2 = King() # k1 is k2
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class King {
+    private:
+        static King* instance;
+        King() {} // Private Constructor
+    public:
+        static King* getInstance() {
+            if (instance == nullptr) {
+                instance = new King();
+            }
+            return instance;
+        }
+    };
+    
+    King* King::instance = nullptr;
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    class King {
+        private static instance: King;
+
+        private constructor() {} // Private Constructor
+
+        static getInstance(): King {
+            if (!King.instance) {
+                King.instance = new King();
+            }
+            return King.instance;
+        }
+    }
+    ```
+  </div>
+</CodeSwitcher>

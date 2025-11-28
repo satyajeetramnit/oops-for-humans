@@ -1,0 +1,97 @@
+---
+title: Strategy Pattern
+description: Swap behaviors at runtime.
+---
+
+# Strategy Pattern
+
+<AnalogyBox type="pattern">
+  The Strategy Pattern is like a **Video Game Inventory**.
+  
+  You can equip a Sword, a Bow, or a Shield.
+  
+  When you press "Attack", the character does something different depending on what is equipped. You don't have to create a new character to change weapons.
+</AnalogyBox>
+
+## The Battle Bot
+
+Equip a strategy and see how the bot behaves.
+- **Melee**: Swings a sword.
+- **Ranged**: Shoots an arrow.
+- **Defensive**: Raises a shield.
+
+<BattleBot />
+
+## The Code
+
+Define a common interface (`Weapon`) and implement different strategies.
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    interface Weapon { void use(); }
+
+    class Sword implements Weapon {
+        public void use() { System.out.println("Swing!"); }
+    }
+
+    class Robot {
+        private Weapon weapon;
+        public void setWeapon(Weapon w) { this.weapon = w; }
+        public void attack() { weapon.use(); }
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    from abc import ABC, abstractmethod
+
+    class Weapon(ABC):
+        @abstractmethod
+        def use(self): pass
+
+    class Sword(Weapon):
+        def use(self): print("Swing!")
+
+    class Robot:
+        def __init__(self): self.weapon = None
+        def set_weapon(self, w): self.weapon = w
+        def attack(self): self.weapon.use()
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class Weapon {
+    public:
+        virtual void use() = 0;
+    };
+
+    class Sword : public Weapon {
+    public:
+        void use() override { cout << "Swing!" << endl; }
+    };
+
+    class Robot {
+        Weapon* weapon;
+    public:
+        void setWeapon(Weapon* w) { weapon = w; }
+        void attack() { weapon->use(); }
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    interface Weapon { use(): void; }
+
+    class Sword implements Weapon {
+        use(): void { console.log("Swing!"); }
+    }
+
+    class Robot {
+        private weapon: Weapon | undefined;
+        setWeapon(w: Weapon): void { this.weapon = w; }
+        attack(): void { this.weapon?.use(); }
+    }
+    ```
+  </div>
+</CodeSwitcher>

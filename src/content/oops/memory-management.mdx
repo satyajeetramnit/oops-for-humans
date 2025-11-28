@@ -1,0 +1,50 @@
+---
+title: Memory Management
+description: How your program handles memory (Stack vs. Heap).
+---
+
+# Memory Management
+
+<AnalogyBox type="concept">
+  Memory is like a **Restaurant**:
+  - **Stack**: The waiter's notepad. Fast, temporary, organized (function calls).
+  - **Heap**: The kitchen storage. Large, messy, needs cleaning (objects).
+  - **Garbage Collector**: The busboy who clears tables when customers leave.
+</AnalogyBox>
+
+## The Garbage Collector
+
+Visualize how objects are stored in the Heap and cleaned up when no longer needed.
+
+<GarbageCollector />
+
+### Key Concepts
+
+1.  **Stack Memory**:
+    - Stores primitive variables (`int`, `boolean`) and references to objects.
+    - Automatically cleared when a function ends.
+    - Very fast access.
+
+2.  **Heap Memory**:
+    - Stores actual objects (`new Car()`, `new ArrayList()`).
+    - Objects live here until they are "collected".
+    - Slower access than Stack.
+
+3.  **Garbage Collection (GC)**:
+    - A background process that looks for "unreferenced" objects.
+    - If no variable points to an object, it's considered "garbage" and deleted to free up memory.
+
+### The Code
+
+```java
+void createObject() {
+    // "c" is a reference on the Stack
+    // "new Car()" creates an object on the Heap
+    Car c = new Car(); 
+    
+    // ... function ends ...
+    // "c" is popped off the Stack.
+    // The Car object on the Heap is now unreferenced.
+    // GC will eventually delete it.
+}
+```

@@ -1,0 +1,42 @@
+---
+title: Concurrency
+description: Doing multiple things at the same time.
+---
+
+# Concurrency
+
+<AnalogyBox type="concept">
+  Concurrency is like a **Kitchen with Multiple Chefs**:
+  - **Threads**: The chefs working in parallel.
+  - **Shared Resource**: The single oven they all need to use.
+  - **Race Condition**: Two chefs trying to put a pizza in the oven at the exact same time (chaos!).
+  - **Lock**: A rule saying "Only one chef can use the oven at a time".
+</AnalogyBox>
+
+## The Thread Race
+
+Visualize two threads running in parallel and accessing a shared resource.
+
+<ThreadRace />
+
+### Key Concepts
+
+1.  **Thread**: A lightweight unit of execution. A program can have multiple threads running simultaneously.
+2.  **Race Condition**: A bug that happens when multiple threads try to change shared data at the same time. The result depends on who "wins" the race.
+3.  **Synchronization (Lock)**: A mechanism to ensure only one thread can access a resource at a time, preventing race conditions.
+
+### The Code
+
+```java
+class Counter {
+    private int count = 0;
+
+    // "synchronized" acts as a Lock
+    public synchronized void increment() {
+        count++;
+    }
+}
+
+// Two threads calling increment() at the same time
+// Without "synchronized", count might be wrong!
+```

@@ -1,0 +1,93 @@
+---
+title: Abstraction
+description: Hiding the complexity.
+---
+
+# Abstraction
+
+<AnalogyBox type="car">
+  Abstraction is like **Driving a Car**.
+  
+  - You use the **Steering Wheel** and **Pedals** (Interface).
+  - You **don't need to know** how the combustion engine works (Implementation).
+  
+  Abstraction hides the messy details and gives you a clean, simple interface.
+</AnalogyBox>
+
+## Abstract Classes vs Interfaces
+
+### Abstract Class
+A half-built blueprint. "I know this is a Vehicle, but I don't know how it moves yet."
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    abstract class Vehicle {
+        abstract void move(); // You must define this!
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    from abc import ABC, abstractmethod
+
+    class Vehicle(ABC):
+        @abstractmethod
+        def move(self):
+            pass # You must define this!
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class Vehicle {
+    public:
+        virtual void move() = 0; // Pure virtual function
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    abstract class Vehicle {
+        abstract move(): void; // You must define this!
+    }
+    ```
+  </div>
+</CodeSwitcher>
+
+### Interface
+A contract. "I promise I can do these things."
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    interface Flyable {
+        void fly();
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    # Python uses Abstract Base Classes for interfaces
+    class Flyable(ABC):
+        @abstractmethod
+        def fly(self):
+            pass
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    // C++ uses Abstract Classes for interfaces
+    class Flyable {
+    public:
+        virtual void fly() = 0;
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    interface Flyable {
+        fly(): void;
+    }
+    ```
+  </div>
+</CodeSwitcher>

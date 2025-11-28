@@ -1,0 +1,91 @@
+---
+title: Classes and Objects
+description: The blueprint and the house.
+---
+
+# Classes and Objects
+
+<AnalogyBox type="lego">
+  A class is like a **Lego Blueprint**. It tells you what pieces you need and how they fit together.
+  
+  An object is the actual **Lego Castle** you build from that blueprint. You can build 100 castles from one blueprint!
+</AnalogyBox>
+
+<CookieFactory />
+
+## The Cookie Cutter Analogy
+
+Imagine a cookie cutter.
+- The **Cutter** is the Class. It defines the shape (Star, Circle).
+- The **Cookies** are the Objects. You stamp them out one by one.
+
+<CodeSwitcher>
+  <div lang="Java">
+```java
+class Cookie {
+    String shape;
+    String flavor;
+    
+    void bake() {
+        System.out.println("Baking " + flavor + " cookie!");
+    }
+}
+
+// Usage
+Cookie c1 = new Cookie();
+c1.flavor = "Chocolate Chip";
+c1.bake();
+```
+  </div>
+  <div lang="Python">
+```python
+class Cookie:
+    def __init__(self):
+        self.shape = ""
+        self.flavor = ""
+
+    def bake(self):
+        print(f"Baking {self.flavor} cookie!")
+
+# Usage
+c1 = Cookie()
+c1.flavor = "Chocolate Chip"
+c1.bake()
+```
+  </div>
+  <div lang="C++">
+```cpp
+class Cookie {
+public:
+    string shape;
+    string flavor;
+
+    void bake() {
+        cout << "Baking " << flavor << " cookie!" << endl;
+    }
+};
+
+// Usage
+Cookie c1;
+c1.flavor = "Chocolate Chip";
+c1.bake();
+```
+  </div>
+  <div lang="TypeScript">
+```typescript
+class Cookie {
+    shape: string = "";
+    flavor: string = "";
+
+    bake(): void {
+        console.log(`Baking ${this.flavor} cookie!`);
+    }
+}
+
+// Usage
+const c1 = new Cookie();
+c1.flavor = "Chocolate Chip";
+c1.bake();
+```
+  </div>
+</CodeSwitcher>

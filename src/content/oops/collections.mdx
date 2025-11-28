@@ -1,0 +1,91 @@
+---
+title: Collections
+description: Organizing your objects.
+---
+
+# Collections
+
+<AnalogyBox type="organization">
+  Collections are like **Containers** for your objects.
+  
+  - **List**: Like a **Shopping List**. Order matters, and you can write "Milk" twice.
+  - **Set**: Like a **Coin Collection**. You only keep *unique* coins. No duplicates allowed!
+  - **Map**: Like a **Dictionary**. You look up a word (Key) to find its definition (Value).
+</AnalogyBox>
+
+## The Sorting Hat
+
+Throw items into the collection and see what happens!
+- Try adding duplicates to a **Set**.
+- Try adding items to a **List**.
+- Try Key-Value pairs in a **Map**.
+
+<SortingHat />
+
+## The Code
+
+Java provides the `Collection` framework.
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    // List: Ordered, Duplicates OK
+    List<String> shopping = new ArrayList<>();
+    shopping.add("Milk");
+    shopping.add("Milk"); // OK!
+
+    // Set: Unique Only
+    Set<String> coins = new HashSet<>();
+    coins.add("Quarter");
+    coins.add("Quarter"); // Ignored!
+
+    // Map: Key-Value Pairs
+    Map<String, String> dictionary = new HashMap<>();
+    dictionary.put("Java", "A programming language");
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    # List: Ordered, Duplicates OK
+    shopping = ["Milk", "Milk"] # OK!
+
+    # Set: Unique Only
+    coins = {"Quarter", "Quarter"} # Second "Quarter" ignored!
+
+    # Dictionary (Map): Key-Value Pairs
+    dictionary = {"Python": "A programming language"}
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    // Vector (List): Ordered, Duplicates OK
+    vector<string> shopping;
+    shopping.push_back("Milk");
+    shopping.push_back("Milk");
+
+    // Set: Unique Only
+    set<string> coins;
+    coins.insert("Quarter");
+    coins.insert("Quarter"); // Ignored!
+
+    // Map: Key-Value Pairs
+    map<string, string> dictionary;
+    dictionary["C++"] = "A programming language";
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    // Array (List): Ordered, Duplicates OK
+    const shopping: string[] = ["Milk", "Milk"];
+
+    // Set: Unique Only
+    const coins = new Set<string>();
+    coins.add("Quarter");
+    coins.add("Quarter"); // Ignored!
+
+    // Map: Key-Value Pairs
+    const dictionary = new Map<string, string>();
+    dictionary.set("TypeScript", "A programming language");
+    ```
+  </div>
+</CodeSwitcher>

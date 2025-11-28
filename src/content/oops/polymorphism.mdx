@@ -1,0 +1,224 @@
+---
+title: Polymorphism
+description: Many forms, one interface.
+---
+
+# Polymorphism
+
+<AnalogyBox type="remote">
+  Polymorphism is like a **Universal Remote**. You press the "Power" button.
+  
+  - If you point it at the **TV**, it turns on the screen.
+  - If you point it at the **AC**, it starts the fan.
+  
+  One button ("Power") does different things depending on the object.
+</AnalogyBox>
+
+## The Shape Shifter
+
+Imagine a game where you have a `Shape`.
+- A **Circle** rolls.
+- A **Square** slides.
+- A **Triangle** spins.
+
+But you just call `performAction()` on all of them!
+
+<ShapeShifter />
+
+## The Code
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    class Shape {
+        void performAction() {
+            System.out.println("Doing something...");
+        }
+    }
+
+    class Circle extends Shape {
+        void performAction() {
+            System.out.println("Rolling...");
+        }
+    }
+
+    class Square extends Shape {
+        void performAction() {
+            System.out.println("Sliding...");
+        }
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    class Shape:
+        def perform_action(self):
+            print("Doing something...")
+
+    class Circle(Shape):
+        def perform_action(self):
+            print("Rolling...")
+
+    class Square(Shape):
+        def perform_action(self):
+            print("Sliding...")
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class Shape {
+    public:
+        virtual void performAction() {
+            cout << "Doing something..." << endl;
+        }
+    };
+
+    class Circle : public Shape {
+    public:
+        void performAction() override {
+            cout << "Rolling..." << endl;
+        }
+    };
+
+    class Square : public Shape {
+    public:
+        void performAction() override {
+            cout << "Sliding..." << endl;
+        }
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    class Shape {
+        performAction(): void {
+            console.log("Doing something...");
+        }
+    }
+
+    class Circle extends Shape {
+        performAction(): void {
+            console.log("Rolling...");
+        }
+    }
+
+    class Square extends Shape {
+        performAction(): void {
+            console.log("Sliding...");
+        }
+    }
+    ```
+  </div>
+</CodeSwitcher>
+
+This allows you to treat all shapes the same way:
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    Shape s = new Circle();
+    s.performAction(); // Output: Rolling...
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    s = Circle()
+    s.perform_action() # Output: Rolling...
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    Shape* s = new Circle();
+    s->performAction(); // Output: Rolling...
+    delete s;
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    const s: Shape = new Circle();
+    s.performAction(); // Output: Rolling...
+    ```
+  </div>
+</CodeSwitcher>
+
+## Advanced Concepts
+
+### Operator Overloading
+Polymorphism isn't just for methods! In some languages (like C++ or Python), you can redefine how operators like `+` work.
+
+- **Numbers**: `1 + 2 = 3` (Addition)
+- **Strings**: `"Hello " + "World" = "Hello World"` (Concatenation)
+- **Custom Objects**: `Vector(1, 2) + Vector(3, 4) = Vector(4, 6)` (Vector Addition)
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    // Java doesn't support Operator Overloading
+    // We use methods instead:
+    class Vector {
+        int x, y;
+        Vector(int x, int y) { this.x = x; this.y = y; }
+
+        Vector add(Vector other) {
+            return new Vector(x + other.x, y + other.y);
+        }
+    }
+
+    Vector v1 = new Vector(1, 2);
+    Vector v2 = new Vector(3, 4);
+    Vector v3 = v1.add(v2);
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    # Python Example
+    class Vector:
+        def __init__(self, x, y):
+            self.x = x
+            self.y = y
+
+        # Overloading the '+' operator
+        def __add__(self, other):
+            return Vector(self.x + other.x, self.y + other.y)
+
+    v1 = Vector(1, 2)
+    v2 = Vector(3, 4)
+    v3 = v1 + v2 # Works like magic!
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class Vector {
+    public:
+        int x, y;
+        Vector(int x, int y) : x(x), y(y) {}
+
+        // Overloading +
+        Vector operator+(const Vector& other) {
+            return Vector(x + other.x, y + other.y);
+        }
+    };
+
+    Vector v1(1, 2);
+    Vector v2(3, 4);
+    Vector v3 = v1 + v2;
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    // TypeScript doesn't support Operator Overloading
+    // We use methods instead:
+    class Vector {
+        constructor(public x: number, public y: number) {}
+
+        add(other: Vector): Vector {
+            return new Vector(this.x + other.x, this.y + other.y);
+        }
+    }
+
+    const v1 = new Vector(1, 2);
+    const v2 = new Vector(3, 4);
+    const v3 = v1.add(v2);
+    ```
+  </div>
+</CodeSwitcher>

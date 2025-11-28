@@ -1,0 +1,50 @@
+---
+title: Object Cloning
+description: Making exact copies of objects.
+---
+
+# Object Cloning
+
+<AnalogyBox type="concept">
+  Cloning is like **Photocopying**:
+  
+  - **Shallow Copy**: You photocopy the main page, but if there's a sticky note attached, you just point to the same sticky note. If someone writes on the sticky note, both copies see it.
+  - **Deep Copy**: You photocopy the main page AND the sticky note. Now you have two completely separate sets.
+</AnalogyBox>
+
+## The Cloning Machine
+
+See the difference between Shallow and Deep Copy when we mutate shared data (DNA).
+
+<CloningMachine />
+
+### Key Concepts
+
+1.  **Shallow Copy**: Creates a new object, but inserts references into it to the objects found in the original.
+    - Fast, but risky if mutable objects are shared.
+    - Default behavior of `Object.clone()` in Java.
+
+2.  **Deep Copy**: Creates a new object and recursively copies everything found in the original.
+    - Slower, but safer. The two objects are fully independent.
+
+### The Code
+
+```java
+class Sheep implements Cloneable {
+    String name;
+    DNA dna; // A mutable object
+
+    // Shallow Copy (Default)
+    public Object clone() {
+        return super.clone(); 
+    }
+    
+    // Deep Copy (Manual)
+    public Sheep deepClone() {
+        Sheep copy = new Sheep();
+        copy.name = this.name;
+        copy.dna = new DNA(this.dna.code); // New object!
+        return copy;
+    }
+}
+```

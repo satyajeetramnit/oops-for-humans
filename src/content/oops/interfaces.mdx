@@ -1,0 +1,124 @@
+---
+title: Interfaces
+description: The Universal Adapter.
+---
+
+# Interfaces
+
+<AnalogyBox type="hardware">
+  An Interface is like a **Power Socket**.
+  
+  The socket doesn't care if you plug in a TV, a Laptop, or a Blender. As long as the plug fits (implements the interface), it works!
+  
+  This allows you to swap out devices without changing the wiring of your house.
+</AnalogyBox>
+
+## The Universal Adapter
+
+We have a `Plugable` interface.
+- A **Lamp** lights up.
+- A **Fan** spins.
+- A **Toaster** heats up.
+
+They all do different things, but they all fit into the same socket!
+
+<UniversalAdapter />
+
+## The Code
+
+Define the "contract" (Interface):
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    interface Plugable {
+        void turnOn();
+        void turnOff();
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    from abc import ABC, abstractmethod
+
+    class Plugable(ABC):
+        @abstractmethod
+        def turn_on(self):
+            pass
+
+        @abstractmethod
+        def turn_off(self):
+            pass
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    // Pure Abstract Class acting as Interface
+    class Plugable {
+    public:
+        virtual void turnOn() = 0;
+        virtual void turnOff() = 0;
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    interface Plugable {
+        turnOn(): void;
+        turnOff(): void;
+    }
+    ```
+  </div>
+</CodeSwitcher>
+
+Implement it in different classes:
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    class Lamp implements Plugable {
+        public void turnOn() {
+            System.out.println("Light!");
+        }
+        public void turnOff() {
+            System.out.println("Darkness...");
+        }
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    class Lamp(Plugable):
+        def turn_on(self):
+            print("Light!")
+
+        def turn_off(self):
+            print("Darkness...")
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class Lamp : public Plugable {
+    public:
+        void turnOn() override {
+            cout << "Light!" << endl;
+        }
+        void turnOff() override {
+            cout << "Darkness..." << endl;
+        }
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    class Lamp implements Plugable {
+        turnOn(): void {
+            console.log("Light!");
+        }
+        turnOff(): void {
+            console.log("Darkness...");
+        }
+    }
+    ```
+  </div>
+</CodeSwitcher>

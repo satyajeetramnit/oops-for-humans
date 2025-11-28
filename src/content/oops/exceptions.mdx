@@ -1,0 +1,70 @@
+---
+title: Exception Handling
+description: Don't let the bomb explode.
+---
+
+# Exception Handling
+
+<AnalogyBox type="safety">
+  Exceptions are like **Bombs** ticking in your code.
+  
+  - If you ignore them, your program **CRASHES** (Explodes).
+  - If you use `try-catch`, you are the **Bomb Squad**. You diffuse the bomb safely and the program continues.
+</AnalogyBox>
+
+## The Bomb Squad
+
+You have 10 seconds to cut the correct wire.
+- **Without Safety**: Cutting the wrong wire crashes the system.
+- **With try-catch**: The safety net catches the explosion.
+
+<BombSquad />
+
+## The Code
+
+Wrap dangerous code in a `try` block.
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    try {
+        cutWire(wire); // Might throw ExplosionException!
+    } catch (ExplosionException e) {
+        System.out.println("Caught the explosion! We are safe.");
+    } finally {
+        System.out.println("This runs no matter what.");
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    try:
+        cut_wire(wire) # Might raise ExplosionException!
+    except ExplosionException as e:
+        print("Caught the explosion! We are safe.")
+    finally:
+        print("This runs no matter what.")
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    try {
+        cutWire(wire); // Might throw ExplosionException!
+    } catch (const ExplosionException& e) {
+        cout << "Caught the explosion! We are safe." << endl;
+    }
+    // C++ doesn't have 'finally'. Use RAII (Destructors) for cleanup.
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    try {
+        cutWire(wire); // Might throw Error!
+    } catch (e) {
+        console.log("Caught the explosion! We are safe.");
+    } finally {
+        console.log("This runs no matter what.");
+    }
+    ```
+  </div>
+</CodeSwitcher>

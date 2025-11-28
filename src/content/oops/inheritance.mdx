@@ -1,0 +1,150 @@
+---
+title: Inheritance
+description: Don't reinvent the wheel. Inherit it.
+---
+
+# Inheritance
+
+<AnalogyBox type="biology">
+  Inheritance is like **DNA**. You inherit features (eyes, hair color) from your parents, but you also add your own unique traits.
+  
+  In code, a **Child Class** gets all the code from a **Parent Class** for free!
+</AnalogyBox>
+
+## The Robot Factory
+
+Why build a robot from scratch every time?
+- Start with a **Basic Robot** (Head, Body, Legs).
+- Create a **Warrior Robot** that *extends* Basic Robot and adds a Weapon.
+- Create a **Flying Robot** that *extends* Basic Robot and adds Wings.
+
+<RobotBuilder />
+
+## The Code
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    // The Parent Class
+    class BasicRobot {
+        void walk() {
+            System.out.println("Walking...");
+        }
+    }
+
+    // The Child Class
+    class WarriorRobot extends BasicRobot {
+        void attack() {
+            System.out.println("Attacking with Laser!");
+        }
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    # The Parent Class
+    class BasicRobot:
+        def walk(self):
+            print("Walking...")
+
+    # The Child Class
+    class WarriorRobot(BasicRobot):
+        def attack(self):
+            print("Attacking with Laser!")
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    // The Parent Class
+    class BasicRobot {
+    public:
+        void walk() {
+            cout << "Walking..." << endl;
+        }
+    };
+
+    // The Child Class
+    class WarriorRobot : public BasicRobot {
+    public:
+        void attack() {
+            cout << "Attacking with Laser!" << endl;
+        }
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    // The Parent Class
+    class BasicRobot {
+        walk(): void {
+            console.log("Walking...");
+        }
+    }
+
+    // The Child Class
+    class WarriorRobot extends BasicRobot {
+        attack(): void {
+            console.log("Attacking with Laser!");
+        }
+    }
+    ```
+  </div>
+</CodeSwitcher>
+
+When you create a `WarriorRobot`, it can `walk()` AND `attack()`!
+
+## Advanced Concepts
+
+### 1. The Diamond Problem
+Imagine a child inherits from two parents who both have a method called `cook()`.
+- Parent A cooks Pasta.
+- Parent B cooks Pizza.
+- **Child**: "Which `cook()` do I use?!"
+
+This ambiguity is the **Diamond Problem**. Many languages (like Java) avoid this by disallowing Multiple Inheritance of classes. C++ allows it but requires careful handling.
+
+### 2. Constructor Chaining
+When you create a Child object, the Parent must be born first!
+- **Child Constructor** calls `super()` (Parent Constructor).
+- This chain goes all the way up to the root ancestor.
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    class Child extends Parent {
+        Child() {
+            super(); // Call Parent's constructor first!
+            System.out.println("Child Created");
+        }
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    class Child(Parent):
+        def __init__(self):
+            super().__init__() # Call Parent's constructor first!
+            print("Child Created")
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class Child : public Parent {
+    public:
+        Child() : Parent() { // Call Parent's constructor first!
+            cout << "Child Created" << endl;
+        }
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    class Child extends Parent {
+        constructor() {
+            super(); // Call Parent's constructor first!
+            console.log("Child Created");
+        }
+    }
+    ```
+  </div>
+</CodeSwitcher>

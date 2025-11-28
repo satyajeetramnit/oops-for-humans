@@ -1,0 +1,111 @@
+---
+title: Abstract Classes
+description: The Partial Blueprint.
+---
+
+# Abstract Classes
+
+<AnalogyBox type="blueprint">
+  An Abstract Class is like a **Partial Blueprint**.
+  
+  It defines *some* things (like "All houses have walls"), but leaves other things *undefined* (like "What style is the roof?").
+  
+  You **cannot** build a house from a partial blueprint. You must first complete it (Subclass it).
+</AnalogyBox>
+
+## The Blueprint Builder
+
+We have a `House` blueprint.
+- It already has **Walls** and a **Roof**.
+- But the **Style** is abstract.
+
+You must choose a style to complete the class and build the house.
+
+<BlueprintBuilder />
+
+## The Code
+
+Use the `abstract` keyword.
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    abstract class House {
+        // Implemented Method (Concrete)
+        void buildWalls() {
+            System.out.println("Building walls...");
+        }
+
+        // Abstract Method (No Body!)
+        abstract void designStyle();
+    }
+
+    // Concrete Subclass
+    class Castle extends House {
+        @Override
+        void designStyle() {
+            System.out.println("Adding towers and a moat!");
+        }
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    from abc import ABC, abstractmethod
+
+    class House(ABC):
+        # Implemented Method
+        def build_walls(self):
+            print("Building walls...")
+
+        # Abstract Method
+        @abstractmethod
+        def design_style(self):
+            pass
+
+    class Castle(House):
+        def design_style(self):
+            print("Adding towers and a moat!")
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class House {
+    public:
+        // Implemented Method
+        void buildWalls() {
+            cout << "Building walls..." << endl;
+        }
+
+        // Pure Virtual Function (Abstract Method)
+        virtual void designStyle() = 0;
+    };
+
+    class Castle : public House {
+    public:
+        void designStyle() override {
+            cout << "Adding towers and a moat!" << endl;
+        }
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    abstract class House {
+        // Implemented Method
+        buildWalls(): void {
+            console.log("Building walls...");
+        }
+
+        // Abstract Method
+        abstract designStyle(): void;
+    }
+
+    class Castle extends House {
+        designStyle(): void {
+            console.log("Adding towers and a moat!");
+        }
+    }
+    ```
+  </div>
+</CodeSwitcher>

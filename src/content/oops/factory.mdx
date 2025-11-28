@@ -1,0 +1,90 @@
+---
+title: Factory Pattern
+description: Order objects without knowing how they are made.
+---
+
+# Factory Pattern
+
+<AnalogyBox type="pattern">
+  The Factory Pattern is like ordering from a **Menu**.
+  
+  You say "I want a Burger". You don't go into the kitchen, chop the onions, and grill the patty yourself (`new Burger()`).
+  
+  The **Factory** (Kitchen) handles the creation logic and hands you the finished object.
+</AnalogyBox>
+
+## The Toy Factory
+
+Order a toy from the factory.
+- You don't need to know *how* to build a Car or a Doll.
+- You just ask the Factory for one.
+
+<ToyFactory />
+
+## The Code
+
+Create a class that returns objects based on input.
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    class ToyFactory {
+        public Toy createToy(String type) {
+            if (type.equals("Car")) return new Car();
+            else if (type.equals("Doll")) return new Doll();
+            return null;
+        }
+    }
+
+    // Usage
+    ToyFactory factory = new ToyFactory();
+    Toy myToy = factory.createToy("Car");
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    class ToyFactory:
+        def create_toy(self, toy_type):
+            if toy_type == "Car":
+                return Car()
+            elif toy_type == "Doll":
+                return Doll()
+            return None
+
+    # Usage
+    factory = ToyFactory()
+    my_toy = factory.create_toy("Car")
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class ToyFactory {
+    public:
+        Toy* createToy(string type) {
+            if (type == "Car") return new Car();
+            else if (type == "Doll") return new Doll();
+            return nullptr;
+        }
+    };
+
+    // Usage
+    ToyFactory factory;
+    Toy* myToy = factory.createToy("Car");
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    class ToyFactory {
+        createToy(type: string): Toy | null {
+            if (type === "Car") return new Car();
+            else if (type === "Doll") return new Doll();
+            return null;
+        }
+    }
+
+    // Usage
+    const factory = new ToyFactory();
+    const myToy = factory.createToy("Car");
+    ```
+  </div>
+</CodeSwitcher>

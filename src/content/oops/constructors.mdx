@@ -1,0 +1,227 @@
+---
+title: Constructors
+description: How objects are born.
+---
+
+# Constructors
+
+<AnalogyBox type="factory">
+  A Constructor is like a **Factory Assembly Line**.
+  
+  When you order a car, you specify the color, engine, and wheels. The factory (Constructor) takes these specifications and builds the car *exactly* how you want it.
+  
+  You can't drive the car until it's fully built!
+</AnalogyBox>
+
+## The Robot Assembly Line
+
+Imagine you are building a robot. You can choose which parts to include.
+- Pass `true` for Head, Body, etc.
+- The Constructor takes these parts and assembles the robot.
+
+<RobotAssemblyLine />
+
+## The Code
+
+A constructor has the **same name** as the class and **no return type**.
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    class Robot {
+        boolean hasHead;
+        boolean hasBody;
+
+        // The Constructor
+        Robot(boolean head, boolean body) {
+            this.hasHead = head;
+            this.hasBody = body;
+            System.out.println("Robot Built!");
+        }
+    }
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    class Robot:
+        # The Constructor (__init__)
+        def __init__(self, head, body):
+            self.has_head = head
+            self.has_body = body
+            print("Robot Built!")
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class Robot {
+    public:
+        bool hasHead;
+        bool hasBody;
+
+        // The Constructor
+        Robot(bool head, bool body) {
+            this->hasHead = head;
+            this->hasBody = body;
+            cout << "Robot Built!" << endl;
+        }
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    class Robot {
+        hasHead: boolean;
+        hasBody: boolean;
+
+        // The Constructor
+        constructor(head: boolean, body: boolean) {
+            this.hasHead = head;
+            this.hasBody = body;
+            console.log("Robot Built!");
+        }
+    }
+    ```
+  </div>
+</CodeSwitcher>
+
+Calling the constructor:
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    // Calls the constructor with arguments
+    Robot myBot = new Robot(true, true); 
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    # Calls the constructor with arguments
+    my_bot = Robot(True, True)
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    // Calls the constructor with arguments
+    Robot myBot(true, true); 
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    // Calls the constructor with arguments
+    const myBot = new Robot(true, true); 
+    ```
+  </div>
+</CodeSwitcher>
+
+## Advanced Concepts
+
+### 1. Destructors
+If a Constructor is "Birth", a Destructor is "Death". It runs when an object is destroyed (e.g., when it goes out of scope) to clean up memory.
+- **Java**: Uses Garbage Collection, so no explicit destructors (but has `finalize()`, which is deprecated).
+- **C++**: Uses `~ClassName()` to manually clean up.
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    // Java uses Garbage Collection (GC)
+    // No explicit destructor needed.
+    // The GC cleans up memory automatically when objects are no longer used.
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    class Robot:
+        # Destructor (__del__)
+        def __del__(self):
+            print("Robot Destroyed!")
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class Robot {
+    public:
+        // Destructor
+        ~Robot() {
+            cout << "Robot Destroyed! Cleaning up parts..." << endl;
+        }
+    };
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    // TypeScript/JavaScript uses Garbage Collection (GC)
+    // No explicit destructor needed.
+    // The engine cleans up memory automatically.
+    ```
+  </div>
+</CodeSwitcher>
+
+### 2. Copy Constructors
+What if you want to clone a robot? A Copy Constructor creates a new object by copying an existing one.
+
+<CodeSwitcher>
+  <div lang="Java">
+    ```java
+    class Robot {
+        String name;
+
+        // Normal Constructor
+        Robot(String name) { this.name = name; }
+
+        // Copy Constructor
+        Robot(Robot other) {
+            this.name = other.name; // Copy data from the other robot
+        }
+    }
+
+    Robot bot1 = new Robot("R2D2");
+    Robot bot2 = new Robot(bot1); // bot2 is a copy of bot1
+    ```
+  </div>
+  <div lang="Python">
+    ```python
+    import copy
+
+    class Robot:
+        def __init__(self, name):
+            self.name = name
+
+    bot1 = Robot("R2D2")
+    bot2 = copy.copy(bot1) # Shallow copy
+    # bot2 is a copy of bot1
+    ```
+  </div>
+  <div lang="C++">
+    ```cpp
+    class Robot {
+    public:
+        string name;
+
+        Robot(string n) : name(n) {}
+
+        // Copy Constructor
+        Robot(const Robot& other) {
+            name = other.name;
+        }
+    };
+
+    Robot bot1("R2D2");
+    Robot bot2 = bot1; // Invokes Copy Constructor
+    ```
+  </div>
+  <div lang="TypeScript">
+    ```typescript
+    class Robot {
+        constructor(public name: string) {}
+
+        // Clone method (Manual copy)
+        clone(): Robot {
+            return new Robot(this.name);
+        }
+    }
+
+    const bot1 = new Robot("R2D2");
+    const bot2 = bot1.clone(); // bot2 is a copy of bot1
+    ```
+  </div>
+</CodeSwitcher>
