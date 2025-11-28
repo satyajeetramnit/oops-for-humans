@@ -15,6 +15,32 @@ Ever read about OOP, felt like you understood it, and then completely blanked ou
 
 ***
 
+
+***
+
+## 🚀 How to Use This Repository
+
+This repository serves as a comprehensive guide to Object-Oriented Programming (OOP). You can explore the content in three ways:
+
+1.  **Interactive Learning (Recommended):**
+    Visit our new interactive website for a more engaging experience with playgrounds and visualizations:
+    - [**oops-for-humans.vercel.app**](https://oops-for-humans.vercel.app)
+    - *Also available at: [oops4humans.vercel.app](https://oops4humans.vercel.app) and [oopsforhumans.vercel.app](https://oopsforhumans.vercel.app)*
+
+2.  **Static Documentation:**
+    For a traditional documentation view, check out the static site:
+    - [**satyajeetramnit.github.io/oops-for-humans**](https://satyajeetramnit.github.io/oops-for-humans/)
+
+3.  **Directly in GitHub:**
+    Simply scroll down! The `README.md` contains all the detailed explanations, code examples, and concepts.
+
+**Features of the Interactive App:**
+- 🎮 **Interactive Playgrounds:** Run code snippets directly in your browser.
+- 🎨 **Visual Explanations:** Dynamic diagrams and animations to understand complex topics.
+- 🌙 **Dark Mode:** Easy on the eyes for late-night study sessions.
+
+***
+
 <!-- # Index - Object-Oriented Programming (OOP)    -->
 
 ### **[Core Concepts](#core-concepts-1)**  
