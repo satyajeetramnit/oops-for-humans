@@ -78,7 +78,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                     <select
                         value={language}
                         onChange={(e) => setLanguage(e.target.value as Language)}
-                        className="w-full p-2 rounded border-2 border-black dark:border-gray-600 bg-white dark:!bg-slate-900 text-ink dark:!text-white font-bold text-sm shadow-sketch-sm focus:outline-none focus:ring-2 focus:ring-blue-400 appearance-none"
+                        className="w-full p-2 rounded border-2 border-black dark:border-gray-600 bg-white dark:bg-slate-900 text-black dark:text-white font-bold text-sm shadow-sketch-sm focus:outline-none focus:ring-2 focus:ring-blue-400 appearance-none"
                     >
                         <option value="Java">Java</option>
                         <option value="Python">Python</option>

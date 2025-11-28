@@ -1,4 +1,7 @@
 import { getMdxContent, getAllSlugs } from '@/lib/mdx';
+import { sidebarConfig } from '@/lib/sidebarConfig';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { MDXComponents } from '@/components/mdx/MDXComponents';
 import { notFound } from 'next/navigation';
@@ -15,6 +18,15 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
     if (!data) {
         notFound();
+    }
+
+    // Find next page logic
+    let nextPage = null;
+    const allItems = sidebarConfig.flatMap(section => section.items || []);
+    const currentIndex = allItems.findIndex(item => item.href === `/learn/${slug}`);
+
+    if (currentIndex !== -1 && currentIndex < allItems.length - 1) {
+        nextPage = allItems[currentIndex + 1];
     }
 
     return (
@@ -35,6 +47,23 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                     }}
                 />
             </div>
+
+            {nextPage && (
+                <div className="mt-16 pt-8 border-t-2 border-black dark:border-gray-700">
+                    <div className="text-sm font-bold text-pencil uppercase tracking-wider mb-2">Up Next</div>
+                    <Link
+                        href={nextPage.href || '#'}
+                        className="group flex items-center justify-between p-6 bg-[var(--card-bg)] border-2 border-[var(--card-border)] rounded-xl shadow-sketch hover:shadow-sketch-hover hover:-translate-y-1 transition-all"
+                    >
+                        <div>
+                            <span className="text-lg font-black text-ink group-hover:text-accent-blue transition-colors">
+                                {nextPage.title}
+                            </span>
+                        </div>
+                        <ArrowRight className="text-ink group-hover:translate-x-2 transition-transform" />
+                    </Link>
+                </div>
+            )}
         </article>
     );
 }
