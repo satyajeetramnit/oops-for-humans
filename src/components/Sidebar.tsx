@@ -48,7 +48,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
             )}
 
             <aside className={`
-                w-[280px] h-screen bg-[#fdfbf7] dark:bg-[#0f172a] border-r-2 border-black dark:border-gray-700 
+                w-[280px] h-screen bg-white dark:bg-[#0f172a] border-r-2 border-black dark:border-gray-700 
                 fixed left-0 top-0 overflow-y-auto p-6 flex flex-col z-50 
                 transition-all duration-300 ease-in-out
                 md:translate-x-0 

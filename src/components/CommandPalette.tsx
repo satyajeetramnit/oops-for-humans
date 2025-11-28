@@ -35,7 +35,7 @@ export default function CommandPalette() {
             onClick={() => setOpen(false)}
         >
             <div
-                className="w-full max-w-lg bg-white dark:bg-gray-900 text-black dark:text-white rounded-xl shadow-2xl border-2 border-black dark:border-gray-700 overflow-hidden animate-in fade-in zoom-in duration-200"
+                className="w-full max-w-lg !bg-white dark:!bg-gray-900 !text-black dark:!text-white rounded-xl shadow-2xl border-2 border-black dark:border-gray-700 overflow-hidden animate-in fade-in zoom-in duration-200"
                 onClick={(e) => e.stopPropagation()}
             >
                 <Command className="w-full">

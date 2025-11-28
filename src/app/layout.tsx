@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Nunito, Fira_Code } from "next/font/google";
 import "./globals.css";
-import 'highlight.js/styles/atom-one-dark-reasonable.css';
+import "./highlight-theme.css";
 
 
 const nunito = Nunito({
@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${nunito.variable} ${firaCode.variable}`}>
+    <html lang="en" className={`${nunito.variable} ${firaCode.variable}`} suppressHydrationWarning>
       <body className="flex min-h-screen">
         <LanguageProvider>
           <XPProvider>
