@@ -48,7 +48,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
             )}
 
             <aside className={`
-                w-[280px] h-screen bg-paper border-r-2 border-black dark:border-gray-700 
+                w-[280px] h-screen bg-[#fdfbf7] dark:bg-[#0f172a] border-r-2 border-black dark:border-gray-700 
                 fixed left-0 top-0 overflow-y-auto p-6 flex flex-col z-50 
                 transition-all duration-300 ease-in-out
                 md:translate-x-0 
@@ -103,8 +103,8 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                                             <Link
                                                 key={itemIndex}
                                                 href={item.href || '#'}
-                                                className={`block px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 border-2 ${isActive
-                                                    ? 'bg-[var(--card-bg)] border-[var(--card-border)] shadow-sketch-sm translate-x-1 text-accent-blue font-bold'
+                                                className={`block px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 border-2 break-words ${isActive
+                                                    ? 'bg-[var(--card-bg)] border-[var(--card-border)] shadow-sketch-sm text-accent-blue font-bold'
                                                     : 'border-transparent hover:bg-white/50 dark:hover:bg-white/10 hover:border-black/10 dark:hover:border-white/10'
                                                     }`}
                                             >

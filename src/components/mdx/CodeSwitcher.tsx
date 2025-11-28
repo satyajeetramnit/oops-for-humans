@@ -25,7 +25,7 @@ export default function CodeSwitcher({ children }: { children: React.ReactNode }
                     Switch language in Navbar
                 </div>
             </div>
-            <div className="bg-[#0d1117] p-0">
+            <div className="bg-[#282c34] p-0">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={language}

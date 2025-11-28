@@ -91,7 +91,7 @@ export const MDXComponents = {
         return (
             <div className="relative group my-6">
                 <CopyButton text={codeText} />
-                <pre className="bg-[#1e1e1e] text-gray-100 p-4 rounded-lg border-2 border-[var(--card-border)] shadow-sketch overflow-x-auto font-mono text-sm leading-relaxed" {...props} />
+                <pre className="bg-[#282c34] text-gray-100 p-4 rounded-lg border-2 border-[var(--card-border)] shadow-sketch overflow-x-auto font-mono text-sm leading-relaxed" {...props} />
             </div>
         );
     },
