@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   },
   description: "Master Object-Oriented Programming with interactive toys, real-world analogies, and polyglot code examples. Learn Java, Python, C++, and TypeScript concepts visually.",
   keywords: ["OOP", "Object Oriented Programming", "Learn Coding", "Java", "Python", "TypeScript", "C++", "Programming Concepts", "Interactive Learning"],
-  authors: [{ name: "OOPs for Humans Team" }],
-  creator: "OOPs for Humans Academy",
+  authors: [{ name: "Ankit Raj" }, { name: "Satyajeet Ramnit" }],
+  creator: "Ankit Raj, Satyajeet Ramnit",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     siteName: "OOPs for Humans",
     images: [
       {
-        url: "/og-image.png", // We'll need to ensure this exists or use a placeholder
+        url: "https://i.ibb.co/Q7sgrkry/oopspreview.png", 
         width: 1200,
         height: 630,
         alt: "OOPs for Humans Academy"
@@ -46,8 +46,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "OOPs for Humans Academy",
     description: "Master OOP concepts with interactive toys and real-world analogies.",
-    images: ["/og-image.png"],
-    creator: "@oopsforhumans"
+    images: ["https://i.ibb.co/Q7sgrkry/oopspreview.png"],
+    creator: "@AnkitRajCode, @SatyajeetRamnit",
   },
   robots: {
     index: true,

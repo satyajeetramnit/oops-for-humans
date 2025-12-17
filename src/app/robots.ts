@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: '/private/',
         },
-        sitemap: 'https://oops-for-humans.vercel.app/sitemap.xml',
+        sitemap: 'https://oops4humans.vercel.app/sitemap.xml',
     };
 }

@@ -33,7 +33,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                 w-full
                 md:ml-[280px] 
                 p-4 md:p-8 
-                max-w-4xl mx-auto
+                mx-auto
                 mt-16 md:mt-0 
                 transition-all duration-300
             `}>

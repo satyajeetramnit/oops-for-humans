@@ -58,7 +58,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     }
 
     return (
-        <article className="max-w-3xl mx-auto pb-20">
+        <article className="max-w-3xl pb-20">
             <div className="mb-8 border-b-2 border-black pb-4">
                 <h1 className="text-5xl font-black text-ink mb-2 tracking-tight">{data.frontmatter.title}</h1>
                 <p className="text-xl text-pencil font-medium">{data.frontmatter.description}</p>

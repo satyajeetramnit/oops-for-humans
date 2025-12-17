@@ -118,7 +118,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                     })}
                 </nav>
 
-                <StudentIdCard />
+                {/* <StudentIdCard /> */}
             </aside>
         </>
     );
