@@ -39,13 +39,13 @@ export default function FreezeRay() {
     };
 
     return (
-        <div className="my-8 p-6 bg-[var(--card-bg)] border-2 border-[var(--card-border)] shadow-sketch rounded-lg">
-            <h3 className="text-xl font-bold mb-4 border-b-2 border-[var(--card-border)] pb-2">Serialization (The Freeze Ray)</h3>
+        <div className="my-8 p-6 bg-paper border-2 border-border-base shadow-sketch rounded-lg">
+            <h3 className="text-xl font-bold mb-4 border-b-2 border-border-base pb-2 text-ink">Serialization (The Freeze Ray)</h3>
 
             <div className="flex gap-4 mb-6">
                 <button
                     onClick={() => { setFormat('JSON'); thaw(); }}
-                    className={`px-4 py-2 font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none flex items-center gap-2 transition-colors ${format === 'JSON' ? 'bg-yellow-100 text-yellow-800 border-2 border-yellow-500' : 'bg-[var(--card-bg)] border-2 border-gray-300'
+                    className={`px-4 py-2 font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none flex items-center gap-2 transition-colors ${format === 'JSON' ? 'bg-accent-yellow/20 text-accent-yellow border-2 border-accent-yellow/50' : 'bg-paper text-pencil border-2 border-border-base/20'
                         }`}
                 >
                     <FileJson size={18} />
@@ -53,7 +53,7 @@ export default function FreezeRay() {
                 </button>
                 <button
                     onClick={() => { setFormat('Binary'); thaw(); }}
-                    className={`px-4 py-2 font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none flex items-center gap-2 transition-colors ${format === 'Binary' ? 'bg-blue-100 text-blue-800 border-2 border-blue-500' : 'bg-[var(--card-bg)] border-2 border-gray-300'
+                    className={`px-4 py-2 font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none flex items-center gap-2 transition-colors ${format === 'Binary' ? 'bg-accent-blue/20 text-accent-blue border-2 border-accent-blue/50' : 'bg-paper text-pencil border-2 border-border-base/20'
                         }`}
                 >
                     <Database size={18} />
@@ -70,20 +70,20 @@ export default function FreezeRay() {
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
                                 exit={{ scale: 0, opacity: 0 }}
-                                className="w-40 h-48 bg-gradient-to-br from-red-400 to-orange-500 rounded-xl shadow-lg flex flex-col items-center justify-center text-white p-4 relative border-4 border-[var(--card-border)]"
+                                className="w-40 h-48 bg-gradient-to-br from-accent-red to-accent-orange/70 flex flex-col items-center justify-center text-paper p-4 relative border-4 border-border-base shadow-xl rounded-xl"
                             >
                                 <span className="text-4xl mb-2">🦸</span>
                                 <div className="font-bold text-lg">{hero.name}</div>
                                 <div className="text-xs opacity-90">Power: {hero.power}</div>
                                 <div className="text-xs opacity-90">Level: {hero.level}</div>
-                                <div className="absolute -top-3 -right-3 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold border-2 border-[var(--card-border)]">
+                                <div className="absolute -top-3 -right-3 bg-accent-green text-paper px-2 py-1 rounded-full text-[10px] font-bold border-2 border-border-base shadow-lg uppercase tracking-widest">
                                     Live
                                 </div>
                             </motion.div>
                         )}
                     </AnimatePresence>
                     {isFrozen && (
-                        <div className="w-40 h-48 border-4 border-dashed border-gray-300 rounded-xl flex items-center justify-center text-gray-400 font-bold">
+                        <div className="w-40 h-48 border-4 border-dashed border-border-base/20 rounded-xl flex items-center justify-center text-pencil/30 font-bold uppercase tracking-widest">
                             Gone
                         </div>
                     )}
@@ -94,7 +94,7 @@ export default function FreezeRay() {
                     <button
                         onClick={freeze}
                         disabled={isFrozen}
-                        className="px-4 py-2 bg-cyan-500 text-white font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none disabled:opacity-50 flex items-center gap-2"
+                        className="px-4 py-2 bg-accent-blue text-paper font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none disabled:opacity-50 flex items-center gap-2 hover:bg-accent-blue/90 transition-colors"
                     >
                         <Snowflake size={18} />
                         Freeze (Serialize)
@@ -102,7 +102,7 @@ export default function FreezeRay() {
                     <button
                         onClick={thaw}
                         disabled={!isFrozen}
-                        className="px-4 py-2 bg-orange-500 text-white font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none disabled:opacity-50 flex items-center gap-2"
+                        className="px-4 py-2 bg-accent-purple text-paper font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none disabled:opacity-50 flex items-center gap-2 hover:bg-accent-purple/90 transition-colors"
                     >
                         <RefreshCw size={18} />
                         Thaw (Deserialize)
@@ -117,11 +117,11 @@ export default function FreezeRay() {
                                 initial={{ x: -20, opacity: 0 }}
                                 animate={{ x: 0, opacity: 1 }}
                                 exit={{ x: 20, opacity: 0 }}
-                                className="w-full bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-xs border-2 border-gray-500 shadow-inner overflow-hidden"
+                                className="w-full bg-ink text-accent-green p-4 rounded-lg font-mono text-xs border-2 border-border-base/30 shadow-inner overflow-hidden"
                             >
-                                <div className="flex items-center gap-2 mb-2 text-gray-500 border-b border-gray-700 pb-1">
+                                <div className="flex items-center gap-2 mb-2 text-pencil opacity-50 border-b border-border-base/10 pb-1">
                                     {format === 'JSON' ? <FileJson size={14} /> : <Database size={14} />}
-                                    <span>{format} Data</span>
+                                    <span className="uppercase tracking-widest text-[10px] font-bold">{format} Data</span>
                                 </div>
                                 <pre className="whitespace-pre-wrap break-all">
                                     {serializedData}
@@ -130,8 +130,8 @@ export default function FreezeRay() {
                         )}
                     </AnimatePresence>
                     {!isFrozen && (
-                        <div className="w-full h-32 border-4 border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-400 font-bold text-xs text-center p-4">
-                            Waiting for data...
+                        <div className="w-full h-32 border-4 border-dashed border-border-base/10 rounded-lg flex items-center justify-center text-pencil/20 font-bold text-[10px] text-center p-4 uppercase tracking-widest leading-relaxed">
+                            Waiting for serialization...
                         </div>
                     )}
                 </div>

@@ -50,13 +50,13 @@ export default function CloningMachine() {
     };
 
     return (
-        <div className="my-8 p-6 bg-[var(--card-bg)] border-2 border-[var(--card-border)] shadow-sketch rounded-lg">
-            <h3 className="text-xl font-bold mb-4 border-b-2 border-[var(--card-border)] pb-2">Object Cloning (Shallow vs Deep)</h3>
+        <div className="my-8 p-6 bg-paper border-2 border-border-base shadow-sketch rounded-lg">
+            <h3 className="text-xl font-bold mb-4 border-b-2 border-border-base pb-2 text-ink">Object Cloning (Shallow vs Deep)</h3>
 
             <div className="flex gap-4 mb-6">
                 <button
                     onClick={() => { setMode('Shallow'); setClone(null); }}
-                    className={`px-4 py-2 font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none flex items-center gap-2 transition-colors ${mode === 'Shallow' ? 'bg-yellow-100 text-yellow-800 border-2 border-yellow-500' : 'bg-[var(--card-bg)] border-2 border-gray-300'
+                    className={`px-4 py-2 font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none flex items-center gap-2 transition-colors ${mode === 'Shallow' ? 'bg-accent-yellow/20 text-accent-yellow border-2 border-accent-yellow/50' : 'bg-paper text-pencil border-2 border-border-base/20'
                         }`}
                 >
                     <Copy size={18} />
@@ -64,7 +64,7 @@ export default function CloningMachine() {
                 </button>
                 <button
                     onClick={() => { setMode('Deep'); setClone(null); }}
-                    className={`px-4 py-2 font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none flex items-center gap-2 transition-colors ${mode === 'Deep' ? 'bg-blue-100 text-blue-800 border-2 border-blue-500' : 'bg-[var(--card-bg)] border-2 border-gray-300'
+                    className={`px-4 py-2 font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none flex items-center gap-2 transition-colors ${mode === 'Deep' ? 'bg-accent-blue/20 text-accent-blue border-2 border-accent-blue/50' : 'bg-paper text-pencil border-2 border-border-base/20'
                         }`}
                 >
                     <Copy size={18} />
@@ -75,16 +75,16 @@ export default function CloningMachine() {
             <div className="flex flex-col md:flex-row gap-8 items-center justify-center">
                 {/* Original Sheep */}
                 <div className="flex flex-col items-center">
-                    <div className="w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center border-4 border-[var(--card-border)] relative">
+                    <div className="w-32 h-32 bg-pencil/20 rounded-full flex items-center justify-center border-4 border-border-base relative">
                         <span className="text-4xl">🐑</span>
-                        <div className="absolute -bottom-8 bg-black text-white px-2 py-1 rounded text-xs font-bold">Original</div>
+                        <div className="absolute -bottom-8 bg-ink text-paper px-2 py-1 rounded text-xs font-bold">Original</div>
                     </div>
-                    <div className="mt-10 p-2 bg-gray-100 dark:bg-slate-800 rounded border border-gray-300 text-xs font-mono">
+                    <div className="mt-10 p-2 bg-pencil/5 rounded border border-border-base/30 text-xs font-mono text-ink">
                         DNA: {original.dna.code}
                     </div>
                     <button
                         onClick={mutateDNA}
-                        className="mt-2 px-3 py-1 bg-red-500 text-white text-xs font-bold rounded hover:bg-red-600"
+                        className="mt-2 px-3 py-1 bg-red-500 text-white text-xs font-bold rounded hover:bg-red-600 transition-colors"
                     >
                         Mutate DNA
                     </button>
@@ -94,7 +94,7 @@ export default function CloningMachine() {
                 <div className="flex flex-col items-center">
                     <button
                         onClick={createClone}
-                        className="px-4 py-2 bg-green-600 text-white font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none"
+                        className="px-4 py-2 bg-green-600 text-white font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none hover:bg-green-700 transition-colors"
                     >
                         Clone!
                     </button>
@@ -111,11 +111,11 @@ export default function CloningMachine() {
                                 exit={{ scale: 0, opacity: 0 }}
                                 className="flex flex-col items-center"
                             >
-                                <div className="w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center border-4 border-dashed border-[var(--card-border)] relative">
+                                <div className="w-32 h-32 bg-pencil/20 rounded-full flex items-center justify-center border-4 border-dashed border-border-base relative">
                                     <span className="text-4xl">🐑</span>
-                                    <div className="absolute -bottom-8 bg-black text-white px-2 py-1 rounded text-xs font-bold">Clone</div>
+                                    <div className="absolute -bottom-8 bg-ink text-paper px-2 py-1 rounded text-xs font-bold">Clone</div>
                                 </div>
-                                <div className={`mt-10 p-2 rounded border text-xs font-mono transition-colors ${mode === 'Shallow' && original.dna.code !== 'ATCG' ? 'bg-red-100 border-red-500 text-red-700' : 'bg-gray-100 dark:bg-slate-800 border-gray-300'
+                                <div className={`mt-10 p-2 rounded border text-xs font-mono transition-colors ${mode === 'Shallow' && original.dna.code !== 'ATCG' ? 'bg-red-500/10 border-red-500 text-red-600' : 'bg-pencil/5 border-border-base/30 text-ink'
                                     }`}>
                                     DNA: {clone.dna.code}
                                 </div>
@@ -131,7 +131,7 @@ export default function CloningMachine() {
                                 )}
                             </motion.div>
                         ) : (
-                            <div className="w-32 h-32 border-4 border-dashed border-gray-300 rounded-full flex items-center justify-center text-gray-300">
+                            <div className="w-32 h-32 border-4 border-dashed border-border-base/20 rounded-full flex items-center justify-center text-pencil/30 font-bold uppercase tracking-widest">
                                 Empty
                             </div>
                         )}
@@ -139,9 +139,9 @@ export default function CloningMachine() {
                 </div>
             </div>
 
-            <div className="mt-8 p-4 bg-gray-50 dark:bg-slate-800/50 rounded border border-gray-200 text-sm">
+            <div className="mt-8 p-4 bg-pencil/5 rounded border border-border-base/30 text-sm text-pencil">
                 <p>
-                    <strong>{mode} Copy:</strong>
+                    <strong className="text-ink">{mode} Copy:</strong>
                     {mode === 'Shallow'
                         ? " Copies the object, but nested objects (like DNA) are shared references. Changing the original's DNA changes the clone's DNA too!"
                         : " Recursively copies everything. The clone is completely independent."}

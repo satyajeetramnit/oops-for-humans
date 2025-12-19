@@ -62,8 +62,8 @@ export default function SortingHat() {
     };
 
     return (
-        <div className="my-8 p-6 bg-[var(--card-bg)] border-2 border-[var(--card-border)] shadow-sketch rounded-lg">
-            <h3 className="text-xl font-bold mb-4 border-b-2 border-[var(--card-border)] pb-2">The Sorting Hat (Collections)</h3>
+        <div className="my-8 p-6 bg-paper border-2 border-border-base shadow-sketch rounded-lg">
+            <h3 className="text-xl font-bold mb-4 border-b-2 border-border-base pb-2 text-ink">The Sorting Hat (Collections)</h3>
 
             <div className="flex flex-col gap-6">
                 {/* Type Selector */}
@@ -73,8 +73,8 @@ export default function SortingHat() {
                             key={type}
                             onClick={() => { setCollectionType(type); setItems([]); setMessage(''); }}
                             className={`px-4 py-2 rounded-full border-2 font-bold transition-all flex items-center gap-2 ${collectionType === type
-                                ? 'bg-purple-600 text-white border-[var(--card-border)] shadow-sketch-sm scale-110'
-                                : 'bg-[var(--card-bg)] text-gray-500 dark:text-gray-400 border-gray-300 hover:bg-[var(--card-hover)] dark:bg-slate-800/50'
+                                ? 'bg-purple-600 text-white border-border-base shadow-sketch-sm scale-110'
+                                : 'bg-paper text-pencil border-border-base/20 hover:bg-pencil/5'
                                 }`}
                         >
                             {type === 'List' && <List size={18} />}
@@ -85,14 +85,14 @@ export default function SortingHat() {
                     ))}
                 </div>
 
-                <div className="text-center text-sm font-mono bg-gray-100 dark:bg-slate-800 p-2 rounded border border-gray-300">
+                <div className="text-center text-sm font-mono bg-pencil/5 p-2 rounded border border-border-base/30 text-pencil">
                     {collectionType === 'List' && "List: Ordered collection. Duplicates allowed."}
                     {collectionType === 'Set' && "Set: Unique items only. No duplicates!"}
                     {collectionType === 'Map' && "Map: Key-Value pairs. Keys must be unique."}
                 </div>
 
                 {/* Input Area */}
-                <div className="flex gap-2 items-end justify-center bg-paper p-4 rounded-lg border-2 border-dashed border-gray-300">
+                <div className="flex gap-2 items-end justify-center bg-paper p-4 rounded-lg border-2 border-dashed border-border-base/30">
                     {collectionType === 'Map' && (
                         <div className="flex flex-col gap-1">
                             <label className="text-xs font-bold uppercase text-pencil">Key</label>
@@ -100,7 +100,7 @@ export default function SortingHat() {
                                 type="text"
                                 value={inputKey}
                                 onChange={(e) => setInputKey(e.target.value)}
-                                className="border-2 border-[var(--card-border)] rounded px-2 py-1 w-24 focus:outline-none focus:shadow-sketch-sm transition-shadow"
+                                className="border-2 border-border-base rounded px-2 py-1 w-24 focus:outline-none focus:shadow-sketch-sm transition-shadow bg-paper text-ink"
                                 placeholder="Key"
                             />
                         </div>
@@ -113,14 +113,14 @@ export default function SortingHat() {
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && addItem()}
-                            className="border-2 border-[var(--card-border)] rounded px-2 py-1 w-40 focus:outline-none focus:shadow-sketch-sm transition-shadow"
+                            className="border-2 border-border-base rounded px-2 py-1 w-40 focus:outline-none focus:shadow-sketch-sm transition-shadow bg-paper text-ink"
                             placeholder="Value"
                         />
                     </div>
 
                     <button
                         onClick={addItem}
-                        className="bg-black dark:bg-slate-700 text-white p-2 rounded border-2 border-[var(--card-border)] hover:bg-gray-800 dark:hover:bg-slate-600 active:scale-95 transition-transform"
+                        className="bg-ink text-paper p-2 rounded border-2 border-border-base hover:bg-ink/90 active:scale-95 transition-transform"
                     >
                         <Plus size={20} />
                     </button>
@@ -141,14 +141,14 @@ export default function SortingHat() {
                 </AnimatePresence>
 
                 {/* Collection Display */}
-                <div className="min-h-[200px] bg-gray-50 dark:bg-slate-800/50 border-2 border-[var(--card-border)] rounded-lg p-4 relative">
-                    <div className="absolute top-2 right-2">
-                        <button onClick={clearItems} className="text-gray-400 hover:text-red-500 transition-colors">
+                <div className="min-h-[200px] bg-paper border-2 border-border-base rounded-lg p-4 relative overflow-hidden">
+                    <div className="absolute top-2 right-2 z-10">
+                        <button onClick={clearItems} className="text-pencil/50 hover:text-red-500 transition-colors">
                             <Trash2 size={18} />
                         </button>
                     </div>
 
-                    <div className="flex flex-wrap gap-3 justify-center content-start h-full">
+                    <div className="flex flex-wrap gap-3 justify-center content-start h-full relative">
                         <AnimatePresence>
                             {items.map((item, index) => (
                                 <motion.div
@@ -157,12 +157,12 @@ export default function SortingHat() {
                                     animate={{ scale: 1, rotate: 0 }}
                                     exit={{ scale: 0 }}
                                     layout
-                                    className={`px-4 py-2 rounded-lg border-2 border-[var(--card-border)] shadow-sm font-bold flex items-center gap-2 ${collectionType === 'List' ? 'bg-blue-100 text-blue-900' :
-                                        collectionType === 'Set' ? 'bg-green-100 text-green-900' :
-                                            'bg-orange-100 text-orange-900'
+                                    className={`px-4 py-2 rounded-lg border-2 border-border-base shadow-sm font-bold flex items-center gap-2 ${collectionType === 'List' ? 'bg-blue-500/10 text-accent-blue' :
+                                        collectionType === 'Set' ? 'bg-green-500/10 text-green-600' :
+                                            'bg-orange-500/10 text-orange-600'
                                         }`}
                                 >
-                                    {collectionType === 'List' && <span className="text-xs bg-black/10 px-1 rounded mr-1">#{index}</span>}
+                                    {collectionType === 'List' && <span className="text-xs bg-ink/10 px-1 rounded mr-1">#{index}</span>}
 
                                     {collectionType === 'Map' ? (
                                         <>
@@ -178,7 +178,7 @@ export default function SortingHat() {
                         </AnimatePresence>
 
                         {items.length === 0 && (
-                            <div className="w-full h-full flex items-center justify-center text-gray-300 italic">
+                            <div className="w-full h-full flex items-center justify-center text-pencil/30 italic">
                                 Collection is empty
                             </div>
                         )}

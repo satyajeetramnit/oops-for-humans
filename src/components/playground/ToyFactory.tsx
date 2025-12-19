@@ -23,8 +23,8 @@ export default function ToyFactory() {
     };
 
     return (
-        <div className="my-8 p-6 bg-[var(--card-bg)] border-2 border-[var(--card-border)] shadow-sketch rounded-lg">
-            <h3 className="text-xl font-bold mb-4 border-b-2 border-[var(--card-border)] pb-2">Toy Factory (Factory Pattern)</h3>
+        <div className="my-8 p-6 bg-paper border-2 border-border-base shadow-sketch rounded-lg">
+            <h3 className="text-xl font-bold mb-4 border-b-2 border-border-base pb-2 text-ink">Toy Factory (Factory Pattern)</h3>
 
             <div className="flex flex-col md:flex-row gap-8">
                 {/* Controls */}
@@ -37,8 +37,8 @@ export default function ToyFactory() {
                                     key={type}
                                     onClick={() => setSelectedType(type)}
                                     className={`px-4 py-3 rounded border-2 font-bold text-left flex items-center gap-3 transition-all ${selectedType === type
-                                            ? 'bg-ink text-white border-[var(--card-border)] shadow-sketch-sm translate-x-2'
-                                            : 'bg-[var(--card-bg)] border-gray-300 hover:bg-[var(--card-hover)] dark:bg-slate-800/50'
+                                        ? 'bg-ink text-paper border-border-base shadow-sketch-sm translate-x-2'
+                                        : 'bg-paper text-pencil border-border-base/20 hover:bg-pencil/5'
                                         }`}
                                 >
                                     {type === 'Car' && <Car size={20} />}
@@ -53,7 +53,7 @@ export default function ToyFactory() {
                     <button
                         onClick={orderToy}
                         disabled={isProducing}
-                        className="w-full py-3 px-4 bg-blue-600 text-white font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        className="w-full py-3 px-4 bg-accent-blue text-paper font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                         <Package size={20} />
                         {isProducing ? 'Manufacturing...' : 'Order Toy'}
@@ -61,13 +61,13 @@ export default function ToyFactory() {
                 </div>
 
                 {/* Visualization */}
-                <div className="w-full md:w-2/3 bg-gray-100 dark:bg-slate-800 border-2 border-[var(--card-border)] rounded-xl relative overflow-hidden flex flex-col items-center justify-center min-h-[300px]">
+                <div className="w-full md:w-2/3 bg-pencil/5 border-2 border-border-base rounded-xl relative overflow-hidden flex flex-col items-center justify-center min-h-[300px]">
 
                     {/* Conveyor Belt Background */}
-                    <div className="absolute bottom-0 w-full h-12 bg-gray-800 border-t-4 border-[var(--card-border)]" />
+                    <div className="absolute bottom-0 w-full h-12 bg-ink/80 border-t-4 border-border-base" />
 
                     {/* Factory Door */}
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-32 bg-gray-400 border-r-4 border-[var(--card-border)]" />
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-32 bg-pencil/30 border-r-4 border-border-base" />
 
                     <AnimatePresence mode="wait">
                         {isProducing ? (
@@ -79,7 +79,7 @@ export default function ToyFactory() {
                                 className="flex flex-col items-center"
                             >
                                 <div className="text-4xl animate-bounce">⚙️</div>
-                                <span className="font-bold text-gray-500 mt-2">Factory is working...</span>
+                                <span className="font-bold text-pencil mt-2">Factory is working...</span>
                             </motion.div>
                         ) : producedToy ? (
                             <motion.div
@@ -88,23 +88,23 @@ export default function ToyFactory() {
                                 animate={{ x: 0, rotate: 0 }}
                                 className="flex flex-col items-center z-10"
                             >
-                                <div className="w-32 h-32 bg-[var(--card-bg)] rounded-xl border-4 border-[var(--card-border)] shadow-xl flex items-center justify-center relative">
+                                <div className="w-32 h-32 bg-paper rounded-xl border-4 border-border-base shadow-xl flex items-center justify-center relative">
                                     {producedToy.type === 'Car' && <Car size={64} className="text-red-500" />}
                                     {producedToy.type === 'Doll' && <Smile size={64} className="text-pink-500" />}
                                     {producedToy.type === 'Ball' && <Circle size={64} className="text-blue-500" />}
 
                                     {/* Tag */}
-                                    <div className="absolute -top-3 -right-3 bg-yellow-300 text-ink text-xs font-bold px-2 py-1 rounded border-2 border-[var(--card-border)] transform rotate-12">
+                                    <div className="absolute -top-3 -right-3 bg-accent-yellow text-paper text-xs font-bold px-2 py-1 rounded border-2 border-border-base transform rotate-12">
                                         NEW!
                                     </div>
                                 </div>
-                                <div className="mt-4 bg-[var(--card-bg)] px-4 py-2 rounded border-2 border-[var(--card-border)] shadow-sm text-center">
-                                    <div className="font-bold text-lg">It's a {producedToy.type}!</div>
-                                    <div className="text-xs text-gray-500 font-mono">ID: {producedToy.id}</div>
+                                <div className="mt-4 bg-paper px-4 py-2 rounded border-2 border-border-base shadow-sm text-center">
+                                    <div className="font-bold text-lg text-ink">It's a {producedToy.type}!</div>
+                                    <div className="text-xs text-pencil font-mono">ID: {producedToy.id}</div>
                                 </div>
                             </motion.div>
                         ) : (
-                            <div className="text-gray-400 font-bold text-xl">Waiting for Order...</div>
+                            <div className="text-pencil/40 font-bold text-xl uppercase tracking-widest">Waiting for Order...</div>
                         )}
                     </AnimatePresence>
                 </div>

@@ -33,8 +33,8 @@ export default function MagicBox() {
     };
 
     return (
-        <div className="my-8 p-6 bg-[var(--card-bg)] border-2 border-[var(--card-border)] shadow-sketch rounded-lg">
-            <h3 className="text-xl font-bold mb-4 border-b-2 border-[var(--card-border)] pb-2">Magic Box (Generics)</h3>
+        <div className="my-8 p-6 bg-paper border-2 border-border-base shadow-sketch rounded-lg">
+            <h3 className="text-xl font-bold mb-4 border-b-2 border-border-base pb-2 text-ink">Magic Box (Generics)</h3>
 
             <div className="flex flex-col md:flex-row gap-8">
                 {/* Controls */}
@@ -46,9 +46,9 @@ export default function MagicBox() {
                                 <button
                                     key={type}
                                     onClick={() => { setBoxType(type); setContent(null); setError(''); }}
-                                    className={`px-3 py-2 rounded border-2 font-bold text-sm flex-1 ${boxType === type
-                                            ? 'bg-purple-600 text-white border-[var(--card-border)] shadow-sketch-sm'
-                                            : 'bg-[var(--card-bg)] border-gray-300 hover:bg-[var(--card-hover)] dark:bg-slate-800/50'
+                                    className={`px-3 py-2 rounded border-2 font-bold text-sm flex-1 transition-all ${boxType === type
+                                        ? 'bg-purple-600 text-paper border-border-base shadow-sketch-sm'
+                                        : 'bg-paper text-pencil border-border-base/20 hover:bg-pencil/5'
                                         }`}
                                 >
                                     &lt;{type}&gt;
@@ -64,11 +64,11 @@ export default function MagicBox() {
                                 <button
                                     key={item.label}
                                     onClick={() => putInBox(item)}
-                                    className="w-full py-2 px-4 rounded border-2 bg-[var(--card-bg)] border-gray-300 hover:bg-[var(--card-hover)] dark:bg-slate-800/50 flex items-center gap-3 font-medium transition-transform active:scale-95"
+                                    className="w-full py-2 px-4 rounded border-2 bg-paper text-ink border-border-base/20 hover:bg-pencil/5 hover:border-border-base/40 flex items-center gap-3 font-bold transition-all active:scale-95"
                                 >
-                                    {item.icon}
+                                    <span className="text-pencil">{item.icon}</span>
                                     <span>{item.label}</span>
-                                    <span className="text-xs text-gray-400 ml-auto">({item.type})</span>
+                                    <span className="text-xs text-pencil/50 ml-auto uppercase tracking-tighter">({item.type})</span>
                                 </button>
                             ))}
                         </div>
@@ -76,11 +76,11 @@ export default function MagicBox() {
                 </div>
 
                 {/* Visualization */}
-                <div className="w-full md:w-2/3 bg-paper border-2 border-dashed border-gray-300 rounded min-h-[300px] flex flex-col items-center justify-center relative overflow-hidden">
+                <div className="w-full md:w-2/3 bg-paper border-2 border-dashed border-border-base/30 rounded min-h-[300px] flex flex-col items-center justify-center relative overflow-hidden">
 
                     {/* The Box */}
                     <div className="relative">
-                        <div className="w-40 h-40 border-4 border-[var(--card-border)] bg-purple-100 rounded-xl flex items-center justify-center shadow-sketch relative z-10">
+                        <div className="w-40 h-40 border-4 border-border-base bg-purple-500/10 rounded-xl flex items-center justify-center shadow-sketch relative z-10">
                             <AnimatePresence mode="wait">
                                 {content ? (
                                     <motion.div
@@ -88,7 +88,7 @@ export default function MagicBox() {
                                         initial={{ scale: 0, rotate: 180 }}
                                         animate={{ scale: 1, rotate: 0 }}
                                         exit={{ scale: 0 }}
-                                        className="text-purple-900"
+                                        className="text-purple-600 font-bold"
                                     >
                                         {content}
                                     </motion.div>
@@ -97,7 +97,7 @@ export default function MagicBox() {
                                         key="empty"
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
-                                        className="text-purple-300"
+                                        className="text-purple-300 opacity-50"
                                     >
                                         <Box size={48} />
                                     </motion.div>
@@ -106,7 +106,7 @@ export default function MagicBox() {
                         </div>
 
                         {/* Label */}
-                        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black text-white px-3 py-1 rounded font-mono text-sm font-bold whitespace-nowrap">
+                        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-ink text-paper px-3 py-1 rounded font-mono text-sm font-bold whitespace-nowrap shadow-lg">
                             Box&lt;{boxType}&gt;
                         </div>
                     </div>
@@ -118,7 +118,7 @@ export default function MagicBox() {
                                 initial={{ y: 50, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
                                 exit={{ y: 50, opacity: 0 }}
-                                className="absolute bottom-4 bg-red-100 border-2 border-red-500 text-red-800 px-4 py-2 rounded-lg font-bold flex items-center gap-2 shadow-lg"
+                                className="absolute bottom-4 bg-red-500/10 border-2 border-red-500 text-red-600 px-4 py-2 rounded-lg font-bold flex items-center gap-2 shadow-lg backdrop-blur-sm"
                             >
                                 <AlertTriangle size={20} />
                                 {error}
