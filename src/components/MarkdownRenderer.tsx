@@ -44,12 +44,12 @@ export default function MarkdownRenderer({ content }: { content: string }) {
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeHighlight]}
                 components={{
-                    h1: ({ node, ...props }) => <h1 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: 'var(--accent)' }} {...props} />,
-                    h2: ({ node, ...props }) => <h2 style={{ fontSize: '2rem', marginTop: '3rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem', color: '#f1f5f9' }} {...props} />,
-                    h3: ({ node, ...props }) => <h3 style={{ fontSize: '1.5rem', marginTop: '2rem', marginBottom: '1rem', color: '#e2e8f0' }} {...props} />,
-                    h4: ({ node, ...props }) => <h4 style={{ fontSize: '1.2rem', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#cbd5e1', fontWeight: '600' }} {...props} />,
-                    p: ({ node, ...props }) => <p style={{ marginBottom: '1.25rem', fontSize: '1.1rem', lineHeight: '1.8', color: '#cbd5e1' }} {...props} />,
-                    li: ({ node, ...props }) => <li style={{ marginBottom: '0.5rem', color: '#cbd5e1', lineHeight: '1.6' }} {...props} />,
+                    h1: ({ node, ...props }) => <h1 className="text-4xl font-bold mb-6 text-ink" {...props} />,
+                    h2: ({ node, ...props }) => <h2 className="text-2xl font-bold mt-8 mb-4 border-b-2 border-[var(--card-border)] pb-2 text-ink" {...props} />,
+                    h3: ({ node, ...props }) => <h3 className="text-xl font-bold mt-8 mb-4 text-ink" {...props} />,
+                    h4: ({ node, ...props }) => <h4 className="text-lg font-bold mt-6 mb-3 text-ink" {...props} />,
+                    p: ({ node, ...props }) => <p className="mb-5 text-lg leading-relaxed text-ink" {...props} />,
+                    li: ({ node, ...props }) => <li className="mb-2 text-ink leading-relaxed" {...props} />,
                     ul: ({ node, ...props }) => <ul style={{ paddingLeft: '1.5rem', marginBottom: '1.5rem' }} {...props} />,
                     ol: ({ node, ...props }) => <ol style={{ paddingLeft: '1.5rem', marginBottom: '1.5rem' }} {...props} />,
                     code: ({ node, className, children, ...props }: any) => {

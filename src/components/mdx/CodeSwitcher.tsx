@@ -16,8 +16,8 @@ export default function CodeSwitcher({ children }: { children: React.ReactNode }
     // For now, we'll just show what we found.
 
     return (
-        <div className="my-6 border-2 border-[var(--card-border)] rounded-lg overflow-hidden shadow-sketch relative">
-            <div className="bg-[var(--card-bg)] border-b-2 border-[var(--card-border)] px-4 py-2 flex justify-between items-center">
+        <div className="my-6 border-2 border-border-base rounded-lg overflow-hidden shadow-sketch relative">
+            <div className="bg-paper border-b-2 border-border-base px-4 py-2 flex justify-between items-center">
                 <div className="font-mono text-sm font-bold text-ink">
                     {language} Example
                 </div>
