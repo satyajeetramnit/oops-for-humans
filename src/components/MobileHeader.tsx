@@ -10,7 +10,7 @@ interface MobileHeaderProps {
 
 export default function MobileHeader({ onMenuClick }: MobileHeaderProps) {
     return (
-        <header className="md:hidden fixed top-0 left-0 right-0 h-16 bg-[var(--paper)] border-b-2 border-black dark:border-gray-700 z-40 flex items-center justify-between px-4 transition-colors duration-300">
+        <header className="md:hidden fixed top-0 left-0 right-0 h-16 bg-paper border-b-2 border-border-base z-40 flex items-center justify-between px-4 transition-colors duration-300">
             <button
                 onClick={onMenuClick}
                 className="p-2 text-ink hover:bg-black/5 dark:hover:bg-white/10 rounded-md transition-colors"

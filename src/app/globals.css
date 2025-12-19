@@ -11,13 +11,18 @@
   --color-accent-blue: #3b82f6;
   --color-accent-orange: #f97316;
   --color-accent-green: #22c55e;
+  --color-accent-red: #ef4444;
+  --color-accent-purple: #a855f7;
+  --color-accent-yellow: #eab308;
 
   --font-sans: var(--font-nunito), sans-serif;
   --font-mono: var(--font-fira-code), monospace;
 
-  --shadow-sketch: 4px 4px 0px 0px rgba(0, 0, 0, 1);
-  --shadow-sketch-sm: 2px 2px 0px 0px rgba(0, 0, 0, 1);
-  --shadow-sketch-hover: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-sketch: var(--shadow-sketch-val);
+  --shadow-sketch-sm: var(--shadow-sketch-sm-val);
+  --shadow-sketch-hover: var(--shadow-sketch-hover-val);
+
+  --color-border-base: var(--card-border);
 }
 
 :root {
@@ -40,9 +45,11 @@
   --dot-color: #e5e7eb;
   --card-hover: #f9fafb;
   --analogy-bg: #eff6ff;
-  /* blue-50 */
   --analogy-text: #111827;
-  /* gray-900 */
+
+  --shadow-sketch-val: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-sketch-sm-val: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-sketch-hover-val: 6px 6px 0px 0px rgba(0, 0, 0, 1);
 }
 
 .dark {
@@ -51,22 +58,23 @@
   --paper: #0f172a;
   --ink: #f1f5f9;
   --pencil: #94a3b8;
-  --shadow-sketch: 4px 4px 0px 0px rgba(255, 255, 255, 0.2);
-  --shadow-sketch-sm: 2px 2px 0px 0px rgba(255, 255, 255, 0.2);
-  --shadow-sketch-hover: 6px 6px 0px 0px rgba(255, 255, 255, 0.2);
 
   /* New variables for polish */
   --code-bg: #1e293b;
   --code-border: #334155;
   --card-bg: #1e293b;
-  --card-border: #94a3b8;
+  --card-border: #475569;
   --btn-bg: #1e293b;
-  --btn-border: #94a3b8;
-  --btn-hover: #f9fafb;
-  --dot-color: #334155;
+  --btn-border: #475569;
+  --btn-hover: #334155;
+  --dot-color: #1e293b;
   --card-hover: #334155;
   --analogy-bg: #1e293b;
   --analogy-text: #f1f5f9;
+
+  --shadow-sketch-val: 4px 4px 0px 0px rgba(0, 0, 0, 0.4);
+  --shadow-sketch-sm-val: 2px 2px 0px 0px rgba(0, 0, 0, 0.4);
+  --shadow-sketch-hover-val: 6px 6px 0px 0px rgba(0, 0, 0, 0.4);
 }
 
 @layer base {

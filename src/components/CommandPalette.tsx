@@ -35,31 +35,31 @@ export default function CommandPalette() {
             onClick={() => setOpen(false)}
         >
             <div
-                className="w-full max-w-lg !bg-white dark:!bg-gray-900 !text-black dark:!text-white rounded-xl shadow-2xl border-2 border-black dark:border-gray-700 overflow-hidden animate-in fade-in zoom-in duration-200"
+                className="w-full max-w-lg bg-paper text-ink rounded-xl shadow-2xl border-2 border-border-base overflow-hidden animate-in fade-in zoom-in duration-200"
                 onClick={(e) => e.stopPropagation()}
             >
                 <Command className="w-full">
-                    <div className="flex items-center border-b border-gray-200 dark:border-gray-800 px-4">
-                        <Search className="w-5 h-5 text-gray-500 mr-2" />
+                    <div className="flex items-center border-b border-border-base px-4">
+                        <Search className="w-5 h-5 text-pencil mr-2" />
                         <Command.Input
                             placeholder="Search lessons..."
-                            className="w-full h-14 bg-transparent outline-none text-lg text-ink placeholder:text-gray-400"
+                            className="w-full h-14 bg-transparent outline-none text-lg text-ink placeholder:text-pencil/50"
                             autoFocus
                         />
                     </div>
 
                     <Command.List className="max-h-[60vh] overflow-y-auto p-2">
-                        <Command.Empty className="p-4 text-center text-gray-500">No results found.</Command.Empty>
+                        <Command.Empty className="p-4 text-center text-pencil">No results found.</Command.Empty>
 
                         {sidebarConfig.map((section) => (
-                            <Command.Group key={section.title} heading={section.title} className="text-xs font-bold text-gray-500 uppercase tracking-widest px-2 py-2">
+                            <Command.Group key={section.title} heading={section.title} className="text-xs font-bold text-pencil uppercase tracking-widest px-2 py-2">
                                 {section.items?.map((item) => (
                                     <Command.Item
                                         key={item.href}
                                         onSelect={() => runCommand(() => router.push(item.href || '#'))}
-                                        className="flex items-center gap-2 px-3 py-3 rounded-lg text-sm font-medium text-ink cursor-pointer aria-selected:bg-blue-50 dark:aria-selected:bg-blue-900/30 aria-selected:text-blue-600 dark:aria-selected:text-blue-400 transition-colors"
+                                        className="flex items-center gap-2 px-3 py-3 rounded-lg text-sm font-medium text-ink cursor-pointer aria-selected:bg-accent-blue/10 aria-selected:text-accent-blue transition-colors"
                                     >
-                                        <BookOpen size={16} className="text-gray-400" />
+                                        <BookOpen size={16} className="text-pencil" />
                                         <span>{item.title}</span>
                                         <ArrowRight size={14} className="ml-auto opacity-0 aria-selected:opacity-100" />
                                     </Command.Item>

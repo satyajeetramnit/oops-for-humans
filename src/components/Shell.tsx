@@ -35,6 +35,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                 p-4 md:p-8 
                 mx-auto
                 mt-16 md:mt-0 
+                bg-paper
                 transition-all duration-300
             `}>
                 {children}

@@ -48,7 +48,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
             )}
 
             <aside className={`
-                w-[280px] h-screen bg-white dark:bg-[#0f172a] border-r-2 border-black dark:border-gray-700 
+                w-[280px] h-screen bg-paper border-r-2 border-border-base 
                 fixed left-0 top-0 overflow-y-auto p-6 flex flex-col z-50 
                 transition-all duration-300 ease-in-out
                 md:translate-x-0 
@@ -62,7 +62,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                         {mounted && (
                             <button
                                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                                className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                                className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
                                 aria-label="Toggle Theme"
                             >
                                 {theme === 'dark' ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-gray-600" />}
@@ -78,7 +78,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                     <select
                         value={language}
                         onChange={(e) => setLanguage(e.target.value as Language)}
-                        className="w-full p-2 rounded border-2 border-black dark:border-gray-600 bg-white dark:bg-slate-900 text-black dark:text-white font-bold text-sm shadow-sketch-sm focus:outline-none focus:ring-2 focus:ring-blue-400 appearance-none"
+                        className="w-full p-2 rounded border-2 border-border-base bg-paper text-ink font-bold text-sm shadow-sketch-sm focus:outline-none focus:ring-2 focus:ring-blue-400 appearance-none"
                     >
                         <option value="Java">Java</option>
                         <option value="Python">Python</option>
@@ -104,8 +104,8 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                                                 key={itemIndex}
                                                 href={item.href || '#'}
                                                 className={`block px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 border-2 break-words ${isActive
-                                                    ? 'bg-[var(--card-bg)] border-[var(--card-border)] shadow-sketch-sm text-accent-blue font-bold'
-                                                    : 'border-transparent hover:bg-white/50 dark:hover:bg-white/10 hover:border-black/10 dark:hover:border-white/10'
+                                                    ? 'bg-paper border-border-base shadow-sketch-sm text-accent-blue font-bold'
+                                                    : 'border-transparent hover:bg-black/5 dark:hover:bg-white/5 hover:border-black/5 dark:hover:border-white/5'
                                                     }`}
                                             >
                                                 {item.title}
