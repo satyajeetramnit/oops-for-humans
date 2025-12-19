@@ -69,22 +69,22 @@ export default function ThreadRace() {
     };
 
     return (
-        <div className="my-8 p-6 bg-[var(--card-bg)] border-2 border-[var(--card-border)] shadow-sketch rounded-lg">
-            <h3 className="text-xl font-bold mb-4 border-b-2 border-[var(--card-border)] pb-2">Concurrency (Thread Race)</h3>
+        <div className="my-8 p-6 bg-paper border-2 border-border-base shadow-sketch rounded-2xl">
+            <h3 className="text-xl font-black mb-4 border-b-2 border-border-base pb-2 text-ink uppercase tracking-tight">Concurrency (Thread Race)</h3>
 
-            <div className="flex items-center gap-4 mb-6">
+            <div className="flex flex-wrap items-center gap-4 mb-8">
                 <button
                     onClick={startRace}
                     disabled={isRacing}
-                    className="px-4 py-2 bg-blue-600 text-white font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none disabled:opacity-50 flex items-center gap-2"
+                    className="px-6 py-3 bg-accent-blue text-paper font-black rounded-xl shadow-sketch-sm active:translate-y-0.5 active:shadow-none disabled:opacity-50 flex items-center gap-2 uppercase tracking-widest text-xs transition-all hover:bg-accent-blue/90"
                 >
-                    <Play size={18} />
+                    <Play size={18} fill="currentColor" />
                     Start Race
                 </button>
                 <button
                     onClick={reset}
                     disabled={isRacing}
-                    className="px-4 py-2 bg-gray-200 dark:bg-slate-700 text-ink dark:text-white font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none disabled:opacity-50 flex items-center gap-2"
+                    className="px-6 py-3 bg-paper border-2 border-border-base/40 text-pencil font-black rounded-xl shadow-sketch-sm active:translate-y-0.5 active:shadow-none disabled:opacity-50 flex items-center gap-2 uppercase tracking-widest text-xs hover:bg-pencil/5 transition-all"
                 >
                     <RotateCcw size={18} />
                     Reset
@@ -93,7 +93,9 @@ export default function ThreadRace() {
                 <button
                     onClick={() => setUseLock(!useLock)}
                     disabled={isRacing}
-                    className={`px-4 py-2 font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none flex items-center gap-2 transition-colors ${useLock ? 'bg-green-100 text-green-800 border-2 border-green-500' : 'bg-red-100 text-red-800 border-2 border-red-500'
+                    className={`px-6 py-3 font-black rounded-xl shadow-sketch-sm active:translate-y-0.5 active:shadow-none flex items-center gap-2 transition-all uppercase tracking-widest text-xs border-2 ${useLock
+                        ? 'bg-accent-green/10 text-accent-green border-accent-green/30'
+                        : 'bg-accent-red/10 text-accent-red border-accent-red/30'
                         }`}
                 >
                     {useLock ? <Lock size={18} /> : <Unlock size={18} />}
@@ -101,16 +103,16 @@ export default function ThreadRace() {
                 </button>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-8">
                 {/* Thread 1 */}
                 <div className="relative">
-                    <div className="flex justify-between text-sm font-bold mb-1">
-                        <span>Thread 1</span>
+                    <div className="flex justify-between text-[10px] font-black uppercase tracking-widest mb-2 text-pencil">
+                        <span className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-accent-blue shadow-[0_0_8px_var(--color-accent-blue)]" /> Thread 1</span>
                         <span>{Math.round(thread1Progress)}%</span>
                     </div>
-                    <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden border border-[var(--card-border)]">
+                    <div className="h-4 bg-pencil/5 rounded-full overflow-hidden border-2 border-border-base/10 shadow-inner p-[1px]">
                         <motion.div
-                            className="h-full bg-blue-500"
+                            className="h-full bg-accent-blue rounded-full shadow-[0_0_12px_rgba(59,130,246,0.4)]"
                             style={{ width: `${thread1Progress}%` }}
                         />
                     </div>
@@ -118,36 +120,45 @@ export default function ThreadRace() {
 
                 {/* Thread 2 */}
                 <div className="relative">
-                    <div className="flex justify-between text-sm font-bold mb-1">
-                        <span>Thread 2</span>
+                    <div className="flex justify-between text-[10px] font-black uppercase tracking-widest mb-2 text-pencil">
+                        <span className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-accent-purple shadow-[0_0_8px_var(--color-accent-purple)]" /> Thread 2</span>
                         <span>{Math.round(thread2Progress)}%</span>
                     </div>
-                    <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden border border-[var(--card-border)]">
+                    <div className="h-4 bg-pencil/5 rounded-full overflow-hidden border-2 border-border-base/10 shadow-inner p-[1px]">
                         <motion.div
-                            className="h-full bg-purple-500"
+                            className="h-full bg-accent-purple rounded-full shadow-[0_0_12px_rgba(168,85,247,0.4)]"
                             style={{ width: `${thread2Progress}%` }}
                         />
                     </div>
                 </div>
             </div>
 
-            <div className="mt-8 p-4 bg-gray-100 dark:bg-slate-800 rounded border-2 border-gray-300 flex justify-between items-center">
-                <div>
-                    <div className="text-xs font-bold text-gray-500 uppercase">Shared Resource Value</div>
-                    <div className="text-2xl font-mono font-bold">{sharedResource}</div>
+            <div className="mt-10 p-6 bg-pencil/5 rounded-2xl border-2 border-dashed border-border-base/30 flex flex-col md:flex-row justify-between items-center gap-6 shadow-inner relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-accent-blue/5 -mr-16 -mt-16 rounded-full blur-3xl pointer-events-none" />
+
+                <div className="relative z-10">
+                    <div className="text-[10px] font-black text-pencil/40 uppercase tracking-[0.2em] mb-1">Shared Resource Value</div>
+                    <div className="text-4xl font-mono font-black text-ink">{sharedResource}</div>
                 </div>
 
                 {winner && (
-                    <div className="text-xl font-bold text-green-600 animate-bounce">
+                    <motion.div
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="text-xl font-black text-accent-green bg-accent-green/10 px-6 py-3 rounded-xl border-2 border-accent-green/20 shadow-sm relative z-10"
+                    >
                         🏆 {winner} Finished First!
-                    </div>
+                    </motion.div>
                 )}
             </div>
 
-            <p className="mt-4 text-sm text-gray-600">
-                <strong>Without Lock:</strong> Threads access the resource chaotically. The final value might be unpredictable (Race Condition).<br />
-                <strong>With Lock:</strong> Threads are synchronized. The resource is updated safely.
-            </p>
+            <div className="mt-6 p-4 bg-ink/5 rounded-xl border border-border-base/20">
+                <p className="text-[11px] text-pencil leading-relaxed">
+                    <strong className="text-ink uppercase tracking-widest text-[9px] block mb-1 font-black underline decoration-accent-red/30">Concurrency Logic</strong>
+                    <span className="font-bold text-accent-red">Without Lock:</span> Threads access the resource chaotically. The final value might be unpredictable due to a <span className="italic">Race Condition</span>.<br />
+                    <span className="font-bold text-accent-green">With Lock:</span> Threads are synchronized. The resource is updated safely using mutual exclusion.
+                </p>
+            </div>
         </div>
     );
 }

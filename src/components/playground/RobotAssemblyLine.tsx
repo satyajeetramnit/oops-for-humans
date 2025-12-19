@@ -39,8 +39,8 @@ export default function RobotAssemblyLine() {
     };
 
     return (
-        <div className="my-8 p-6 bg-[var(--card-bg)] border-2 border-[var(--card-border)] shadow-sketch rounded-lg">
-            <h3 className="text-xl font-bold mb-4 border-b-2 border-[var(--card-border)] pb-2">Robot Assembly Line (Constructors)</h3>
+        <div className="my-8 p-6 bg-paper border-2 border-border-base shadow-sketch rounded-lg">
+            <h3 className="text-xl font-bold mb-4 border-b-2 border-border-base pb-2 text-ink">Robot Assembly Line (Constructors)</h3>
 
             <div className="flex flex-col md:flex-row gap-8">
                 {/* Constructor Parameters */}
@@ -53,8 +53,8 @@ export default function RobotAssemblyLine() {
                                     key={part}
                                     onClick={() => togglePart(part)}
                                     className={`px-3 py-2 rounded border-2 transition-all flex items-center justify-center gap-2 ${parts[part]
-                                            ? 'bg-ink text-white border-[var(--card-border)] shadow-sketch-sm'
-                                            : 'bg-[var(--card-bg)] border-gray-300 hover:bg-[var(--card-hover)] dark:bg-slate-800/50'
+                                        ? 'bg-ink text-paper border-border-base shadow-sketch-sm'
+                                        : 'bg-paper border-border-base/20 hover:bg-pencil/5'
                                         }`}
                                 >
                                     {parts[part] && <Settings size={14} />}
@@ -64,9 +64,9 @@ export default function RobotAssemblyLine() {
                         </div>
                     </div>
 
-                    <div className="p-4 bg-orange-50 border-2 border-orange-200 rounded text-sm text-orange-900 font-mono">
-                        <strong>Code:</strong>
-                        <div className="mt-2">
+                    <div className="p-4 bg-pencil/5 border-2 border-border-base/20 rounded text-sm text-pencil font-mono">
+                        <strong className="text-ink">Code:</strong>
+                        <div className="mt-2 text-ink/70">
                             new Robot({Object.entries(parts).filter(([_, v]) => v).map(([k]) => k).join(', ') || '...'});
                         </div>
                     </div>
@@ -74,17 +74,17 @@ export default function RobotAssemblyLine() {
                     <button
                         onClick={buildRobot}
                         disabled={isBuilding}
-                        className="w-full bg-orange-500 text-white font-bold py-3 px-4 rounded border-2 border-[var(--card-border)] shadow-sketch-sm active:translate-y-0.5 active:shadow-none transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-accent-orange text-paper font-bold py-3 px-4 rounded-xl border-2 border-accent-orange/50 shadow-sketch-sm active:translate-y-0.5 active:shadow-none transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-widest text-xs hover:bg-accent-orange/90"
                     >
                         {isBuilding ? 'Assembling...' : 'Call Constructor'}
                     </button>
                 </div>
 
                 {/* Assembly Line */}
-                <div className="w-full md:w-2/3 bg-paper border-2 border-dashed border-gray-300 rounded min-h-[300px] relative overflow-hidden flex items-center justify-center">
+                <div className="w-full md:w-2/3 bg-paper border-2 border-dashed border-border-base/30 rounded min-h-[300px] relative overflow-hidden flex items-center justify-center">
 
                     {/* Conveyor Belt */}
-                    <div className="absolute bottom-0 w-full h-4 bg-gray-300 border-t-2 border-[var(--card-border)]" />
+                    <div className="absolute bottom-0 w-full h-4 bg-pencil/20 border-t-2 border-border-base" />
 
                     <AnimatePresence mode="wait">
                         {isBuilding ? (
@@ -95,8 +95,8 @@ export default function RobotAssemblyLine() {
                                 exit={{ x: 100, opacity: 0 }}
                                 className="flex flex-col items-center"
                             >
-                                <Settings size={48} className="animate-spin text-gray-400" />
-                                <span className="mt-2 font-bold text-gray-500">Constructing...</span>
+                                <Settings size={48} className="animate-spin text-pencil/40" />
+                                <span className="mt-2 font-bold text-pencil">Constructing...</span>
                             </motion.div>
                         ) : builtRobot ? (
                             <motion.div
@@ -107,7 +107,7 @@ export default function RobotAssemblyLine() {
                             >
                                 {/* Robot Visualization */}
                                 {builtRobot.head && (
-                                    <div className="w-16 h-14 bg-gray-200 border-2 border-[var(--card-border)] rounded-t-xl flex items-center justify-center relative z-20">
+                                    <div className="w-16 h-14 bg-pencil/10 border-2 border-border-base rounded-t-xl flex items-center justify-center relative z-20">
                                         <div className="flex gap-2">
                                             <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse" />
                                             <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse" />
@@ -117,24 +117,24 @@ export default function RobotAssemblyLine() {
 
                                 <div className="flex items-center">
                                     {builtRobot.arms && (
-                                        <div className="w-8 h-24 bg-gray-300 border-2 border-[var(--card-border)] rounded-l-lg mr-[-2px] z-0 origin-top-right rotate-12" />
+                                        <div className="w-8 h-24 bg-pencil/20 border-2 border-border-base rounded-l-lg mr-[-2px] z-0 origin-top-right rotate-12" />
                                     )}
 
                                     {builtRobot.body && (
-                                        <div className="w-20 h-28 bg-[var(--card-bg)] border-2 border-[var(--card-border)] rounded-lg z-10 flex items-center justify-center">
+                                        <div className="w-20 h-28 bg-paper border-2 border-border-base rounded-lg z-10 flex items-center justify-center">
                                             <Cpu size={32} className="text-orange-500" />
                                         </div>
                                     )}
 
                                     {builtRobot.arms && (
-                                        <div className="w-8 h-24 bg-gray-300 border-2 border-[var(--card-border)] rounded-r-lg ml-[-2px] z-0 origin-top-left -rotate-12" />
+                                        <div className="w-8 h-24 bg-pencil/20 border-2 border-border-base rounded-r-lg ml-[-2px] z-0 origin-top-left -rotate-12" />
                                     )}
                                 </div>
 
                                 {builtRobot.legs && (
                                     <div className="flex gap-2 mt-[-2px] z-0">
-                                        <div className="w-6 h-20 bg-gray-400 border-2 border-[var(--card-border)] rounded-b-lg" />
-                                        <div className="w-6 h-20 bg-gray-400 border-2 border-[var(--card-border)] rounded-b-lg" />
+                                        <div className="w-6 h-20 bg-pencil/30 border-2 border-border-base rounded-b-lg" />
+                                        <div className="w-6 h-20 bg-pencil/30 border-2 border-border-base rounded-b-lg" />
                                     </div>
                                 )}
 
@@ -143,7 +143,7 @@ export default function RobotAssemblyLine() {
                                 )}
                             </motion.div>
                         ) : (
-                            <div className="text-gray-400 italic">Ready to build.</div>
+                            <div className="text-pencil/50 italic">Ready to build.</div>
                         )}
                     </AnimatePresence>
                 </div>

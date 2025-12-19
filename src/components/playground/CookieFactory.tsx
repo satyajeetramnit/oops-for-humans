@@ -46,23 +46,24 @@ export default function CookieFactory() {
     };
 
     return (
-        <div className="my-8 p-6 bg-[var(--card-bg)] border-2 border-[var(--card-border)] shadow-sketch rounded-lg">
-            <h3 className="text-xl font-bold mb-4 border-b-2 border-[var(--card-border)] pb-2">The Cookie Factory (Class vs Object)</h3>
+        <div className="my-8 p-6 bg-paper border-2 border-border-base shadow-sketch rounded-lg">
+            <h3 className="text-xl font-bold mb-4 border-b-2 border-border-base pb-2 text-ink">The Cookie Factory (Class vs Object)</h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* The Class (Blueprint) */}
-                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded border-2 border-dashed border-blue-300">
-                    <h4 className="font-bold text-blue-800 mb-4 uppercase tracking-wider text-sm">The Blueprint (Class)</h4>
+                <div className="bg-accent-blue/5 p-6 rounded-2xl border-2 border-dashed border-accent-blue/30 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-accent-blue/5 -mr-12 -mt-12 rounded-full blur-2xl" />
+                    <h4 className="font-bold text-accent-blue mb-4 uppercase tracking-widest text-[10px]">The Blueprint (Class)</h4>
 
-                    <div className="space-y-4">
+                    <div className="space-y-6">
                         <div>
-                            <label className="block text-sm font-bold mb-1">Shape</label>
+                            <label className="block text-xs font-bold mb-2 text-pencil uppercase tracking-tighter">Shape</label>
                             <div className="flex gap-2">
                                 {(['Circle', 'Star', 'Heart'] as Shape[]).map((s) => (
                                     <button
                                         key={s}
                                         onClick={() => setShape(s)}
-                                        className={`px-3 py-1 rounded border-2 transition-all ${shape === s ? 'bg-blue-500 text-white border-[var(--card-border)] shadow-sketch-sm' : 'bg-[var(--card-bg)] border-gray-300'
+                                        className={`px-4 py-2 rounded-xl border-2 transition-all font-bold text-sm ${shape === s ? 'bg-accent-blue text-paper border-accent-blue/50 shadow-sketch-sm' : 'bg-paper text-pencil border-border-base/30 hover:bg-pencil/5'
                                             }`}
                                     >
                                         {s}
@@ -72,13 +73,13 @@ export default function CookieFactory() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-bold mb-1">Flavor</label>
+                            <label className="block text-xs font-bold mb-2 text-pencil uppercase tracking-tighter">Flavor</label>
                             <div className="flex gap-2">
                                 {(['Choc Chip', 'Sugar', 'Gingerbread'] as Flavor[]).map((f) => (
                                     <button
                                         key={f}
                                         onClick={() => setFlavor(f)}
-                                        className={`px-3 py-1 rounded border-2 transition-all ${flavor === f ? 'bg-blue-500 text-white border-[var(--card-border)] shadow-sketch-sm' : 'bg-[var(--card-bg)] border-gray-300'
+                                        className={`px-3 py-2 rounded-xl border-2 transition-all font-bold text-xs ${flavor === f ? 'bg-accent-blue text-paper border-accent-blue/50 shadow-sketch-sm' : 'bg-paper text-pencil border-border-base/30 hover:bg-pencil/5'
                                             }`}
                                     >
                                         {f}
@@ -89,7 +90,7 @@ export default function CookieFactory() {
 
                         <button
                             onClick={instantiateCookie}
-                            className="w-full mt-4 bg-green-500 text-white font-bold py-2 px-4 rounded border-2 border-[var(--card-border)] shadow-sketch-sm active:translate-y-0.5 active:shadow-none transition-all flex items-center justify-center gap-2"
+                            className="w-full mt-4 bg-accent-green text-paper font-bold py-3 px-4 rounded-xl border-2 border-accent-green/50 shadow-sketch-sm active:translate-y-0.5 active:shadow-none transition-all flex items-center justify-center gap-2 uppercase tracking-widest text-xs hover:bg-accent-green/90"
                         >
                             <Plus size={18} />
                             Instantiate Object
@@ -98,17 +99,18 @@ export default function CookieFactory() {
                 </div>
 
                 {/* The Objects (Instances) */}
-                <div className="bg-gray-50 dark:bg-slate-800/50 p-4 rounded border-2 border-gray-200 min-h-[200px] relative">
-                    <div className="flex justify-between items-center mb-4">
-                        <h4 className="font-bold text-gray-600 uppercase tracking-wider text-sm">Instances (Objects)</h4>
+                <div className="bg-pencil/5 p-6 rounded-2xl border-2 border-border-base min-h-[300px] relative shadow-inner overflow-hidden">
+                    <div className="flex justify-between items-center mb-6 relative z-10">
+                        <h4 className="font-bold text-pencil uppercase tracking-widest text-[10px]">Instances (Objects)</h4>
                         {cookies.length > 0 && (
-                            <button onClick={clearCookies} className="text-red-500 hover:bg-red-50 dark:hover:!bg-red-900/40 dark:bg-red-900/20 p-1 rounded">
-                                <Trash2 size={16} />
+                            <button onClick={clearCookies} className="text-accent-red hover:bg-accent-red/10 p-2 rounded-lg transition-colors flex items-center gap-1 text-[10px] uppercase font-bold tracking-widest">
+                                <Trash2 size={14} />
+                                Clear
                             </button>
                         )}
                     </div>
 
-                    <div className="flex flex-wrap gap-4 content-start">
+                    <div className="flex flex-wrap gap-4 content-start relative z-10">
                         <AnimatePresence>
                             {cookies.map((cookie) => (
                                 <motion.div
@@ -116,15 +118,19 @@ export default function CookieFactory() {
                                     initial={{ scale: 0, rotate: -180 }}
                                     animate={{ scale: 1, rotate: 0 }}
                                     exit={{ scale: 0, opacity: 0 }}
-                                    className={`w-16 h-16 flex items-center justify-center text-xs font-bold border-2 shadow-sm ${getCookieColor(cookie.flavor)} ${cookie.shape === 'Circle' ? 'rounded-full' : 'rounded-lg'}`}
+                                    className={`w-20 h-20 flex flex-col items-center justify-center text-[10px] font-bold border-2 shadow-sketch-sm transition-transform hover:scale-110 ${getCookieColor(cookie.flavor)} ${cookie.shape === 'Circle' ? 'rounded-full' : 'rounded-2xl'}`}
                                 >
-                                    {cookie.shape === 'Star' ? '★' : cookie.shape === 'Heart' ? '♥' : '●'}
+                                    <span className="text-2xl mb-1">{cookie.shape === 'Star' ? '★' : cookie.shape === 'Heart' ? '♥' : '●'}</span>
+                                    <span className="opacity-70 px-1 text-center truncate w-full">{cookie.flavor}</span>
                                 </motion.div>
                             ))}
                         </AnimatePresence>
                         {cookies.length === 0 && (
-                            <div className="w-full h-full flex items-center justify-center text-gray-400 italic text-sm mt-10">
-                                No objects created yet.
+                            <div className="w-full h-40 flex flex-col items-center justify-center text-pencil/30 italic text-sm mt-10 gap-2">
+                                <div className="w-16 h-16 rounded-full border-4 border-dashed border-pencil/10 flex items-center justify-center">
+                                    <span className="text-2xl">?</span>
+                                </div>
+                                <span className="font-bold uppercase tracking-widest text-[10px]">No objects created yet</span>
                             </div>
                         )}
                     </div>

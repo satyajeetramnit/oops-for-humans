@@ -24,8 +24,8 @@ export default function BattleBot() {
     };
 
     return (
-        <div className="my-8 p-6 bg-[var(--card-bg)] border-2 border-[var(--card-border)] shadow-sketch rounded-lg">
-            <h3 className="text-xl font-bold mb-4 border-b-2 border-[var(--card-border)] pb-2">Battle Bot (Strategy Pattern)</h3>
+        <div className="my-8 p-6 bg-paper border-2 border-border-base shadow-sketch rounded-lg">
+            <h3 className="text-xl font-bold mb-4 border-b-2 border-border-base pb-2 text-ink">Battle Bot (Strategy Pattern)</h3>
 
             <div className="flex flex-col md:flex-row gap-8">
                 {/* Controls */}
@@ -38,8 +38,8 @@ export default function BattleBot() {
                                     key={type}
                                     onClick={() => setStrategy(type)}
                                     className={`px-4 py-3 rounded border-2 font-bold text-left flex items-center gap-3 transition-all ${strategy === type
-                                            ? 'bg-ink text-white border-[var(--card-border)] shadow-sketch-sm translate-x-2'
-                                            : 'bg-[var(--card-bg)] border-gray-300 hover:bg-[var(--card-hover)] dark:bg-slate-800/50'
+                                        ? 'bg-ink text-paper border-border-base shadow-sketch-sm translate-x-2'
+                                        : 'bg-paper border-border-base/20 hover:bg-pencil/5'
                                         }`}
                                 >
                                     {type === 'Melee' && <Sword size={20} />}
@@ -54,7 +54,7 @@ export default function BattleBot() {
                     <button
                         onClick={performAction}
                         disabled={isAttacking}
-                        className="w-full py-3 px-4 bg-red-600 text-white font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        className="w-full py-3 px-4 bg-accent-red text-paper font-bold rounded shadow-sketch-sm active:translate-y-0.5 active:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                         <Zap size={20} />
                         Execute Strategy
@@ -63,8 +63,8 @@ export default function BattleBot() {
 
                 {/* Visualization */}
                 <div className="w-full md:w-2/3 flex flex-col gap-4">
-                    <div className="bg-gray-100 dark:bg-slate-800 border-2 border-[var(--card-border)] rounded-xl h-64 flex items-center justify-center relative overflow-hidden">
-                        <Bot size={120} className="text-gray-800" />
+                    <div className="bg-pencil/5 border-2 border-border-base rounded-xl h-64 flex items-center justify-center relative overflow-hidden">
+                        <Bot size={120} className="text-ink/80" />
 
                         {/* Weapon Overlay */}
                         <AnimatePresence mode="wait">
@@ -76,7 +76,7 @@ export default function BattleBot() {
                                     transition={{ type: 'spring', stiffness: 300 }}
                                     className="absolute"
                                 >
-                                    <Sword size={80} className="text-blue-600" />
+                                    <Sword size={80} className="text-accent-blue" />
                                 </motion.div>
                             )}
                             {strategy === 'Ranged' && (
@@ -86,12 +86,12 @@ export default function BattleBot() {
                                     animate={isAttacking ? { x: 40 } : { x: 50 }}
                                     className="absolute"
                                 >
-                                    <Crosshair size={80} className="text-green-600" />
+                                    <Crosshair size={80} className="text-accent-green" />
                                     {isAttacking && (
                                         <motion.div
                                             initial={{ x: 0, opacity: 1 }}
                                             animate={{ x: 200, opacity: 0 }}
-                                            className="absolute top-1/2 left-full w-8 h-1 bg-black"
+                                            className="absolute top-1/2 left-full w-8 h-1 bg-ink"
                                         />
                                     )}
                                 </motion.div>
@@ -103,18 +103,19 @@ export default function BattleBot() {
                                     animate={isAttacking ? { scale: 1.2 } : { scale: 1 }}
                                     className="absolute"
                                 >
-                                    <Shield size={100} className="text-purple-600 opacity-80" />
+                                    <Shield size={100} className="text-accent-purple opacity-80" />
                                 </motion.div>
                             )}
                         </AnimatePresence>
                     </div>
 
                     {/* Log */}
-                    <div className="bg-black text-green-400 p-4 rounded font-mono text-xs h-32 overflow-y-auto border-2 border-gray-500">
+                    <div className="bg-ink text-accent-green p-4 rounded font-mono text-xs h-32 overflow-y-auto border-2 border-border-base shadow-inner">
+                        <div className="border-b border-paper/10 pb-1 mb-2 text-paper/30 uppercase tracking-widest text-[10px]">Combat Log</div>
                         {log.length === 0 && <span className="opacity-50">// Ready for battle...</span>}
                         {log.map((entry, i) => (
-                            <div key={i} className="mb-1 border-b border-gray-800 pb-1 last:border-0">
-                                &gt; {entry}
+                            <div key={i} className="mb-1 border-b border-paper/5 pb-1 last:border-0">
+                                <span className="text-paper/20 mr-2">[{log.length - i}]</span> {entry}
                             </div>
                         ))}
                     </div>

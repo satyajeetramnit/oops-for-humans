@@ -30,37 +30,39 @@ export default function GlobalScoreboard() {
     };
 
     return (
-        <div className="my-8 p-6 bg-[var(--card-bg)] border-2 border-[var(--card-border)] shadow-sketch rounded-lg">
-            <h3 className="text-xl font-bold mb-4 border-b-2 border-[var(--card-border)] pb-2">Global Scoreboard (Static vs Non-Static)</h3>
+        <div className="my-8 p-6 bg-paper border-2 border-border-base shadow-sketch rounded-lg">
+            <h3 className="text-xl font-bold mb-4 border-b-2 border-border-base pb-2 text-ink">Global Scoreboard (Static vs Non-Static)</h3>
 
             <div className="flex flex-col gap-6">
                 {/* Control Panel */}
-                <div className="flex items-center justify-between bg-gray-100 dark:bg-slate-800 p-4 rounded border-2 border-gray-300">
+                <div className="flex items-center justify-between bg-pencil/5 p-4 rounded-xl border-2 border-border-base/20 shadow-inner">
                     <div className="flex items-center gap-4">
-                        <span className="font-bold text-sm uppercase tracking-wider text-pencil">Variable Type:</span>
-                        <button
-                            onClick={() => setIsStatic(true)}
-                            className={`px-4 py-2 rounded border-2 transition-all font-bold ${isStatic ? 'bg-blue-600 text-white border-[var(--card-border)] shadow-sketch-sm' : 'bg-[var(--card-bg)] text-gray-500 border-gray-300'
-                                }`}
-                        >
-                            static int score
-                        </button>
-                        <button
-                            onClick={() => setIsStatic(false)}
-                            className={`px-4 py-2 rounded border-2 transition-all font-bold ${!isStatic ? 'bg-purple-600 text-white border-[var(--card-border)] shadow-sketch-sm' : 'bg-[var(--card-bg)] text-gray-500 border-gray-300'
-                                }`}
-                        >
-                            int score
-                        </button>
+                        <span className="font-bold text-[10px] uppercase tracking-widest text-pencil">Variable Type:</span>
+                        <div className="flex gap-2">
+                            <button
+                                onClick={() => setIsStatic(true)}
+                                className={`px-4 py-2 rounded-lg border-2 transition-all font-bold text-xs uppercase tracking-wider ${isStatic ? 'bg-accent-blue text-paper border-accent-blue/50 shadow-sketch-sm' : 'bg-paper text-pencil border-border-base/10 hover:bg-pencil/5'
+                                    }`}
+                            >
+                                static score
+                            </button>
+                            <button
+                                onClick={() => setIsStatic(false)}
+                                className={`px-4 py-2 rounded-lg border-2 transition-all font-bold text-xs uppercase tracking-wider ${!isStatic ? 'bg-accent-purple text-paper border-accent-purple/50 shadow-sketch-sm' : 'bg-paper text-pencil border-border-base/10 hover:bg-pencil/5'
+                                    }`}
+                            >
+                                int score
+                            </button>
+                        </div>
                     </div>
 
-                    <div className="text-sm font-mono bg-[var(--card-bg)] px-3 py-1 rounded border border-gray-300">
-                        {isStatic ? 'Shared by ALL instances' : 'Unique to EACH instance'}
+                    <div className="text-[10px] font-mono font-bold bg-ink text-paper px-3 py-1.5 rounded-full border border-paper/10 shadow-lg uppercase tracking-widest">
+                        {isStatic ? 'Shared by ALL' : 'Unique to EACH'}
                     </div>
                 </div>
 
                 {/* Visualization Area */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative mt-8">
 
                     {/* The Static Variable (Floating above) */}
                     <motion.div
@@ -69,49 +71,51 @@ export default function GlobalScoreboard() {
                             opacity: isStatic ? 1 : 0.3,
                             scale: isStatic ? 1 : 0.8
                         }}
-                        className="absolute -top-4 left-1/2 -translate-x-1/2 -translate-y-full z-10"
+                        className="absolute -top-6 left-1/2 -translate-x-1/2 -translate-y-full z-10"
                     >
-                        <div className="bg-blue-100 border-2 border-blue-500 text-blue-900 px-6 py-3 rounded-lg shadow-sketch flex flex-col items-center">
-                            <div className="flex items-center gap-2 font-bold text-sm uppercase mb-1">
-                                <Globe size={16} /> Static Memory
+                        <div className="bg-accent-blue/10 border-2 border-accent-blue text-accent-blue px-6 py-4 rounded-2xl shadow-sketch flex flex-col items-center min-w-[150px]">
+                            <div className="flex items-center gap-2 font-black text-[10px] uppercase mb-2 tracking-widest">
+                                <Globe size={14} /> Static Memory
                             </div>
-                            <div className="text-3xl font-black font-mono">{globalScore}</div>
+                            <div className="text-4xl font-black font-mono">{globalScore}</div>
                         </div>
-                        {isStatic && <div className="w-0.5 h-8 bg-blue-500 mx-auto" />} {/* Connector line */}
+                        {isStatic && <div className="w-0.5 h-10 bg-accent-blue/50 mx-auto border-dashed border-l-2" />} {/* Connector line */}
                     </motion.div>
 
                     {/* Players (Instances) */}
                     {players.map((player) => (
-                        <div key={player.id} className="bg-paper border-2 border-[var(--card-border)] rounded-lg p-4 flex flex-col items-center relative mt-12 md:mt-0">
+                        <div key={player.id} className="bg-paper border-2 border-border-base rounded-2xl p-6 flex flex-col items-center relative mt-16 md:mt-2 shadow-sm transition-all hover:shadow-lg group">
                             {/* Connection Line to Static */}
                             {isStatic && (
                                 <motion.div
-                                    initial={{ height: 0 }} animate={{ height: '2rem' }}
-                                    className="absolute -top-8 left-1/2 -translate-x-1/2 w-0.5 bg-blue-300 border-l-2 border-dashed border-blue-400"
+                                    initial={{ height: 0 }} animate={{ height: '3rem' }}
+                                    className="absolute -top-12 left-1/2 -translate-x-1/2 w-0.5 bg-accent-blue/30 border-l-2 border-dashed border-accent-blue/40"
                                 />
                             )}
 
-                            <div className="w-16 h-16 bg-gray-200 rounded-full border-2 border-[var(--card-border)] flex items-center justify-center mb-3">
-                                <User size={32} className="text-ink" />
+                            <div className="w-16 h-16 bg-pencil/10 rounded-full border-2 border-border-base flex items-center justify-center mb-4 transition-transform group-hover:scale-110 shadow-inner">
+                                <User size={32} className="text-ink opacity-70" />
                             </div>
 
-                            <h4 className="font-bold text-lg mb-2">{player.name}</h4>
+                            <h4 className="font-bold text-lg mb-4 text-ink">{player.name}</h4>
 
-                            <div className={`w-full p-3 rounded border-2 mb-4 font-mono text-center text-xl font-bold transition-colors ${isStatic
-                                    ? 'bg-gray-100 dark:bg-slate-800 border-gray-300 text-gray-400'
-                                    : 'bg-purple-100 border-purple-400 text-purple-900'
+                            <div className={`w-full p-4 rounded-xl border-2 mb-6 font-mono text-center text-3xl font-black transition-all ${isStatic
+                                ? 'bg-pencil/5 border-border-base/10 text-pencil/40'
+                                : 'bg-accent-purple/10 border-accent-purple/30 text-accent-purple'
                                 }`}>
                                 {isStatic ? (
-                                    <span className="text-xs text-gray-500 font-sans font-normal block mb-1">(Reads Static)</span>
+                                    <div className="flex flex-col items-center">
+                                        <span className="text-[10px] text-pencil font-sans font-black uppercase tracking-widest mb-1 opacity-40">Static Redir</span>
+                                        {globalScore}
+                                    </div>
                                 ) : (
                                     player.localScore
                                 )}
-                                {isStatic ? globalScore : ''}
                             </div>
 
                             <button
                                 onClick={() => incrementScore(player.id)}
-                                className={`w-full py-2 rounded font-bold border-2 border-[var(--card-border)] shadow-sketch-sm active:translate-y-0.5 active:shadow-none transition-all ${isStatic ? 'bg-blue-500 text-white hover:bg-blue-600' : 'bg-purple-500 text-white hover:bg-purple-600'
+                                className={`w-full py-3 rounded-xl font-bold border-2 shadow-sketch-sm active:translate-y-0.5 active:shadow-none transition-all uppercase tracking-widest text-xs ${isStatic ? 'bg-accent-blue text-paper border-accent-blue/50 hover:bg-accent-blue/90' : 'bg-accent-purple text-paper border-accent-purple/50 hover:bg-accent-purple/90'
                                     }`}
                             >
                                 +10 Points
