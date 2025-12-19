@@ -110,12 +110,12 @@ export default function BattleBot() {
                     </div>
 
                     {/* Log */}
-                    <div className="bg-ink text-accent-green p-4 rounded font-mono text-xs h-32 overflow-y-auto border-2 border-border-base shadow-inner">
-                        <div className="border-b border-paper/10 pb-1 mb-2 text-paper/30 uppercase tracking-widest text-[10px]">Combat Log</div>
+                    <div className="w-full mt-4 font-mono text-xs bg-slate-950 text-accent-green p-4 rounded-xl border-2 border-border-base shadow-lg h-32 overflow-y-auto">
+                        <div className="border-b border-white/10 pb-1 mb-2 text-white/30 uppercase tracking-widest text-[10px]">Combat Log</div>
                         {log.length === 0 && <span className="opacity-50">// Ready for battle...</span>}
                         {log.map((entry, i) => (
-                            <div key={i} className="mb-1 border-b border-paper/5 pb-1 last:border-0">
-                                <span className="text-paper/20 mr-2">[{log.length - i}]</span> {entry}
+                            <div key={i} className="mb-1 border-b border-white/5 pb-1 last:border-0">
+                                <span className="text-white/20 mr-2">[{log.length - i}]</span> {entry}
                             </div>
                         ))}
                     </div>

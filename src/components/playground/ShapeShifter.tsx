@@ -100,10 +100,10 @@ export default function ShapeShifter() {
                     </AnimatePresence>
 
                     {/* Console Log */}
-                    <div className="w-full mt-8 font-mono text-xs bg-ink text-accent-green p-4 rounded-xl border-2 border-border-base shadow-lg min-h-[120px]">
-                        <div className="border-b border-paper/10 pb-1 mb-2 text-paper/30 uppercase tracking-widest text-[10px]">Inheritance Console</div>
+                    <div className="w-full mt-8 font-mono text-xs bg-slate-950 text-accent-green p-4 rounded-xl border-2 border-border-base shadow-lg min-h-[120px]">
+                        <div className="border-b border-white/10 pb-1 mb-2 text-white/30 uppercase tracking-widest text-[10px]">Inheritance Console</div>
                         {actionLog.length === 0 ? (
-                            <span className="text-paper/20 italic opacity-50">Waiting for action...</span>
+                            <span className="text-white/20 italic opacity-50">Waiting for action...</span>
                         ) : (
                             actionLog.map((log, i) => (
                                 <motion.div

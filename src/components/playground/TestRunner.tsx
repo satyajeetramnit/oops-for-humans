@@ -76,10 +76,10 @@ export default function TestRunner() {
                 </button>
             </div>
 
-            <div className="bg-ink text-paper p-6 rounded-2xl font-mono text-sm border-2 border-border-base shadow-2xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-paper/5 -mr-16 -mt-16 rounded-full blur-3xl pointer-events-none" />
+            <div className="bg-slate-950/90 text-slate-100 p-6 rounded-2xl font-mono text-sm border-2 border-border-base shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 -mr-16 -mt-16 rounded-full blur-3xl pointer-events-none" />
 
-                <div className="mb-6 flex items-center gap-3 text-paper/40 border-b border-paper/10 pb-3">
+                <div className="mb-6 flex items-center gap-3 text-slate-400 border-b border-white/10 pb-3">
                     <Beaker size={18} />
                     <span className="uppercase tracking-[0.2em] font-bold text-[10px]">TestSuite::CalculatorService</span>
                     <div className="ml-auto flex gap-2">
@@ -92,8 +92,8 @@ export default function TestRunner() {
                 <div className="space-y-3">
                     {tests.map((test) => (
                         <div key={test.id} className="flex items-center gap-4 group">
-                            <div className="w-8 h-8 rounded-lg bg-paper/5 flex items-center justify-center border border-paper/10">
-                                {test.status === 'pending' && <div className="w-2 h-2 bg-paper/20 rounded-full animate-pulse" />}
+                            <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center border border-white/10">
+                                {test.status === 'pending' && <div className="w-2 h-2 bg-white/20 rounded-full animate-pulse" />}
                                 {test.status === 'running' && (
                                     <motion.div
                                         animate={{ rotate: 360 }}
@@ -106,9 +106,9 @@ export default function TestRunner() {
                             </div>
                             <span className={`font-medium transition-colors ${test.status === 'passed' ? 'text-accent-green' :
                                 test.status === 'failed' ? 'text-accent-red' :
-                                    test.status === 'running' ? 'text-accent-yellow' : 'text-paper/30'
+                                    test.status === 'running' ? 'text-accent-yellow' : 'text-slate-500'
                                 }`}>
-                                {test.name}<span className="text-paper/10 text-[10px] ml-2 font-black">()</span>
+                                {test.name}<span className="text-slate-700 text-[10px] ml-2 font-black">()</span>
                             </span>
                             {test.status === 'failed' && (
                                 <span className="text-[10px] font-black text-accent-red ml-auto bg-accent-red/10 px-2 py-1 rounded-full uppercase tracking-tighter shadow-sm border border-accent-red/20">
@@ -123,7 +123,7 @@ export default function TestRunner() {
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className={`mt-8 pt-6 border-t border-paper/10 font-black uppercase tracking-[0.2em] text-center text-xs ${failedCount > 0 ? 'text-accent-red' : 'text-accent-green'}`}
+                        className={`mt-8 pt-6 border-t border-white/10 font-black uppercase tracking-[0.2em] text-center text-xs ${failedCount > 0 ? 'text-accent-red' : 'text-accent-green'}`}
                     >
                         {failedCount > 0
                             ? `Build Failed: ${failedCount} Failed / ${passedCount} Passed`

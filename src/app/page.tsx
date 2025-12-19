@@ -25,7 +25,7 @@ export default function Home() {
             Start Learning <ArrowRight size={20} />
           </Link>
           <Link
-            href="/learn/inheritance"
+            href="/learn/robot-builder"
             className="px-8 py-4 bg-white dark:bg-slate-800 text-black dark:text-white font-bold text-lg rounded-full border-2 border-black dark:border-gray-600 shadow-sketch hover:shadow-sketch-hover hover:-translate-y-1 transition-all flex items-center justify-center gap-2"
           >
             Try Playground <Zap size={20} className="text-yellow-500" />

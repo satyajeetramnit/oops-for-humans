@@ -56,7 +56,7 @@ export default function GlobalScoreboard() {
                         </div>
                     </div>
 
-                    <div className="text-[10px] font-mono font-bold bg-ink text-paper px-3 py-1.5 rounded-full border border-paper/10 shadow-lg uppercase tracking-widest">
+                    <div className="text-[10px] font-mono font-bold bg-slate-950 text-slate-100 px-3 py-1.5 rounded-full border border-white/10 shadow-lg uppercase tracking-widest">
                         {isStatic ? 'Shared by ALL' : 'Unique to EACH'}
                     </div>
                 </div>
