@@ -14,8 +14,7 @@ export const AD_SLOTS = {
     INLINE: {
         id: 'inline-ad',
         slotId: '5243532824', // Replace with actual slot ID
-        format: 'fluid', // Responsive
-        layoutKey: '-fb+5w+4e-db+86', // Example layout key for In-feed ads
+        format: 'auto', // Responsive
         label: 'Sponsored'
     },
     BANNER: {
