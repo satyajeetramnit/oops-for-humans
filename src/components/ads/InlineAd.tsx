@@ -9,8 +9,7 @@ export default function InlineAd() {
         <AdSlot
             type="inline"
             slotId={AD_SLOTS.INLINE.slotId}
-            format="fluid"
-            layoutKey={AD_SLOTS.INLINE.layoutKey}
+            format="auto"
             label={AD_SLOTS.INLINE.label}
             className="my-8"
         >
